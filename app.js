@@ -585,9 +585,10 @@ function getFooterHTML() {
       </div>
       <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Wave Music. All rights reserved.</p>
+        <p>&copy; 2026 Wave Music. All rights reserved. Version 1.0</p>
         <div class="footer-links">
           <a href="#">Legal</a>
+          <a href="#">Updates</a>
           <a href="#">Privacy</a>
           <a href="#">Cookies</a>
           <a href="#">Accessibility</a>
@@ -789,7 +790,7 @@ function getLibraryHTML() {
         </div>
         <div class="lib-card-info">
           <div class="lib-card-title">${pl.title}</div>
-          <div class="lib-card-sub">Playlist â€¢ ${songCount} songs</div>
+          <div class="lib-card-sub">Playlist ${songCount} songs</div>
         </div>
         <button class="lib-card-play" onclick="event.stopPropagation(); navigateTo('playlist', null, '${pl.id}')">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
@@ -1035,7 +1036,7 @@ function getTrendingPageHTML() {
     </div>
 
     <div class="jiosaavn-trending-bar">
-      <span class="trending-label">ðŸ”¥ Quick Play from JioSaavn:</span>
+      <span class="trending-label">Quick Play from JioSaavn:</span>
       <div class="trending-quick-btns">
         <button onclick="showSearchResults('trending Hindi songs 2024')">Hindi Trending</button>
         <button onclick="showSearchResults('Diljit Dosanjh')">Diljit Dosanjh</button>
@@ -1107,7 +1108,7 @@ function getPodcastsPageHTML() {
 async function renderJioSaavnBrowse(container) {
   container.innerHTML = `
     <div style="padding-top: 20px; margin-bottom: 30px;">
-      <h1 style="font-size: 42px; font-weight: 800;">ðŸŽµ Browse JioSaavn</h1>
+      <h1 style="font-size: 42px; font-weight: 800;">Browse JioSaavn</h1>
       <p style="color: var(--text-muted); margin-top: 8px;">Search and play millions of songs</p>
     </div>
     <div class="jiosaavn-discover-search" style="margin-bottom:40px;">
