@@ -27,7 +27,6 @@ const YOUTUBE_API = {
       }
       return [];
     } catch (error) {
-      console.warn("YouTube API Search Error. Is the Python backend running?", error);
       return [];
     }
   },
@@ -39,7 +38,6 @@ const YOUTUBE_API = {
       const data = await response.json();
       return (data.success && data.data) ? data.data : [];
     } catch (error) {
-      console.warn("YouTube API Trending Error:", error);
       return [];
     }
   },
@@ -51,7 +49,6 @@ const YOUTUBE_API = {
       const data = await response.json();
       return (data.success && data.data) ? data.data : [];
     } catch (error) {
-      console.warn("YouTube API Home Error:", error);
       return [];
     }
   },
@@ -64,7 +61,6 @@ const YOUTUBE_API = {
       const data = await response.json();
       return (data.success && data.data) ? data.data : [];
     } catch (error) {
-      console.warn("YouTube API Related Error:", error);
       return [];
     }
   },
@@ -80,7 +76,6 @@ const YOUTUBE_API = {
       }
       return null;
     } catch (error) {
-      console.warn("YouTube API Stream Error:", error);
       return null;
     }
   }

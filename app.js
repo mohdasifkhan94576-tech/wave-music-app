@@ -47,7 +47,6 @@ function saveUserState() {
   localStorage.setItem('wave_recent_date', today);
   localStorage.setItem('wave_saved_jiosaavn', JSON.stringify(savedJioSaavnSongs));
 
-  // Save current session for resume on reload
   if (state.queue.length > 0) {
     localStorage.setItem('wave_session_queue', JSON.stringify(state.queue));
     localStorage.setItem('wave_session_index', String(state.currentIndex));
@@ -78,7 +77,6 @@ function loadUserState() {
       state.recentSongs = [];
     }
 
-    // Restore last session queue
     const savedQueue = localStorage.getItem('wave_session_queue');
     if (savedQueue) {
       const parsedQueue = JSON.parse(savedQueue);
@@ -86,14 +84,12 @@ function loadUserState() {
         state.queue = parsedQueue;
         state.currentIndex = parseInt(localStorage.getItem('wave_session_index') || '0', 10);
         state._resumeProgress = parseFloat(localStorage.getItem('wave_session_progress') || '0');
-        // Make sure songs are in SONGS array
         parsedQueue.forEach(s => {
           if (!SONGS.find(x => x.id === s.id)) SONGS.push(s);
         });
       }
     }
   } catch (err) {
-    console.warn("Failed to load user state", err);
   }
 }
 
@@ -106,7 +102,6 @@ function cacheJioSaavnSong(song) {
   }
 }
 
-// Save state when user closes the tab/browser
 window.addEventListener('beforeunload', () => {
   saveUserState();
 });
@@ -120,7 +115,6 @@ window.addEventListener('DOMContentLoaded', () => {
   YOUTUBE_API.isAvailable().then(ok => {
     ytBackendOnline = ok;
     if (!ok) searchSource = 'jiosaavn';
-    console.log('[YT Backend]', ok ? 'ONLINE' : 'OFFLINE â€” defaulting to JioSaavn');
   });
 
   if (!localStorage.getItem('wave_user_name')) {
@@ -227,10 +221,8 @@ function renderView(view, param) {
       container.innerHTML = getPodcastsPageHTML();
     } else if (view === 'search') {
       if (!isMobile) {
-        // Desktop: just return, search results are rendered by showSearchResults into main-view
         return;
       }
-      // Mobile: dedicated search page
       container.innerHTML = `
         <div style="padding-top: 20px; margin-bottom: 30px;">
           <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 24px;">Search</h1>
@@ -429,23 +421,19 @@ async function _populateHomeSections() {
   const currentYear = new Date().getFullYear();
   const useYT = ytBackendOnline;
   
-  // Helper: search from YouTube or fallback to JioSaavn
   async function _fetchSongs(query, limit) {
     if (useYT) {
       const ytResults = await YOUTUBE_API.searchSongs(query, limit);
       if (ytResults && ytResults.length > 0) return { songs: ytResults, source: 'youtube' };
     }
-    // Fallback to JioSaavn
     try {
       const jioResults = await JIOSAAVN_API.searchSongs(query, limit);
       return { songs: jioResults.filter(s => s.audioUrl), source: 'jiosaavn' };
     } catch (e) {
-      console.warn('[Home] Both YT & JioSaavn failed for:', query, e);
       return { songs: [], source: 'none' };
     }
   }
 
-  // Fetch trending separately (YT has dedicated endpoint)
   async function _fetchTrending(limit) {
     if (useYT) {
       const ytResults = await YOUTUBE_API.getTrending(limit);
@@ -483,7 +471,6 @@ async function _populateHomeSections() {
     data[k].forEach(s => { if (!SONGS.find(x => x.id === s.id)) SONGS.push(s); });
   });
 
-  // Determine badge source label
   function _sourceBadge(source, badge) {
     if (source === 'jiosaavn') {
       return { ...badge, text: badge.text };
@@ -1235,7 +1222,6 @@ function setSearchSource(source) {
   document.querySelectorAll('.sst-btn').forEach(b => b.classList.remove('active'));
   const activeBtn = document.querySelector(`.sst-${source === 'youtube' ? 'yt' : 'jio'}`);
   if (activeBtn) activeBtn.classList.add('active');
-  // Find the visible search input (desktop #search-input or mobile #mobile-search-input)
   const inputs = document.querySelectorAll('#search-input, #mobile-search-input');
   let input = null;
   inputs.forEach(inp => { if (inp.offsetParent !== null) input = inp; });
@@ -1328,7 +1314,6 @@ function handleSearch(e) {
           `;
         }
       } catch (err) {
-        console.warn('JioSaavn search failed:', err);
       }
     } else {
       try {
@@ -1354,7 +1339,6 @@ function handleSearch(e) {
           `;
         }
       } catch (err) {
-        console.warn('YouTube search failed:', err);
       }
     }
 
@@ -1372,13 +1356,11 @@ async function showSearchResults(query) {
   const isMobile = window.innerWidth <= 768;
   let targetArea = document.getElementById('search-results-area');
   
-  // Mobile: if not on search page yet, navigate there
   if (isMobile && !targetArea) {
     navigateTo('search', null, query);
     return;
   }
 
-  // Desktop: render directly into main-view (old behavior)
   const container = document.getElementById('main-view');
   const target = isMobile ? targetArea : container;
 
@@ -1670,12 +1652,10 @@ function initAudio() {
     }
   });
 
-  // Restore last session song
   if (state.queue.length > 0 && state.queue[state.currentIndex]) {
     const resumeSong = state.queue[state.currentIndex];
     loadSongUI(state.currentIndex);
 
-    // Load audio source but don't auto-play
     if (resumeSong.audioUrl && resumeSong.audioUrl.startsWith('yt_stream_pending_')) {
       const videoId = resumeSong.audioUrl.replace('yt_stream_pending_', '');
       audio.src = YOUTUBE_API.getProxyUrl(videoId);
@@ -1683,7 +1663,6 @@ function initAudio() {
       audio.src = resumeSong.audioUrl;
     }
 
-    // Seek to saved position after metadata loads
     if (state._resumeProgress && state._resumeProgress > 0) {
       audio.addEventListener('loadedmetadata', function resumeSeek() {
         if (state._resumeProgress < audio.duration) {
@@ -1785,7 +1764,6 @@ function playSong(idx) {
     audio.play().then(() => {
       if (playerTitle) playerTitle.textContent = song.title;
     }).catch(e => {
-      console.log('Audio play blocked, retrying on canplay', e);
       audio.addEventListener('canplay', function onCanPlay() {
         audio.play().catch(() => {});
         if (playerTitle) playerTitle.textContent = song.title;
@@ -1793,17 +1771,16 @@ function playSong(idx) {
       }, { once: true });
     });
     audio.addEventListener('error', function onErr() {
-      console.error('YouTube stream failed');
       if (playerTitle) playerTitle.textContent = song.title;
       showDynamicIsland('Stream failed â€” is backend running?', 'warning', 4000);
       audio.removeEventListener('error', onErr);
     }, { once: true });
   } else if (song.audioUrl) {
     audio.src = song.audioUrl;
-    audio.play().catch(e => console.log('Audio play blocked', e));
+    audio.play().catch(() => {});
   } else {
     audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
-    audio.play().catch(e => console.log('Audio play blocked', e));
+    audio.play().catch(() => {});
   }
 
   audio.addEventListener('loadedmetadata', function resumeOnce() {
@@ -1845,7 +1822,6 @@ function playSong(idx) {
       navigator.mediaSession.setActionHandler('nexttrack', () => nextSong());
     }
   } catch (err) {
-    console.warn('MediaSession error:', err);
   }
 }
 
@@ -1857,7 +1833,7 @@ function togglePlay() {
     if (!audio.src || audio.src === window.location.href) {
       playSong(state.currentIndex);
     } else {
-      audio.play().catch(e => console.log('Audio play blocked', e));
+      audio.play().catch(() => {});
       state.isPlaying = true;
     }
   }
@@ -2117,21 +2093,18 @@ document.addEventListener('click', (e) => {
     dropdown.classList.add('hidden');
   }
 
-  // Close desktop search dropdown on click outside
   const searchDropdown = document.getElementById('search-dropdown');
   const searchInput = document.getElementById('search-input');
   if (searchDropdown && searchInput && !searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
     searchDropdown.classList.add('hidden');
   }
 
-  // Close mobile search dropdown on click outside
   const mobileSearchDropdown = document.getElementById('mobile-search-dropdown');
   const mobileSearchInput = document.getElementById('mobile-search-input');
   if (mobileSearchDropdown && mobileSearchInput && !mobileSearchInput.contains(e.target) && !mobileSearchDropdown.contains(e.target)) {
     mobileSearchDropdown.classList.add('hidden');
   }
 
-  // Close song options menus
   if (!e.target.closest('.song-options-menu')) {
     document.querySelectorAll('.song-options-dropdown').forEach(menu => {
       menu.classList.add('hidden');
@@ -2406,7 +2379,6 @@ function toggleFollow(artistId) {
 
 function toggleSongOptions(event, playlistId, songId) {
   event.stopPropagation();
-  // Close all other open menus first
   document.querySelectorAll('.song-options-dropdown').forEach(menu => {
     if (menu.id !== `song-options-${playlistId}-${songId}`) {
       menu.classList.add('hidden');

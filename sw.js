@@ -7,7 +7,6 @@ const ASSETS_TO_CACHE = [
   './manifest.json'
 ];
 
-// Install event
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -18,7 +17,6 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activate event
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -34,9 +32,7 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch event (Network first, fallback to cache)
 self.addEventListener('fetch', event => {
-  // Skip cross-origin requests like JioSaavn API or images
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }

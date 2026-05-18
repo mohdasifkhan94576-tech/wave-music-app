@@ -22,18 +22,15 @@ const JIOSAAVN_API = {
       const base = this.endpoints[(this.currentEndpoint + i) % this.endpoints.length];
       try {
         const url = `${base}${path}`;
-        console.log('[JioSaavn] Trying:', url);
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (data.success === false) throw new Error('API returned failure');
 
         this.currentEndpoint = (this.currentEndpoint + i) % this.endpoints.length;
-        console.log('[JioSaavn] Success from:', base);
         return data;
       } catch (err) {
         lastError = err;
-        console.warn(`[JioSaavn] Endpoint ${base} failed:`, err.message);
       }
     }
     throw lastError || new Error('All API endpoints failed');
@@ -45,10 +42,7 @@ const JIOSAAVN_API = {
     );
 
     const results = data.data?.results || data.results || [];
-    console.log('[JioSaavn] Raw results count:', results.length);
     if (results.length > 0) {
-      console.log('[JioSaavn] First raw song downloadUrl:', JSON.stringify(results[0].downloadUrl));
-      console.log('[JioSaavn] First raw song image:', JSON.stringify(results[0].image));
     }
     return results.map(r => this.normalizeSong(r));
   },
@@ -61,25 +55,20 @@ const JIOSAAVN_API = {
   },
 
   _extractBest(arr, preferredQualities) {
-    // Handle direct string URL
     if (typeof arr === 'string' && arr.length > 0) return arr;
     
-    // Handle null/undefined/empty
     if (!arr) return '';
     
-    // Handle single object with url/link
     if (!Array.isArray(arr) && typeof arr === 'object') {
       return arr.url || arr.link || '';
     }
     
     if (!Array.isArray(arr) || arr.length === 0) return '';
     
-    // Handle array of strings (pick last = highest quality)
     if (typeof arr[0] === 'string') {
       return arr[arr.length - 1] || '';
     }
     
-    // Handle array of objects with quality property
     for (const q of preferredQualities) {
       const match = arr.find(item => item.quality === q);
       if (match) {
@@ -98,11 +87,9 @@ const JIOSAAVN_API = {
       ['500x500', '150x150', '50x50']
     );
     
-    // Fallback: try other image fields
     if (!imgUrl) {
       imgUrl = raw.image_url || raw.img || raw.thumbnail || raw.artwork || '';
     }
-    // Final fallback placeholder
     if (!imgUrl) {
       imgUrl = `https://placehold.co/300x300/1a1a2e/a855f7?text=${encodeURIComponent((raw.name || raw.title || 'Music').substring(0, 10))}`;
     }
@@ -112,7 +99,6 @@ const JIOSAAVN_API = {
       ['320kbps', '160kbps', '96kbps', '48kbps', '12kbps']
     );
     
-    console.log('[JioSaavn] Normalized song:', raw.name, '| img:', imgUrl ? imgUrl.substring(0, 60) : 'NONE', '| audioUrl:', audioUrl ? audioUrl.substring(0, 80) + '...' : 'NONE');
     
     const durationSecs = parseInt(raw.duration) || 0;
     const mins = Math.floor(durationSecs / 60);
@@ -183,10 +169,8 @@ async function handleJioSaavnSearch(query) {
     const results = await JIOSAAVN_API.searchSongs(query, 15);
     apiSearchResults = results;
     isSearchingAPI = false;
-    console.log('[JioSaavn] Search complete, valid results:', results.filter(r => r.audioUrl).length, '/', results.length);
     return results;
   } catch (err) {
-    console.error('[JioSaavn] Search failed:', err);
     isSearchingAPI = false;
     return [];
   }
@@ -194,17 +178,14 @@ async function handleJioSaavnSearch(query) {
 
 async function playJioSaavnSong(song) {
   if (!song) {
-    console.error('[JioSaavn] No song provided');
     return;
   }
   
   if (!song.audioUrl) {
-    console.error('[JioSaavn] No audio URL for:', song.title);
     alert('Sorry, this song is not available for streaming.');
     return;
   }
 
-  console.log('[JioSaavn] Playing:', song.title, '| URL:', song.audioUrl.substring(0, 80));
 
   if (!SONGS.find(s => s.id === song.id)) {
     SONGS.push(song);
@@ -234,10 +215,8 @@ async function playJioSaavnSong(song) {
           }
         }
         if (addedCount > 0) {
-          console.log(`[YouTube] Auto-queued ${addedCount} related songs`);
         }
       } catch (err) {
-        console.warn('[YouTube] Auto-queue related fetch failed:', err);
       } finally {
         state.isFetchingRelated = false;
         if (typeof renderQueuePanel === 'function') renderQueuePanel();
@@ -281,10 +260,8 @@ async function playJioSaavnSong(song) {
         }
 
         if (addedCount > 0) {
-          console.log(`[JioSaavn] Auto-queued ${addedCount} related songs (${artistName} + ${genre})`);
         }
       } catch (err) {
-        console.warn('[JioSaavn] Auto-queue fetch failed:', err);
       } finally {
         state.isFetchingRelated = false;
         if (typeof renderQueuePanel === 'function') renderQueuePanel();

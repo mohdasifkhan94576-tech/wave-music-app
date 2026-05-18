@@ -209,7 +209,7 @@ def serve_file(filename: str):
     allowed_files = {"app.js", "style.css", "youtube.js", "jiosaavn.js", "sw.js", "manifest.json"}
     if filename in allowed_files:
         return FileResponse(filename)
-    # SPA Fallback
+    
     return FileResponse("index.html")
 
 if __name__ == "__main__":
