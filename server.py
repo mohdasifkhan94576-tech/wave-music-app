@@ -11,6 +11,7 @@ import os
 import json
 import re
 from dotenv import load_dotenv
+import tempfile
 
 load_dotenv()
 
@@ -153,8 +154,15 @@ def _extract_stream_url(video_id):
         'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     }
 
-    if os.path.exists("cookies.txt"):
+    cookie_content = os.getenv("YT_COOKIES")
+    if cookie_content:
+        cookie_path = os.path.join(tempfile.gettempdir(), "cookies.txt")
+        with open(cookie_path, "w", encoding="utf-8") as f:
+            f.write(cookie_content)
+        ydl_opts['cookiefile'] = cookie_path
+    elif os.path.exists("cookies.txt"):
         ydl_opts['cookiefile'] = 'cookies.txt'
+        
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(
             f"https://www.youtube.com/watch?v={video_id}", download=False
