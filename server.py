@@ -145,31 +145,62 @@ def _extract_stream_url(video_id):
         if now - cached['time'] < 1800:
             return cached['url']
 
-    ydl_opts = {
+    base_ydl_opts = {
         'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
-        'extractor_args': {'youtube': {'player_client': ['android']}},
         'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     }
 
+   
+    cookie_path = None
     cookie_content = os.getenv("YT_COOKIES")
     if cookie_content:
         cookie_path = os.path.join(tempfile.gettempdir(), "cookies.txt")
         with open(cookie_path, "w", encoding="utf-8") as f:
             f.write(cookie_content)
-        ydl_opts['cookiefile'] = cookie_path
     elif os.path.exists("cookies.txt"):
-        ydl_opts['cookiefile'] = 'cookies.txt'
+        cookie_path = "cookies.txt"
+
+    strategies = []
+    
+  
+    if cookie_path:
+        strategies.append({
+            'cookiefile': cookie_path,
+            'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
+        })
         
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(
-            f"https://www.youtube.com/watch?v={video_id}", download=False
-        )
-        url = info.get('url')
-        stream_url_cache[video_id] = {'url': url, 'time': now}
-        return url
+    
+    strategies.extend([
+      
+        {'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
+       
+        {'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
+       
+        {'extractor_args': {'youtube': {'player_client': ['web']}}}
+    ])
+
+    last_error = None
+    for strategy in strategies:
+        ydl_opts = base_ydl_opts.copy()
+        ydl_opts.update(strategy)
+        
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(
+                    f"https://www.youtube.com/watch?v={video_id}", download=False
+                )
+                url = info.get('url')
+                if url:
+                    stream_url_cache[video_id] = {'url': url, 'time': now}
+                    return url
+        except Exception as e:
+            last_error = e
+            continue
+            
+    raise Exception(f"All extraction strategies failed. Last error: {last_error}")
 
 @app.get("/stream/{video_id}")
 def get_stream(video_id: str):
