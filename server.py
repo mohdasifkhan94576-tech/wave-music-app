@@ -146,7 +146,7 @@ def _extract_stream_url(video_id):
             return cached['url']
 
     base_ydl_opts = {
-        'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+        'format': 'ba/bestaudio/best',
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
