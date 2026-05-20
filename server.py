@@ -409,24 +409,28 @@ def get_stream(video_id: str):
 
 @app.get("/audio/{video_id}")
 def audio_proxy(video_id: str, request: Request):
+    from fastapi import HTTPException  # इसे टॉप पर भी रख सकते हैं
     try:
         audio_url = _extract_stream_url(video_id)
+        if not audio_url:
+            raise HTTPException(status_code=404, detail="Audio URL could not be extracted")
     except Exception as e:
-        from fastapi import HTTPException
+        
+        print(f"[ERROR] Extraction failed for {video_id}: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
     proxy_headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
     range_header = request.headers.get('range')
     if range_header:
         proxy_headers['Range'] = range_header
 
     try:
-        r = req_lib.get(audio_url, headers=proxy_headers, stream=True, timeout=30)
-    except Exception:
-        from fastapi import HTTPException
-        raise HTTPException(status_code=502, detail="Failed to fetch audio stream")
+        r = req_lib.get(audio_url, headers=proxy_headers, stream=True, timeout=15)
+    except Exception as e:
+        print(f"[ERROR] Proxy fetch failed: {str(e)}")
+        raise HTTPException(status_code=502, detail="Failed to fetch audio stream from source")
 
     resp_headers = {
         'Accept-Ranges': 'bytes',
@@ -445,6 +449,7 @@ def audio_proxy(video_id: str, request: Request):
         headers=resp_headers,
         media_type=content_type,
     )
+
 
 @app.get("/")
 def serve_index():
