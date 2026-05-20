@@ -206,22 +206,39 @@ def _try_ytdlp(video_id):
     strategies = []
 
     if cookie_path:
+        # Strategy 1: Default yt-dlp clients with cookies (highly recommended)
+        strategies.append({
+            'cookiefile': cookie_path
+        })
+        # Strategy 2: Android & Web with cookies
         strategies.append({
             'cookiefile': cookie_path,
             'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
         })
+        # Strategy 3: iOS & MWeb with cookies
         strategies.append({
             'cookiefile': cookie_path,
             'extractor_args': {'youtube': {'player_client': ['ios', 'mweb']}}
         })
-
-    strategies.extend([
-        {'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
-        {'extractor_args': {'youtube': {'player_client': ['android']}}},
-        {'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
-        {'extractor_args': {'youtube': {'player_client': ['web']}}},
-        {'extractor_args': {'youtube': {'player_client': ['mweb']}}},
-    ])
+        # Strategy 4: Web only with cookies
+        strategies.append({
+            'cookiefile': cookie_path,
+            'extractor_args': {'youtube': {'player_client': ['web']}}
+        })
+        # Strategy 5: Android only with cookies
+        strategies.append({
+            'cookiefile': cookie_path,
+            'extractor_args': {'youtube': {'player_client': ['android']}}
+        })
+    else:
+        # Fallback strategies without cookies (if cookies.txt is not present)
+        strategies.extend([
+            {'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
+            {'extractor_args': {'youtube': {'player_client': ['android']}}},
+            {'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
+            {'extractor_args': {'youtube': {'player_client': ['web']}}},
+            {'extractor_args': {'youtube': {'player_client': ['mweb']}}},
+        ])
 
     for strategy in strategies:
         ydl_opts = base_ydl_opts.copy()
@@ -234,7 +251,9 @@ def _try_ytdlp(video_id):
                 url = info.get('url')
                 if url:
                     return url
-        except Exception:
+        except Exception as e:
+            # We can log this to help debug why it failed
+            print(f"[DEBUG] yt-dlp strategy failed: {e}")
             continue
     return None
 
@@ -415,15 +434,15 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     print(f"Starting Wave Music Backend Server on port {port}...")
     
-    # Cookie verification on startup
+    
     if os.path.exists("cookies.txt"):
         print(" [COOKIES] Found 'cookies.txt' in workspace! yt-dlp will use browser cookies for YouTube extraction.")
     elif os.getenv("YT_COOKIES"):
         print(" [COOKIES] Found YT_COOKIES environment variable! yt-dlp will use environment cookies.")
     else:
-        print("  [WARNING] No 'cookies.txt' found in workspace, and YT_COOKIES is not set.")
-        print("   YouTube streams may fail with 'Sign in to confirm you're not a bot'.")
-        print("   Please export YouTube cookies to 'cookies.txt' in this directory.")
+        print("⚠️  [WARNING] No 'cookies.txt' found in workspace, and YT_COOKIES is not set.")
+        print("    YouTube streams may fail with 'Sign in to confirm you're not a bot'.")
+        print("    Please export YouTube cookies to 'cookies.txt' in this directory.")
 
     print("Endpoints: /, /health, /search, /stream/{id}, /audio/{id}")
     uvicorn.run(app, host="0.0.0.0", port=port)
