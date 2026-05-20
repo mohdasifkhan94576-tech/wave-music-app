@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wave-music-v3';
+const CACHE_NAME = 'wave-music-v4';
 const ASSETS_TO_CACHE = [
   './index.html',
   './style.css',
@@ -9,10 +9,17 @@ const ASSETS_TO_CACHE = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(ASSETS_TO_CACHE);
-      })
+    caches.open(CACHE_NAME).then(cache => {
+      return Promise.allSettled(
+        ASSETS_TO_CACHE.map(url =>
+          fetch(url).then(response => {
+            if (response.ok) {
+              return cache.put(url, response);
+            }
+          }).catch(() => {})
+        )
+      );
+    })
   );
   self.skipWaiting();
 });

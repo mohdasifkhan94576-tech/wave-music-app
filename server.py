@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, FileResponse
+from fastapi.responses import StreamingResponse, FileResponse, RedirectResponse
 from pydantic import BaseModel
 from ytmusicapi import YTMusic
 import yt_dlp
@@ -138,22 +138,61 @@ def get_related(video_id: str, limit: int = 10):
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-def _extract_stream_url(video_id):
-    now = time.time()
-    if video_id in stream_url_cache:
-        cached = stream_url_cache[video_id]
-        if now - cached['time'] < 1800:
-            return cached['url']
 
+_instance_health = {}
+_HEALTH_COOLDOWN = 300 
+
+PIPED_INSTANCES = [
+    "https://pipedapi.kavin.rocks",
+    "https://pipedapi.adminforge.de",
+    "https://api.piped.yt",
+    "https://piped-api.hostux.net",
+    "https://pipedapi.r4fo.com",
+    "https://pipedapi.in.projectsegfau.lt",
+]
+
+INVIDIOUS_INSTANCES = [
+    "https://inv.tux.pizza",
+    "https://invidious.fdn.fr",
+    "https://vid.puffyan.us",
+    "https://invidious.nerdvpn.de",
+    "https://yt.artemislena.eu",
+]
+
+
+def _is_instance_healthy(url):
+    if url not in _instance_health:
+        return True
+    last_fail = _instance_health[url]
+    if time.time() - last_fail > _HEALTH_COOLDOWN:
+        del _instance_health[url]
+        return True
+    return False
+
+
+def _mark_instance_dead(url):
+    _instance_health[url] = time.time()
+
+
+def _mark_instance_alive(url):
+    if url in _instance_health:
+        del _instance_health[url]
+
+
+def _try_ytdlp(video_id):
+    """Layer 1: yt-dlp with multiple player client strategies"""
     base_ydl_opts = {
         'format': 'ba/bestaudio/best',
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
-        'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                          'AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/120.0.0.0 Safari/537.36'
+        }
     }
 
-   
     cookie_path = None
     cookie_content = os.getenv("YT_COOKIES")
     if cookie_content:
@@ -164,29 +203,28 @@ def _extract_stream_url(video_id):
         cookie_path = "cookies.txt"
 
     strategies = []
-    
-  
+
     if cookie_path:
         strategies.append({
             'cookiefile': cookie_path,
             'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
         })
-        
-    
+        strategies.append({
+            'cookiefile': cookie_path,
+            'extractor_args': {'youtube': {'player_client': ['ios', 'mweb']}}
+        })
+
     strategies.extend([
-      
         {'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
-       
+        {'extractor_args': {'youtube': {'player_client': ['android']}}},
         {'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
-       
-        {'extractor_args': {'youtube': {'player_client': ['web']}}}
+        {'extractor_args': {'youtube': {'player_client': ['web']}}},
+        {'extractor_args': {'youtube': {'player_client': ['mweb']}}},
     ])
 
-    last_error = None
     for strategy in strategies:
         ydl_opts = base_ydl_opts.copy()
         ydl_opts.update(strategy)
-        
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(
@@ -194,13 +232,124 @@ def _extract_stream_url(video_id):
                 )
                 url = info.get('url')
                 if url:
-                    stream_url_cache[video_id] = {'url': url, 'time': now}
                     return url
-        except Exception as e:
-            last_error = e
+        except Exception:
             continue
-            
-    raise Exception(f"All extraction strategies failed. Last error: {last_error}")
+    return None
+
+
+def _try_piped(video_id):
+    """Layer 2: Piped API — try all healthy instances"""
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+
+    for instance in PIPED_INSTANCES:
+        if not _is_instance_healthy(instance):
+            continue
+        try:
+            resp = req_lib.get(
+                f"{instance}/streams/{video_id}",
+                headers=headers, timeout=8
+            )
+            if resp.status_code != 200:
+                _mark_instance_dead(instance)
+                continue
+
+            data = resp.json()
+            audio_streams = data.get("audioStreams", [])
+            if not audio_streams:
+                _mark_instance_dead(instance)
+                continue
+
+            def sort_key(s):
+                bitrate = s.get("bitrate", 0) or 0
+                fmt = (s.get("format") or "").upper()
+                fmt_score = 1 if fmt in ("M4A", "MP4A", "AAC") else 0
+                return (fmt_score, bitrate)
+
+            audio_streams.sort(key=sort_key, reverse=True)
+            url = audio_streams[0].get("url", "")
+            if url:
+                _mark_instance_alive(instance)
+                return url
+
+        except Exception:
+            _mark_instance_dead(instance)
+            continue
+    return None
+
+
+def _try_invidious(video_id):
+    """Layer 3: Invidious API — try all healthy instances"""
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+
+    for instance in INVIDIOUS_INSTANCES:
+        if not _is_instance_healthy(instance):
+            continue
+        try:
+            resp = req_lib.get(
+                f"{instance}/api/v1/videos/{video_id}",
+                headers=headers, timeout=8
+            )
+            if resp.status_code != 200:
+                _mark_instance_dead(instance)
+                continue
+
+            data = resp.json()
+            adaptive = data.get("adaptiveFormats", [])
+            audio_formats = [
+                f for f in adaptive
+                if "audio" in (f.get("type", "") or "").lower()
+            ]
+
+            if not audio_formats:
+                _mark_instance_dead(instance)
+                continue
+
+            audio_formats.sort(
+                key=lambda f: f.get("bitrate", 0) or 0, reverse=True
+            )
+            url = audio_formats[0].get("url", "")
+            if url:
+                _mark_instance_alive(instance)
+                return url
+
+        except Exception:
+            _mark_instance_dead(instance)
+            continue
+    return None
+
+
+def _extract_stream_url(video_id):
+    """Smart Extraction Agent — 3-layer fallback system"""
+    now = time.time()
+
+    if video_id in stream_url_cache:
+        cached = stream_url_cache[video_id]
+        if now - cached['time'] < 1800:
+            return cached['url']
+
+    # Layer 1: yt-dlp (most reliable)
+    url = _try_ytdlp(video_id)
+    if url:
+        stream_url_cache[video_id] = {'url': url, 'time': now}
+        return url
+
+    # Layer 2: Piped API (no binary needed)
+    url = _try_piped(video_id)
+    if url:
+        stream_url_cache[video_id] = {'url': url, 'time': now}
+        return url
+
+    # Layer 3: Invidious API (last resort)
+    url = _try_invidious(video_id)
+    if url:
+        stream_url_cache[video_id] = {'url': url, 'time': now}
+        return url
+
+    raise Exception(
+        "All extraction layers failed: yt-dlp, Piped, and Invidious. "
+        "Please check your internet connection or try again later."
+    )
 
 @app.get("/stream/{video_id}")
 def get_stream(video_id: str):
@@ -215,7 +364,8 @@ def audio_proxy(video_id: str, request: Request):
     try:
         audio_url = _extract_stream_url(video_id)
     except Exception as e:
-        return {"success": False, "error": str(e)}
+        from fastapi import HTTPException
+        raise HTTPException(status_code=500, detail=str(e))
 
     proxy_headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -224,10 +374,15 @@ def audio_proxy(video_id: str, request: Request):
     if range_header:
         proxy_headers['Range'] = range_header
 
-    r = req_lib.get(audio_url, headers=proxy_headers, stream=True, timeout=30)
+    try:
+        r = req_lib.get(audio_url, headers=proxy_headers, stream=True, timeout=30)
+    except Exception:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=502, detail="Failed to fetch audio stream")
 
     resp_headers = {
         'Accept-Ranges': 'bytes',
+        'Access-Control-Allow-Origin': '*',
     }
     if 'Content-Length' in r.headers:
         resp_headers['Content-Length'] = r.headers['Content-Length']
@@ -242,7 +397,6 @@ def audio_proxy(video_id: str, request: Request):
         headers=resp_headers,
         media_type=content_type,
     )
-
 
 @app.get("/")
 def serve_index():

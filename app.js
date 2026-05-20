@@ -556,46 +556,111 @@ function getFooterHTML() {
     <footer class="app-footer">
       <div class="footer-grid">
         <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#">About</a>
-          <a href="#">Jobs</a>
-          <a href="#">For the Record</a>
+          <h4>Wave Music</h4>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('about')">About</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('updates')">What's New</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('contact')">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Communities</h4>
-          <a href="#">For Artists</a>
-          <a href="#">Developers</a>
-          <a href="#">Advertising</a>
-          <a href="#">Investors</a>
+          <h4>Data Sources</h4>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('youtube')">YouTube Music</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('jiosaavn')">JioSaavn</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('howItWorks')">How It Works</a>
         </div>
         <div class="footer-col">
-          <h4>Useful Links</h4>
-          <a href="#">Support</a>
-          <a href="#">Web Player</a>
-          <a href="#">Mobile App</a>
+          <h4>Support</h4>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('faq')">FAQ</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('tips')">Tips & Tricks</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('privacy')">Privacy Policy</a>
         </div>
         <div class="footer-col">
           <h4>Connect</h4>
           <div class="footer-socials">
             <a href="#" class="social-icon" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
             <a href="#" class="social-icon" title="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-            <a href="#" class="social-icon" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" class="social-icon" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
           </div>
         </div>
       </div>
       <div class="footer-divider"></div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Wave Music. All rights reserved. Version 1.0</p>
+        <p>&copy; 2026 Wave Music. All rights reserved.</p>
         <div class="footer-links">
-          <a href="#">Legal</a>
-          <a href="#">Updates</a>
-          <a href="#">Privacy</a>
-          <a href="#">Cookies</a>
-          <a href="#">Accessibility</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('legal')">Legal</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('privacy')">Privacy</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('about')">About</a>
+          <a href="#" onclick="event.preventDefault(); openFooterPopup('updates')">Updates</a>
         </div>
       </div>
     </footer>
   `;
+}
+
+function openFooterPopup(type) {
+  const popupData = {
+    about: {
+      icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'About Wave Music',
+      content: '<div class="fp-section"><p>Wave Music is a <strong>modern, fast and beautiful</strong> music streaming app that gives you the best listening experience.</p></div><div class="fp-section"><h4>Features</h4><ul><li>YouTube Music + JioSaavn dual-source streaming</li><li>Smart search across multiple platforms</li><li>Dynamic Island with live now-playing info</li><li>Like songs, create playlists, track history</li><li>Mini player, queue management, shuffle & repeat</li><li>Beautiful dark theme with glassmorphism design</li><li>PWA support — install as app on any device</li></ul></div><div class="fp-section"><h4>Developer</h4><p>Built with love using vanilla HTML, CSS & JavaScript with a Python FastAPI backend. No frameworks, pure performance.</p></div><div class="fp-badge">Version 2.0 — May 2026</div>'
+    },
+    updates: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: "What's New — Updates",
+      content: '<div class="fp-update-item"><span class="fp-update-date">May 2026 — v2.0</span><h4>Major Update</h4><ul><li><strong>3-Layer Smart Extraction:</strong> yt-dlp → Piped API → Invidious API automatic fallback</li><li><strong>Auto-Play Fix:</strong> YouTube songs automatically play after loading</li><li><strong>Dynamic Island Sync:</strong> Now Playing info real-time sync</li><li><strong>Streaming Proxy:</strong> Audio is proxied from server, fast streaming</li><li><strong>Resume Playback:</strong> Continue from the same point after pause</li><li><strong>Cookie System:</strong> Fresh cookies support for reliable extraction</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Apr 2026 — v1.5</span><h4>UI Improvements</h4><ul><li>JioSaavn integration as fallback source</li><li>Profile system with avatar upload</li><li>Custom playlist creation & management</li><li>Mobile responsive design</li><li>Service Worker for offline caching</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Mar 2026 — v1.0</span><h4>Initial Release</h4><ul><li>YouTube Music search & streaming</li><li>Liked songs & recent history</li><li>Queue management & dark theme</li></ul></div><div class="fp-tip"><strong>Tip:</strong> If YouTube songs don\'t play then try the JioSaavn Browse section!</div>'
+    },
+    youtube: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'YouTube Music',
+      content: '<div class="fp-section"><p>Wave Music uses <strong>YouTube Music</strong> as the primary data source — the world\'s largest music library.</p></div><div class="fp-section"><h4>How YouTube Streaming Works</h4><ul><li><strong>YTMusic API</strong> is used to search songs</li><li><strong>yt-dlp</strong> is used to extract audio stream URLs</li><li>If yt-dlp fails then <strong>Piped API</strong> is tried</li><li>If Piped also fails then <strong>Invidious API</strong> is the last resort</li><li>Stream URLs are cached for instant playback</li></ul></div><div class="fp-section"><h4>If YouTube doesn\'t work?</h4><p>Sometimes songs don\'t play due to YouTube restrictions or cookie expiry. In that case:</p><ul><li>1. Go to the <strong>JioSaavn</strong> section in the sidebar</li><li>2. Search the same song from there</li><li>3. JioSaavn also provides high quality audio!</li></ul></div><div class="fp-badge">Powered by YouTube Music API</div>'
+    },
+    jiosaavn: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'JioSaavn',
+      content: '<div class="fp-section"><p><strong>JioSaavn</strong> is India\'s leading music streaming platform. Wave Music uses it as a secondary/fallback source.</p></div><div class="fp-section"><h4>JioSaavn Features</h4><ul><li>Bollywood, Indie, Devotional, Regional — everything available</li><li>High quality 320kbps audio streaming</li><li>Fast loading — no extraction delay</li><li>YouTube\'s backup — JioSaavn works when YT fails</li></ul></div><div class="fp-section"><h4>When to use it?</h4><p>When YouTube songs are taking time to load or showing errors, click on <strong>"JioSaavn"</strong> in the sidebar and browse from there.</p></div><div class="fp-tip"><strong>Pro Tip:</strong> JioSaavn gives the best quality for Bollywood and Hindi songs!</div>'
+    },
+    howItWorks: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'How Wave Music Works',
+      content: '<div class="fp-section"><h4>Search</h4><p>When you search for a song, Wave first fetches results from the YouTube Music API. If YouTube is not available then results come from JioSaavn.</p></div><div class="fp-section"><h4>Streaming — 3-Layer System</h4><div class="fp-layers"><div class="fp-layer"><span class="fp-layer-num">1</span><div><strong>yt-dlp</strong><p>First, direct Google Video URL is extracted via yt-dlp.</p></div></div><div class="fp-layer"><span class="fp-layer-num">2</span><div><strong>Piped API</strong><p>If yt-dlp fails, then Piped API instances are tried.</p></div></div><div class="fp-layer"><span class="fp-layer-num">3</span><div><strong>Invidious API</strong><p>Last resort — audio is fetched from Invidious instances.</p></div></div></div></div><div class="fp-section"><h4>Fallback to JioSaavn</h4><p>If all three layers fail, you can play the song from the JioSaavn section.</p></div>'
+    },
+    faq: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'FAQ',
+      content: '<div class="fp-faq"><div class="fp-faq-item"><h4>Q: Song is loading but not playing?</h4><p>A: Hard refresh the page (Ctrl+Shift+R). If still not working then try JioSaavn.</p></div><div class="fp-faq-item"><h4>Q: YouTube songs loading slowly?</h4><p>A: It takes 2-3 seconds to extract the stream for the first time. After that it stays cached.</p></div><div class="fp-faq-item"><h4>Q: Can we install on phone?</h4><p>A: Yes! Install via "Add to Home Screen" in the browser. This is a PWA.</p></div><div class="fp-faq-item"><h4>Q: Are liked songs saved?</h4><p>A: Yes, everything is saved in local storage.</p></div><div class="fp-faq-item"><h4>Q: What is Dynamic Island?</h4><p>A: A floating widget in the top center that shows current song info and controls — just like iPhone!</p></div></div>'
+    },
+    tips: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Tips & Tricks',
+      content: '<div class="fp-section"><ul class="fp-tips-list"><li><strong>YouTube fail?</strong> — Try JioSaavn Browse section!</li><li><strong>Search:</strong> Start typing directly in the top bar</li><li><strong>Install:</strong> Browser menu → "Add to Home Screen"</li><li><strong>Shuffle:</strong> Randomize the queue</li><li><strong>Repeat:</strong> Play current song on loop</li><li><strong>Like:</strong> Press heart icon — saves in Liked Songs</li><li><strong>Playlists:</strong> Create custom playlist with "+" in the sidebar</li><li><strong>Dynamic Island:</strong> Click on top widget to expand</li><li><strong>Volume:</strong> Adjust with bottom right slider</li></ul></div>'
+    },
+    privacy: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Privacy Policy',
+      content: '<div class="fp-section"><p>Wave Music takes your privacy seriously.</p><ul><li>No personal data is stored on the server</li><li>All data stays in browser\'s local storage</li><li>No third-party tracking or analytics</li><li>Music is only streamed, not downloaded</li><li>Cookies only for YouTube extraction</li></ul></div><div class="fp-badge">Your data stays on your device</div>'
+    },
+    legal: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Legal Information',
+      content: '<div class="fp-section"><p>Wave Music is a <strong>personal/educational project</strong>.</p><ul><li>This app does not host any music — it only streams from publicly available APIs</li><li>YouTube and JioSaavn trademarks belong to their respective owners</li><li>Copyright of music content belongs to original artists and labels</li><li>This app is not for commercial use</li></ul></div>'
+    },
+    contact: {
+       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Contact Us',
+      content: '<div class="fp-section"><p>Any questions or suggestions about Wave Music?</p><div class="fp-contact-items"><div class="fp-contact-item"><span>.</span><div><strong>Email</strong><p>wave.music.app@gmail.com</p></div></div><div class="fp-contact-item"><span>.</span><div><strong>Feedback</strong><p>If there is any bug or feature request in the app then do let us know!</p></div></div><div class="fp-contact-item"><span>.</span><div><strong>Share</strong><p>If you liked the app then share it with friends!</p></div></div></div></div>'
+    }
+  };
+  const data = popupData[type];
+  if (!data) return;
+  const existing = document.getElementById('footer-popup-overlay');
+  if (existing) existing.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'footer-popup-overlay';
+  overlay.className = 'footer-popup-overlay';
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+  overlay.innerHTML = `
+    <div class="footer-popup-card">
+      <button class="footer-popup-close" onclick="document.getElementById('footer-popup-overlay').remove()">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <div class="footer-popup-header">
+        <span class="footer-popup-icon">${data.icon}</span>
+        <h2>${data.title}</h2>
+      </div>
+      <div class="footer-popup-body">${data.content}</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('fp-visible'));
 }
 
 function getPlaylistHTML(playlistId) {
@@ -603,7 +668,7 @@ function getPlaylistHTML(playlistId) {
   const playlist = allPlaylists.find(p => p.id === playlistId) || allPlaylists[0];
 
   const isCustom = playlistId.startsWith('up_');
-  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')">ðŸ—‘ï¸ Delete Playlist</button>` : '';
+  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')"> Delete Playlist</button>` : '';
 
   let playlistSongs = [];
   let isDynamicMix = false;
@@ -696,7 +761,7 @@ function getPlaylistHTML(playlistId) {
       <div class="pl-info">
         <span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Playlist</span>
         <h1>${playlist.title}</h1>
-        <p style="color: var(--text-muted);">${playlist.sub} â€¢ ${isDynamicMix ? '50' : playlistSongs.length} songs</p>
+        <p style="color: var(--text-muted);">${playlist.sub}  ${isDynamicMix ? '50' : playlistSongs.length} songs</p>
         ${deleteBtn}
       </div>
     </div>
@@ -790,7 +855,7 @@ function getLibraryHTML() {
         </div>
         <div class="lib-card-info">
           <div class="lib-card-title">${pl.title}</div>
-          <div class="lib-card-sub">Playlist ${songCount} songs</div>
+          <div class="lib-card-sub">Playlist â€¢ ${songCount} songs</div>
         </div>
         <button class="lib-card-play" onclick="event.stopPropagation(); navigateTo('playlist', null, '${pl.id}')">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
@@ -997,7 +1062,7 @@ function getTrendingPageHTML() {
           <div class="section-header">
             <h2>Live Top Charts</h2>
             <span style="font-size:12px; color:#ef4444; font-weight:600; display:flex; align-items:center; gap:5px;">
-              ðŸ”´ Live
+               Live
             </span>
           </div>
           <div class="cards-container">
@@ -1036,7 +1101,7 @@ function getTrendingPageHTML() {
     </div>
 
     <div class="jiosaavn-trending-bar">
-      <span class="trending-label">Quick Play from JioSaavn:</span>
+      <span class="trending-label"> Quick Play from JioSaavn:</span>
       <div class="trending-quick-btns">
         <button onclick="showSearchResults('trending Hindi songs 2024')">Hindi Trending</button>
         <button onclick="showSearchResults('Diljit Dosanjh')">Diljit Dosanjh</button>
@@ -1108,7 +1173,7 @@ function getPodcastsPageHTML() {
 async function renderJioSaavnBrowse(container) {
   container.innerHTML = `
     <div style="padding-top: 20px; margin-bottom: 30px;">
-      <h1 style="font-size: 42px; font-weight: 800;">Browse JioSaavn</h1>
+      <h1 style="font-size: 42px; font-weight: 800;"> Browse JioSaavn</h1>
       <p style="color: var(--text-muted); margin-top: 8px;">Search and play millions of songs</p>
     </div>
     <div class="jiosaavn-discover-search" style="margin-bottom:40px;">
@@ -1628,9 +1693,47 @@ function _renderRecSection(containerId, title, songs, icon) {
   `;
 }
 
+
 function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
+
+  
+  audio.addEventListener('playing', () => {
+    state.isPlaying = true;
+    updatePlayButtonUI();
+    syncEqualizer();
+    const currentSong = state.queue[state.currentIndex];
+    if (currentSong) {
+      const playerTitle = document.getElementById('pl-title');
+      if (playerTitle) playerTitle.textContent = currentSong.title;
+      showNowPlayingIsland(currentSong);
+    }
+  });
+
+  audio.addEventListener('pause', () => {
+    state.isPlaying = false;
+    updatePlayButtonUI();
+    syncEqualizer();
+  });
+
+  audio.addEventListener('waiting', () => {
+    const currentSong = state.queue[state.currentIndex];
+    if (currentSong && currentSong.audioUrl && (currentSong.audioUrl.startsWith('yt_stream_pending_') || currentSong.audioUrl.includes('/audio/'))) {
+      const playerTitle = document.getElementById('pl-title');
+      if (playerTitle) playerTitle.textContent = currentSong.title + ' — Loading...';
+      showDynamicIsland('Loading YouTube stream...', 'warning', 10000);
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    const currentSong = state.queue[state.currentIndex];
+    if (currentSong && currentSong.audioUrl && (currentSong.audioUrl.startsWith('yt_stream_pending_') || currentSong.audioUrl.includes('/audio/'))) {
+      const playerTitle = document.getElementById('pl-title');
+      if (playerTitle) playerTitle.textContent = currentSong.title;
+      showDynamicIsland('Stream failed — is backend running?', 'warning', 4000);
+    }
+  });
 
   audio.addEventListener('timeupdate', () => {
     if (!audio.duration) return;
@@ -1647,7 +1750,7 @@ function initAudio() {
 
   audio.addEventListener('ended', () => {
     if (state.isRepeat) {
-      audio.currentTime = 0; audio.play();
+      audio.currentTime = 0; audio.play().catch(() => {});
     } else {
       nextSong();
     }
@@ -1727,7 +1830,6 @@ function playSong(idx) {
 
   const oldSongId = state.currentPlayingSongId || (state.queue[state.currentIndex] ? state.queue[state.currentIndex].id : null);
   if (audio && audio.currentTime > 0 && oldSongId) {
-
     if (audio.duration && audio.currentTime >= audio.duration - 1) {
       delete state.songProgress[oldSongId];
     } else {
@@ -1758,24 +1860,16 @@ function playSong(idx) {
     const videoId = song.audioUrl.replace('yt_stream_pending_', '');
     const proxyUrl = YOUTUBE_API.getProxyUrl(videoId);
     const playerTitle = document.getElementById('pl-title');
-    if (playerTitle) playerTitle.textContent = song.title + ' â€” Loading...';
-    showDynamicIsland('Loading YouTube stream...', 'warning', 3000);
+    if (playerTitle) playerTitle.textContent = song.title + ' — Loading...';
+    
+    
+    showDynamicIsland('Loading YouTube stream...', 'warning', 10000);
+    
     audio.src = proxyUrl;
-    song.audioUrl = proxyUrl;
-    audio.play().then(() => {
-      if (playerTitle) playerTitle.textContent = song.title;
-    }).catch(e => {
-      audio.addEventListener('canplay', function onCanPlay() {
-        audio.play().catch(() => {});
-        if (playerTitle) playerTitle.textContent = song.title;
-        audio.removeEventListener('canplay', onCanPlay);
-      }, { once: true });
+    song.audioUrl = proxyUrl; 
+    audio.play().catch(e => {
+      console.warn("Initial play failed (expected during redirect):", e);
     });
-    audio.addEventListener('error', function onErr() {
-      if (playerTitle) playerTitle.textContent = song.title;
-      showDynamicIsland('Stream failed â€” is backend running?', 'warning', 4000);
-      audio.removeEventListener('error', onErr);
-    }, { once: true });
   } else if (song.audioUrl) {
     audio.src = song.audioUrl;
     audio.play().catch(() => {});
@@ -1791,6 +1885,8 @@ function playSong(idx) {
     }
     audio.removeEventListener('loadedmetadata', resumeOnce);
   });
+  
+
   state.isPlaying = true;
   updatePlayButtonUI();
   syncEqualizer();
@@ -1827,19 +1923,19 @@ function playSong(idx) {
 }
 
 function togglePlay() {
-  if (state.isPlaying) {
+  if (!audio.paused) {
     audio.pause();
-    state.isPlaying = false;
   } else {
-    if (!audio.src || audio.src === window.location.href) {
+    const currentSong = state.queue[state.currentIndex];
+    const needsFullLoad = !audio.src || audio.src === window.location.href || 
+      (currentSong && currentSong.audioUrl && currentSong.audioUrl.startsWith('yt_stream_pending_'));
+    
+    if (needsFullLoad) {
       playSong(state.currentIndex);
     } else {
       audio.play().catch(() => {});
-      state.isPlaying = true;
     }
   }
-  updatePlayButtonUI();
-  syncEqualizer();
 }
 
 function updatePlayButtonUI() {
@@ -2594,7 +2690,7 @@ function syncMobileNowPlaying() {
 
   if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
   if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
-  if (mnpArtist) mnpArtist.textContent = song.artist || 'â€”';
+  if (mnpArtist) mnpArtist.textContent = song.artist || '';
 
   if (mnpArt) {
     const card = document.getElementById('mobile-now-playing');
@@ -2695,7 +2791,7 @@ window.loadSongUI = function(idx) {
     const mnpArtist = document.getElementById('mnp-artist');
     if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
     if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
-    if (mnpArtist) mnpArtist.textContent = song.artist || 'â€”';
+    if (mnpArtist) mnpArtist.textContent = song.artist || '”';
   }
 };
 
