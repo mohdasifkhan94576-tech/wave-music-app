@@ -138,9 +138,10 @@ def get_related(video_id: str, limit: int = 10):
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-
+# ─── Smart Extraction Agent ─────────────────────────────────────
+# Tracks which API instances are alive/dead to skip broken ones fast
 _instance_health = {}
-_HEALTH_COOLDOWN = 300 
+_HEALTH_COOLDOWN = 300  # Skip failed instances for 5 min before retrying
 
 PIPED_INSTANCES = [
     "https://pipedapi.kavin.rocks",
@@ -413,5 +414,16 @@ def serve_file(filename: str):
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     print(f"Starting Wave Music Backend Server on port {port}...")
+    
+    # Cookie verification on startup
+    if os.path.exists("cookies.txt"):
+        print(" [COOKIES] Found 'cookies.txt' in workspace! yt-dlp will use browser cookies for YouTube extraction.")
+    elif os.getenv("YT_COOKIES"):
+        print(" [COOKIES] Found YT_COOKIES environment variable! yt-dlp will use environment cookies.")
+    else:
+        print("  [WARNING] No 'cookies.txt' found in workspace, and YT_COOKIES is not set.")
+        print("   YouTube streams may fail with 'Sign in to confirm you're not a bot'.")
+        print("   Please export YouTube cookies to 'cookies.txt' in this directory.")
+
     print("Endpoints: /, /health, /search, /stream/{id}, /audio/{id}")
     uvicorn.run(app, host="0.0.0.0", port=port)
