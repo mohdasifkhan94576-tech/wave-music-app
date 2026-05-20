@@ -147,26 +147,27 @@ def get_related(video_id: str, limit: int = 10):
         return {"success": False, "error": str(e)}
 
 
+# ─── स्मार्ट एक्सट्रैक्शन एजेंट ───
 _instance_health = {}
-_HEALTH_COOLDOWN = 300 
+_HEALTH_COOLDOWN = 300  # फ़ेल होने वाले इंस्टेंस को 5 मिनट स्किप करें
 
+# Correct Piped API instances (pipedapi. prefix important!)
 PIPED_INSTANCES = [
-    "https://pipedapi.kavin.rocks",        
-    "https://pipedapi.syncpundit.io",     
-    "https://pipedapi.adminforge.de",     
-    "https://pipedapi.r4fo.com",          
-    "https://pipedapi.us.projectsegfau.lt" 
+    "https://pipedapi.kavin.rocks",
+    "https://pipedapi.syncpundit.io",
+    "https://pipedapi.adminforge.de",
+    "https://pipedapi.r4fo.com",
+    "https://pipedapi.us.projectsegfau.lt"
 ]
 
-
+# Stable Invidious instances
 INVIDIOUS_INSTANCES = [
     "https://tux.pizza",
     "https://fdn.fr",
     "https://nerdvpn.de",
-    "https://yewtu.be",                   
+    "https://yewtu.be",
     "https://melmac.space"
 ]
-
 
 
 def _is_instance_healthy(url):
@@ -191,35 +192,34 @@ def _mark_instance_alive(url):
 def _extract_url_from_info(info):
     if not info:
         return None
-    #
+
     url = info.get('url')
     if url:
         return url
-    
-    
+
     formats = info.get('formats', [])
     audio_formats = [
-        f for f in formats 
+        f for f in formats
         if f.get('url') and f.get('acodec') and f.get('acodec') != 'none'
     ]
     if audio_formats:
-        
         def sort_key(f):
             abr = f.get('abr', 0) or 0
             tbr = f.get('tbr', 0) or 0
             return abr or tbr
         audio_formats.sort(key=sort_key, reverse=True)
         return audio_formats[0]['url']
-        
+
     return None
 
 
 def _try_ytdlp(video_id):
-    """Layer 1: yt-dlp with multiple player client strategies"""
+    """Layer 1: yt-dlp with socket_timeout for faster fallback"""
     base_ydl_opts = {
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
+        'socket_timeout': 4,          # ← 4 sec timeout: jaldi fail ho, Piped par jaye
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                           'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -238,35 +238,29 @@ def _try_ytdlp(video_id):
 
     strategies = []
 
-    
     if cookie_path:
-        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['web', 'default']}}
         })
-        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}
         })
-        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'best',
             'extractor_args': {'youtube': {'player_client': ['web']}}
         })
     else:
-        
         strategies.extend([
             {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['web', 'default']}}},
             {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}},
             {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['tv']}}},
             {'format': 'best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
         ])
-
 
     for strategy in strategies:
         ydl_opts = base_ydl_opts.copy()
@@ -280,7 +274,6 @@ def _try_ytdlp(video_id):
                 if url:
                     return url
         except Exception as e:
-            
             print(f"[DEBUG] yt-dlp strategy failed: {e}")
             continue
     return None
@@ -376,28 +369,35 @@ def _extract_stream_url(video_id):
         if now - cached['time'] < 1800:
             return cached['url']
 
-   
+    # Layer 1: yt-dlp
+    print(f"[LOG] Trying Layer 1: yt-dlp for {video_id}...")
     url = _try_ytdlp(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
+        print(f"[LOG] Layer 1 success: yt-dlp ✅")
         return url
 
-   
+    # Layer 2: Piped API
+    print(f"[LOG] Layer 1 failed. Moving to Layer 2: Piped API...")
     url = _try_piped(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
+        print(f"[LOG] Layer 2 success: Piped ✅")
         return url
 
-    
+    # Layer 3: Invidious API
+    print(f"[LOG] Layer 2 failed. Moving to Layer 3: Invidious API...")
     url = _try_invidious(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
+        print(f"[LOG] Layer 3 success: Invidious ✅")
         return url
 
     raise Exception(
         "All extraction layers failed: yt-dlp, Piped, and Invidious. "
         "Please check your internet connection or try again later."
     )
+
 
 @app.get("/stream/{video_id}")
 def get_stream(video_id: str):
@@ -455,7 +455,6 @@ def serve_file(filename: str):
     allowed_files = {"app.js", "style.css", "youtube.js", "jiosaavn.js", "sw.js", "manifest.json"}
     if filename in allowed_files:
         return FileResponse(filename)
-    
     return FileResponse("index.html")
 
 if __name__ == "__main__":
