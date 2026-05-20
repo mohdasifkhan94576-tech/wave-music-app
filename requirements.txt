@@ -1,7 +1,8 @@
 fastapi
 uvicorn
 ytmusicapi
-yt-dlp
+yt-dlp>=2025.1.15
 requests
 google-genai
 python-dotenv
+
