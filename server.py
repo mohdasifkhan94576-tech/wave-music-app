@@ -188,10 +188,35 @@ def _mark_instance_alive(url):
         del _instance_health[url]
 
 
+def _extract_url_from_info(info):
+    if not info:
+        return None
+    # 1. Try direct url
+    url = info.get('url')
+    if url:
+        return url
+    
+    # 2. Try formats list (important when format='best' or multiple formats are returned)
+    formats = info.get('formats', [])
+    audio_formats = [
+        f for f in formats 
+        if f.get('url') and f.get('acodec') and f.get('acodec') != 'none'
+    ]
+    if audio_formats:
+        # Sort by audio bitrate (highest first)
+        def sort_key(f):
+            abr = f.get('abr', 0) or 0
+            tbr = f.get('tbr', 0) or 0
+            return abr or tbr
+        audio_formats.sort(key=sort_key, reverse=True)
+        return audio_formats[0]['url']
+        
+    return None
+
+
 def _try_ytdlp(video_id):
     """Layer 1: yt-dlp with multiple player client strategies"""
     base_ydl_opts = {
-        'format': 'ba/bestaudio/best',
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
@@ -214,38 +239,48 @@ def _try_ytdlp(video_id):
     strategies = []
 
     if cookie_path:
-        # Strategy 1: Default yt-dlp clients with cookies (highly recommended)
-        strategies.append({
-            'cookiefile': cookie_path
-        })
-        # Strategy 2: Android & Web with cookies
+        # Strategy 1: Default yt-dlp clients + cookies (best audio format)
         strategies.append({
             'cookiefile': cookie_path,
-            'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
+            'format': 'ba/bestaudio/best'
         })
-        # Strategy 3: iOS & MWeb with cookies
+        # Strategy 2: Default yt-dlp clients + cookies (any format fallback)
         strategies.append({
             'cookiefile': cookie_path,
+            'format': 'best'
+        })
+        # Strategy 3: iOS & MWeb + cookies (best audio format)
+        strategies.append({
+            'cookiefile': cookie_path,
+            'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['ios', 'mweb']}}
         })
-        # Strategy 4: Web only with cookies
+        # Strategy 4: Web only + cookies (best audio format)
         strategies.append({
             'cookiefile': cookie_path,
+            'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['web']}}
         })
-        # Strategy 5: Android only with cookies
+        # Strategy 5: Web only + cookies (any format fallback)
         strategies.append({
             'cookiefile': cookie_path,
+            'format': 'best',
+            'extractor_args': {'youtube': {'player_client': ['web']}}
+        })
+        # Strategy 6: Android only + cookies (best audio format)
+        strategies.append({
+            'cookiefile': cookie_path,
+            'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['android']}}
         })
     else:
         # Fallback strategies without cookies (if cookies.txt is not present)
         strategies.extend([
-            {'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
-            {'extractor_args': {'youtube': {'player_client': ['android']}}},
-            {'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
-            {'extractor_args': {'youtube': {'player_client': ['web']}}},
-            {'extractor_args': {'youtube': {'player_client': ['mweb']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['android']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
+            {'format': 'best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
         ])
 
     for strategy in strategies:
@@ -256,7 +291,7 @@ def _try_ytdlp(video_id):
                 info = ydl.extract_info(
                     f"https://www.youtube.com/watch?v={video_id}", download=False
                 )
-                url = info.get('url')
+                url = _extract_url_from_info(info)
                 if url:
                     return url
         except Exception as e:
