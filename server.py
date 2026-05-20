@@ -146,27 +146,27 @@ def get_related(video_id: str, limit: int = 10):
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-# ─── Smart Extraction Agent ─────────────────────────────────────
-# Tracks which API instances are alive/dead to skip broken ones fast
+
 _instance_health = {}
-_HEALTH_COOLDOWN = 300  # Skip failed instances for 5 min before retrying
+_HEALTH_COOLDOWN = 300 
 
 PIPED_INSTANCES = [
-    "https://pipedapi.kavin.rocks",
-    "https://pipedapi.adminforge.de",
-    "https://api.piped.yt",
-    "https://piped-api.hostux.net",
-    "https://pipedapi.r4fo.com",
-    "https://pipedapi.in.projectsegfau.lt",
+    "https://pipedapi.kavin.rocks",        
+    "https://pipedapi.syncpundit.io",     
+    "https://pipedapi.adminforge.de",     
+    "https://pipedapi.r4fo.com",          
+    "https://pipedapi.us.projectsegfau.lt" 
 ]
 
+
 INVIDIOUS_INSTANCES = [
-    "https://inv.tux.pizza",
-    "https://invidious.fdn.fr",
-    "https://vid.puffyan.us",
-    "https://invidious.nerdvpn.de",
-    "https://yt.artemislena.eu",
+    "https://tux.pizza",
+    "https://fdn.fr",
+    "https://nerdvpn.de",
+    "https://yewtu.be",                   
+    "https://melmac.space"
 ]
+
 
 
 def _is_instance_healthy(url):
@@ -191,19 +191,19 @@ def _mark_instance_alive(url):
 def _extract_url_from_info(info):
     if not info:
         return None
-    # 1. Try direct url
+    #
     url = info.get('url')
     if url:
         return url
     
-    # 2. Try formats list (important when format='best' or multiple formats are returned)
+    
     formats = info.get('formats', [])
     audio_formats = [
         f for f in formats 
         if f.get('url') and f.get('acodec') and f.get('acodec') != 'none'
     ]
     if audio_formats:
-        # Sort by audio bitrate (highest first)
+        
         def sort_key(f):
             abr = f.get('abr', 0) or 0
             tbr = f.get('tbr', 0) or 0
@@ -238,50 +238,35 @@ def _try_ytdlp(video_id):
 
     strategies = []
 
+    
     if cookie_path:
-        # Strategy 1: Default yt-dlp clients + cookies (best audio format)
-        strategies.append({
-            'cookiefile': cookie_path,
-            'format': 'ba/bestaudio/best'
-        })
-        # Strategy 2: Default yt-dlp clients + cookies (any format fallback)
-        strategies.append({
-            'cookiefile': cookie_path,
-            'format': 'best'
-        })
-        # Strategy 3: iOS & MWeb + cookies (best audio format)
+        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
-            'extractor_args': {'youtube': {'player_client': ['ios', 'mweb']}}
+            'extractor_args': {'youtube': {'player_client': ['web', 'default']}}
         })
-        # Strategy 4: Web only + cookies (best audio format)
+        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
-            'extractor_args': {'youtube': {'player_client': ['web']}}
+            'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}
         })
-        # Strategy 5: Web only + cookies (any format fallback)
+        
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'best',
             'extractor_args': {'youtube': {'player_client': ['web']}}
         })
-        # Strategy 6: Android only + cookies (best audio format)
-        strategies.append({
-            'cookiefile': cookie_path,
-            'format': 'ba/bestaudio/best',
-            'extractor_args': {'youtube': {'player_client': ['android']}}
-        })
     else:
-        # Fallback strategies without cookies (if cookies.txt is not present)
+        
         strategies.extend([
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['android', 'ios']}}},
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['android']}}},
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['tv', 'mweb']}}},
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['web', 'default']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}},
+            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['tv']}}},
             {'format': 'best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
         ])
+
 
     for strategy in strategies:
         ydl_opts = base_ydl_opts.copy()
@@ -295,7 +280,7 @@ def _try_ytdlp(video_id):
                 if url:
                     return url
         except Exception as e:
-            # We can log this to help debug why it failed
+            
             print(f"[DEBUG] yt-dlp strategy failed: {e}")
             continue
     return None
@@ -391,19 +376,19 @@ def _extract_stream_url(video_id):
         if now - cached['time'] < 1800:
             return cached['url']
 
-    # Layer 1: yt-dlp (most reliable)
+   
     url = _try_ytdlp(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
         return url
 
-    # Layer 2: Piped API (no binary needed)
+   
     url = _try_piped(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
         return url
 
-    # Layer 3: Invidious API (last resort)
+    
     url = _try_invidious(video_id)
     if url:
         stream_url_cache[video_id] = {'url': url, 'time': now}
