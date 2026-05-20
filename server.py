@@ -147,11 +147,11 @@ def get_related(video_id: str, limit: int = 10):
         return {"success": False, "error": str(e)}
 
 
-# ─── स्मार्ट एक्सट्रैक्शन एजेंट ───
-_instance_health = {}
-_HEALTH_COOLDOWN = 300  # फ़ेल होने वाले इंस्टेंस को 5 मिनट स्किप करें
 
-# Correct Piped API instances (pipedapi. prefix important!)
+_instance_health = {}
+_HEALTH_COOLDOWN = 300  
+
+
 PIPED_INSTANCES = [
     "https://pipedapi.kavin.rocks",
     "https://pipedapi.syncpundit.io",
@@ -214,16 +214,17 @@ def _extract_url_from_info(info):
 
 
 def _try_ytdlp(video_id):
-    """Layer 1: yt-dlp with socket_timeout for faster fallback"""
+    """Layer 1: yt-dlp with IP-Ban Bypass Strategy"""
     base_ydl_opts = {
         'quiet': True,
         'no_warnings': True,
         'extract_flat': False,
-        'socket_timeout': 4,          # ← 4 sec timeout: jaldi fail ho, Piped par jaye
+        'socket_timeout': 5,
+        'proxy': 'http://anyip.io', 
         'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                          'AppleWebKit/537.36 (KHTML, like Gecko) '
-                          'Chrome/120.0.0.0 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
         }
     }
 
@@ -237,46 +238,47 @@ def _try_ytdlp(video_id):
         cookie_path = "cookies.txt"
 
     strategies = []
-
+    
+    # स्ट्रैटेजी 1: बिना कुकीज़ के सीधा एंड्रॉइड क्लाइंट (यह सबसे ज़्यादा वर्किंग है)
+    strategies.append({
+        'format': 'ba/bestaudio/best',
+        'extractor_args': {'youtube': {'player_client': ['android'], 'skip': ['webpage']}}
+    })
+    
+    # स्ट्रैटेजी 2: कुकीज़ + वेब क्लाइंट फॉलबैक
     if cookie_path:
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['web', 'default']}}
         })
-        strategies.append({
-            'cookiefile': cookie_path,
-            'format': 'ba/bestaudio/best',
-            'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}
-        })
-        strategies.append({
-            'cookiefile': cookie_path,
-            'format': 'best',
-            'extractor_args': {'youtube': {'player_client': ['web']}}
-        })
-    else:
-        strategies.extend([
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['web', 'default']}}},
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['ios', 'android']}}},
-            {'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['tv']}}},
-            {'format': 'best', 'extractor_args': {'youtube': {'player_client': ['web']}}},
-        ])
 
     for strategy in strategies:
         ydl_opts = base_ydl_opts.copy()
         ydl_opts.update(strategy)
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(
-                    f"https://www.youtube.com/watch?v={video_id}", download=False
-                )
+                info = ydl.extract_info(f"https://youtube.com{video_id}", download=False)
                 url = _extract_url_from_info(info)
                 if url:
                     return url
         except Exception as e:
             print(f"[DEBUG] yt-dlp strategy failed: {e}")
             continue
+            
+    # अगर प्रॉक्सी के साथ भी फेल हो, तो एक बार बिना प्रॉक्सी के भी नॉर्मल ट्राई कर लें
+    try:
+        no_proxy_opts = base_ydl_opts.copy()
+        no_proxy_opts.pop('proxy', None)
+        no_proxy_opts.update({'format': 'ba/bestaudio/best', 'extractor_args': {'youtube': {'player_client': ['android']}}})
+        with yt_dlp.YoutubeDL(no_proxy_opts) as ydl:
+            info = ydl.extract_info(f"https://youtube.com{video_id}", download=False)
+            return _extract_url_from_info(info)
+    except:
+        pass
+        
     return None
+
 
 
 def _try_piped(video_id):
@@ -409,7 +411,8 @@ def get_stream(video_id: str):
 
 @app.get("/audio/{video_id}")
 def audio_proxy(video_id: str, request: Request):
-    from fastapi import HTTPException  # इसे टॉप पर भी रख सकते हैं
+    from fastapi import HTTPException  
+
     try:
         audio_url = _extract_stream_url(video_id)
         if not audio_url:
