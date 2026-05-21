@@ -16,11 +16,11 @@ load_dotenv()
 
 # Cookie verification on import (runs under uvicorn too)
 if os.path.exists("cookies.txt"):
-    print("✅ [COOKIES] Found 'cookies.txt' in workspace! yt-dlp will use browser cookies.")
+    print(" [COOKIES] Found 'cookies.txt' in workspace! yt-dlp will use browser cookies.")
 elif os.getenv("YT_COOKIES"):
-    print("✅ [COOKIES] Found YT_COOKIES environment variable! yt-dlp will use environment cookies.")
+    print(" [COOKIES] Found YT_COOKIES environment variable! yt-dlp will use environment cookies.")
 else:
-    print("⚠️  [WARNING] No 'cookies.txt' found in workspace, and YT_COOKIES is not set.")
+    print("  [WARNING] No 'cookies.txt' found in workspace, and YT_COOKIES is not set.")
     print("    YouTube streams may fail with 'Sign in to confirm you're not a bot'.")
 
 app = FastAPI()
@@ -236,27 +236,27 @@ def _try_ytdlp(video_id):
 
     strategies = []
     
-    # स्ट्रेटेजी 1: कुकीज़ + एंड्रॉइड क्लाइंट (रेंडर सर्वर के लिए 100% अचूक और बुलेटप्रूफ तरीका)
+    
     if cookie_path:
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['android']}}
         })
-        # स्ट्रेटेजी 2: कुकीज़ + वेब डिफ़ॉल्ट क्लाइंट
+       
         strategies.append({
             'cookiefile': cookie_path,
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['web', 'default']}}
         })
     else:
-        # बिना कुकीज़ के फॉलबैक (अगर रेंडर एनवायरनमेंट लोड न हो)
+        
         strategies.append({
             'format': 'ba/bestaudio/best',
             'extractor_args': {'youtube': {'player_client': ['android']}}
         })
 
-    # सही यूट्यूब यूआरएल फॉर्मेट (यहाँ स्पेस और फॉर्मेटिंग एकदम फिक्स है)
+    
     youtube_url = f"https://youtube.com{video_id}"
 
     for strategy in strategies:
@@ -367,7 +367,7 @@ def _extract_stream_url(video_id):
         if now - cached['time'] < 1800:
             return cached['url']
 
-    # Layer 1: yt-dlp
+    
     print(f"[LOG] Trying Layer 1: yt-dlp for {video_id}...")
     url = _try_ytdlp(video_id)
     if url:
@@ -375,7 +375,7 @@ def _extract_stream_url(video_id):
         print(f"[LOG] Layer 1 success: yt-dlp ✅")
         return url
 
-    # Layer 2: Piped API
+    
     print(f"[LOG] Layer 1 failed. Moving to Layer 2: Piped API...")
     url = _try_piped(video_id)
     if url:
@@ -383,7 +383,7 @@ def _extract_stream_url(video_id):
         print(f"[LOG] Layer 2 success: Piped ✅")
         return url
 
-    # Layer 3: Invidious API
+
     print(f"[LOG] Layer 2 failed. Moving to Layer 3: Invidious API...")
     url = _try_invidious(video_id)
     if url:
@@ -462,7 +462,8 @@ def serve_file(filename: str):
     return FileResponse("index.html")
 
 if __name__ == "__main__":
+    import uvicorn
     port = int(os.getenv("PORT", 8000))
     print(f"Starting Wave Music Backend Server on port {port}...")
     print("Endpoints: /, /health, /search, /stream/{id}, /audio/{id}")
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run("server:app", host="0.0.0.0", port=port, reload=True)
