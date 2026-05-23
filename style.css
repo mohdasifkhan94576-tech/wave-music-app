@@ -196,7 +196,7 @@ body {
   cursor: pointer;
 }
 
-/* Notification Mode */
+
 .di-notif-content {
   display: flex; align-items: center; gap: 10px; width: 100%;
 }
@@ -217,7 +217,7 @@ body {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: none;
 }
 
-/* Media Mode */
+
 .di-media-content {
   width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
 }
@@ -284,7 +284,7 @@ body {
 .di-expanded-controls button svg { width: 28px; height: 28px; }
 #di-play-btn svg { width: 38px; height: 38px; }
 
-/* States */
+
 .dynamic-island.di-show {
   transform: scaleX(1); opacity: 1; pointer-events: auto; width: max-content;
 }
@@ -301,7 +301,7 @@ body {
 .dynamic-island.di-expanded .di-media-collapsed { display: none; }
 .dynamic-island.di-expanded .di-media-expanded { display: flex; }
 
-/* Variants */
+
 .dynamic-island.di-success .di-icon { color: #22c55e; }
 .dynamic-island.di-warning .di-icon { color: #ef4444; }
 .dynamic-island.di-info .di-icon { color: #3b82f6; }

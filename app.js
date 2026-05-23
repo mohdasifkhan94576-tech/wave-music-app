@@ -670,13 +670,13 @@ async function _populateHomeSections() {
       _sourceBadge(sources.newReleases, { bg: '#f59e0b,#ef4444', color: '#fff', text: 'LATEST' }));
   }
 
-  // Dynamic Artists Section
+  
   const artistsEl = document.getElementById('home-artists-section');
   if (artistsEl) {
     let homeArtists = [];
     let sectionTitle = 'Popular Artists';
     
-    // Extract unique artist names from recent plays
+    
     const recentArtistNames = [];
     state.recentSongs.forEach(s => {
       const primaryArtist = s.artist.split(',')[0].trim();
@@ -693,7 +693,7 @@ async function _populateHomeSections() {
         const matched = ARTISTS.find(a => a.name.toLowerCase() === cleanName.toLowerCase());
         if (matched) return matched;
 
-        // Try to query real profile picture from JioSaavn
+        
         try {
           const apiArtists = await JIOSAAVN_API.searchArtists(cleanName);
           const bestMatch = apiArtists.find(a => a.name.toLowerCase() === cleanName.toLowerCase()) || apiArtists[0];
@@ -706,7 +706,7 @@ async function _populateHomeSections() {
               sub: 'Recent Artist'
             };
             RESOLVED_ARTISTS_CACHE.set(dynamicArtist.id, dynamicArtist);
-            // Also cache with name-slug format to cover both lookup methods
+            
             const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             RESOLVED_ARTISTS_CACHE.set(`artist-${slug}`, dynamicArtist);
             return dynamicArtist;
@@ -715,7 +715,7 @@ async function _populateHomeSections() {
           console.error('Failed fetching artist profile image:', e);
         }
 
-        // Fallback to song poster/thumb
+        
         const matchingSong = state.recentSongs.find(s => s.artist.split(',')[0].trim() === cleanName);
         const fallbackImg = matchingSong ? matchingSong.thumb : '';
         const fallbackArtist = getArtistObj(cleanName, fallbackImg);
@@ -730,10 +730,10 @@ async function _populateHomeSections() {
         }
       });
       
-      // Pad with default artists up to 8
-      if (homeArtists.length < 8) {
+      
+      if (homeArtists.length < 15) {
         ARTISTS.forEach(defArtist => {
-          if (homeArtists.length < 8 && !homeArtists.some(a => a.name.toLowerCase() === defArtist.name.toLowerCase())) {
+          if (homeArtists.length < 15 && !homeArtists.some(a => a.name.toLowerCase() === defArtist.name.toLowerCase())) {
             homeArtists.push(defArtist);
           }
         });
@@ -742,7 +742,7 @@ async function _populateHomeSections() {
       homeArtists = [...ARTISTS];
     }
     
-    homeArtists = homeArtists.slice(0, 8);
+    homeArtists = homeArtists.slice(0, 15);
     artistsEl.innerHTML = buildSection(sectionTitle, homeArtists, false);
   }
 }
