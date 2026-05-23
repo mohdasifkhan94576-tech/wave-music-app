@@ -2,12 +2,152 @@
 'use strict';
 
 const SONGS = [];
-const ARTISTS = [];
+const ARTISTS = [
+  {
+    id: 'arijit-singh',
+    name: 'Arijit Singh',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=300&h=300&fit=crop',
+    listeners: '38,451,920',
+    sub: '38.4M listeners'
+  },
+  {
+    id: 'shreya-ghoshal',
+    name: 'Shreya Ghoshal',
+    img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=300&h=300&fit=crop',
+    listeners: '18,230,140',
+    sub: '18.2M listeners'
+  },
+  {
+    id: 'atif-aslam',
+    name: 'Atif Aslam',
+    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=300&h=300&fit=crop',
+    listeners: '15,842,910',
+    sub: '15.8M listeners'
+  },
+  {
+    id: 'neha-kakkar',
+    name: 'Neha Kakkar',
+    img: 'https://images.unsplash.com/photo-1487180142328-054b783fc471?q=80&w=300&h=300&fit=crop',
+    listeners: '22,510,870',
+    sub: '22.5M listeners'
+  },
+  {
+    id: 'diljit-dosanjh',
+    name: 'Diljit Dosanjh',
+    img: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=300&h=300&fit=crop',
+    listeners: '14,350,210',
+    sub: '14.3M listeners'
+  },
+  {
+    id: 'badshah',
+    name: 'Badshah',
+    img: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&h=300&fit=crop',
+    listeners: '16,120,440',
+    sub: '16.1M listeners'
+  },
+  {
+    id: 'armaan-malik',
+    name: 'Armaan Malik',
+    img: 'https://images.unsplash.com/photo-1525417071002-5ee4e6bb44f7?q=80&w=300&h=300&fit=crop',
+    listeners: '11,890,520',
+    sub: '11.8M listeners'
+  },
+  {
+    id: 'anirudh-ravichander',
+    name: 'Anirudh Ravichander',
+    img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=300&h=300&fit=crop',
+    listeners: '12,980,110',
+    sub: '12.9M listeners'
+  }
+];
+
+const RESOLVED_ARTISTS_CACHE = new Map();
+
+function findArtistById(artistId) {
+  let artist = ARTISTS.find(a => a.id === artistId);
+  if (artist) return artist;
+
+  if (RESOLVED_ARTISTS_CACHE.has(artistId)) {
+    return RESOLVED_ARTISTS_CACHE.get(artistId);
+  }
+
+  for (const song of state.recentSongs) {
+    const primaryName = song.artist.split(',')[0].trim();
+    const slug = primaryName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    if (`artist-${slug}` === artistId) {
+      return {
+        id: artistId,
+        name: primaryName,
+        img: song.thumb,
+        listeners: '1,250,000',
+        sub: 'Recent Artist'
+      };
+    }
+  }
+
+  const likedSongs = SONGS.filter(s => state.likedSongs.includes(s.id));
+  for (const song of likedSongs) {
+    const primaryName = song.artist.split(',')[0].trim();
+    const slug = primaryName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    if (`artist-${slug}` === artistId) {
+      return {
+        id: artistId,
+        name: primaryName,
+        img: song.thumb,
+        listeners: '1,100,000',
+        sub: 'Recent Artist'
+      };
+    }
+  }
+
+  for (const song of SONGS) {
+    const primaryName = song.artist.split(',')[0].trim();
+    const slug = primaryName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    if (`artist-${slug}` === artistId) {
+      return {
+        id: artistId,
+        name: primaryName,
+        img: song.thumb,
+        listeners: '1,000,000',
+        sub: 'Recent Artist'
+      };
+    }
+  }
+
+  if (artistId.startsWith('artist-')) {
+    const nameSlug = artistId.replace('artist-', '');
+    const name = nameSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    return {
+      id: artistId,
+      name: name,
+      img: 'https://placehold.co/300x300/1a1a2e/a855f7?text=' + encodeURIComponent(name),
+      listeners: '1,000,000',
+      sub: 'Artist'
+    };
+  }
+
+  return ARTISTS[0];
+}
+
+function getArtistObj(name, fallbackImg) {
+  const cleanName = name.trim();
+  const matched = ARTISTS.find(a => a.name.toLowerCase() === cleanName.toLowerCase());
+  if (matched) return matched;
+  
+  const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return {
+    id: `artist-${slug}`,
+    name: cleanName,
+    img: fallbackImg || `https://placehold.co/300x300/1a1a2e/a855f7?text=${encodeURIComponent(cleanName.substring(0, 10))}`,
+    listeners: '1,200,000',
+    sub: 'Recent Artist'
+  };
+}
 const MIXES = [
-  { id: 'm1', title: 'Chill Vibes Mix', sub: 'Relax and unwind', img: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%231e1b4b"/><text x="50%" y="50%" font-family="sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Chill Vibes</text></svg>' },
-  { id: 'm2', title: 'Workout Hits', sub: 'Get pumped', img: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%237f1d1d"/><text x="50%" y="50%" font-family="sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Workout Hits</text></svg>' },
-  { id: 'm3', title: 'Bollywood Mix', sub: 'Best of Bollywood', img: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%2314532d"/><text x="50%" y="50%" font-family="sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Bollywood</text></svg>' },
-  { id: 'm4', title: 'Acoustic Romance', sub: 'Unplugged love songs', img: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="%23701a75"/><text x="50%" y="50%" font-family="sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Acoustic</text></svg>' }
+  { id: 'm1', title: 'Chill Vibes Mix', sub: 'Relax and unwind', img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%231e1b4b'/><text x='50%' y='50%' font-family='sans-serif' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle'>Chill Vibes</text></svg>" },
+  { id: 'm2', title: 'Workout Hits', sub: 'Get pumped', img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%237f1d1d'/><text x='50%' y='50%' font-family='sans-serif' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle'>Workout Hits</text></svg>" },
+  { id: 'm3', title: 'Bollywood Mix', sub: 'Best of Bollywood', img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%2314532d'/><text x='50%' y='50%' font-family='sans-serif' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle'>Bollywood</text></svg>" },
+  { id: 'm4', title: 'Acoustic Romance', sub: 'Unplugged love songs', img: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='300' height='300' fill='%23701a75'/><text x='50%' y='50%' font-family='sans-serif' font-size='24' fill='white' text-anchor='middle' dominant-baseline='middle'>Acoustic</text></svg>" }
 ];
 const PODCASTS = [];
 const TRENDING = [];
@@ -35,8 +175,7 @@ let audio;
 let searchTimeout;
 
 let savedJioSaavnSongs = [];
-let searchSource = 'youtube';
-let ytBackendOnline = false;
+let searchSource = 'jiosaavn';
 
 function saveUserState() {
   const today = new Date().toISOString().split('T')[0];
@@ -95,7 +234,6 @@ function loadUserState() {
 
 function cacheJioSaavnSong(song) {
   if (!song || typeof song.id === 'number') return;
-  if (song.audioUrl && song.audioUrl.startsWith('yt_stream_pending_')) return;
   if (!savedJioSaavnSongs.find(s => s.id === song.id)) {
     savedJioSaavnSongs.push(song);
     saveUserState();
@@ -111,11 +249,6 @@ window.addEventListener('DOMContentLoaded', () => {
   loadUserProfile();
   renderView('home');
   initAudio();
-
-  YOUTUBE_API.isAvailable().then(ok => {
-    ytBackendOnline = ok;
-    if (!ok) searchSource = 'jiosaavn';
-  });
 
   if (!localStorage.getItem('wave_user_name')) {
     setTimeout(() => {
@@ -301,10 +434,12 @@ function getHomeHTML() {
 
     <div id="sections-container">
       ${recentRow}
+      <!-- Dynamic Artists Section -->
+      <div id="home-artists-section">${_homeSkeleton('Popular Artists')}</div>
       <!-- Smart Recommendations (injected live when song plays) -->
       <div id="rec-artist-section"></div>
       <div id="rec-genre-section"></div>
-      <!-- Dynamic YouTube Music Sections (populated after render) -->
+      <!-- Dynamic JioSaavn Music Sections (populated after render) -->
       <div id="home-discover-section">${_homeSkeleton('Discover Fresh')}</div>
       <div id="home-trending-section">${_homeSkeleton('Trending Now')}</div>
       <div id="home-mixes-section">${_homeSkeleton('Your Top Mixes')}</div>
@@ -322,8 +457,8 @@ function _homeSkeleton(title) {
     <div class="section-block">
       <div class="section-header">
         <h2 class="rec-title-animated">${title}</h2>
-        <span style="font-size:11px; color:#ef4444; font-weight:600; display:flex; align-items:center; gap:5px;">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
+        <span style="font-size:11px; color:#1db954; font-weight:600; display:flex; align-items:center; gap:5px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
           Loading...
         </span>
       </div>
@@ -340,7 +475,7 @@ function _homeSkeleton(title) {
   `;
 }
 
-function _buildDynamicSection(title, songs, badge, source) {
+function _buildDynamicSection(title, songs, badge) {
   if (!songs || songs.length === 0) {
     return `
       <div class="section-block rec-section-in">
@@ -355,12 +490,9 @@ function _buildDynamicSection(title, songs, badge, source) {
   }
   const badgeHtml = badge ? `<div style="position:absolute; top:8px; right:8px; background:linear-gradient(135deg,${badge.bg}); padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; color:${badge.color}; letter-spacing:0.5px;">${badge.text}</div>` : '';
 
-  const isJioSaavn = source === 'jiosaavn';
-  const sourceIcon = isJioSaavn 
-    ? `<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`
-    : `<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>`;
-  const sourceLabel = isJioSaavn ? 'JioSaavn' : 'YouTube Music';
-  const sourceColor = isJioSaavn ? '#1db954' : '#ef4444';
+  const sourceIcon = `<svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
+  const sourceLabel = 'JioSaavn';
+  const sourceColor = '#1db954';
 
   const cards = songs.map(song => `
     <div class="music-card rec-card" onclick="playJioSaavnSong(SONGS.find(s=>s.id==='${song.id}'))">
@@ -419,13 +551,8 @@ async function _populateHomeSections() {
   }
 
   const currentYear = new Date().getFullYear();
-  const useYT = ytBackendOnline;
   
   async function _fetchSongs(query, limit) {
-    if (useYT) {
-      const ytResults = await YOUTUBE_API.searchSongs(query, limit);
-      if (ytResults && ytResults.length > 0) return { songs: ytResults, source: 'youtube' };
-    }
     try {
       const jioResults = await JIOSAAVN_API.searchSongs(query, limit);
       return { songs: jioResults.filter(s => s.audioUrl), source: 'jiosaavn' };
@@ -435,10 +562,6 @@ async function _populateHomeSections() {
   }
 
   async function _fetchTrending(limit) {
-    if (useYT) {
-      const ytResults = await YOUTUBE_API.getTrending(limit);
-      if (ytResults && ytResults.length > 0) return { songs: ytResults, source: 'youtube' };
-    }
     try {
       const jioResults = await JIOSAAVN_API.searchSongs('trending hits ' + currentYear, limit);
       return { songs: jioResults.filter(s => s.audioUrl), source: 'jiosaavn' };
@@ -452,7 +575,7 @@ async function _populateHomeSections() {
     trending:    _fetchTrending(10),
     mixes:       _fetchSongs('party hits', 10),
     podcasts:    _fetchSongs('motivational podcast', 8),
-    newReleases: _fetchSongs(`new releases ${currentYear}`, 10),
+    newReleases: _fetchSongs('latest hindi songs', 10),
     mfy1:        _fetchSongs(mfyQueries[0], 6),
     mfy2:        _fetchSongs(mfyQueries[1], 6),
     mfy3:        _fetchSongs(mfyQueries[2] || 'Neha Kakkar hits', 6),
@@ -472,9 +595,6 @@ async function _populateHomeSections() {
   });
 
   function _sourceBadge(source, badge) {
-    if (source === 'jiosaavn') {
-      return { ...badge, text: badge.text };
-    }
     return badge;
   }
 
@@ -507,25 +627,25 @@ async function _populateHomeSections() {
   const discoverEl = document.getElementById('home-discover-section');
   if (discoverEl) {
     discoverEl.innerHTML = _buildDynamicSection('Discover Fresh', data.discover, 
-      _sourceBadge(sources.discover, { bg: '#1db954,#1ed760', color: '#000', text: 'NEW' }), sources.discover);
+      _sourceBadge(sources.discover, { bg: '#1db954,#1ed760', color: '#000', text: 'NEW' }));
   }
 
   const trendingEl = document.getElementById('home-trending-section');
   if (trendingEl) {
     trendingEl.innerHTML = _buildDynamicSection('Trending Now', data.trending.slice(1), 
-      _sourceBadge(sources.trending, { bg: '#ef4444,#f97316', color: '#fff', text: 'HOT' }), sources.trending);
+      _sourceBadge(sources.trending, { bg: '#ef4444,#f97316', color: '#fff', text: 'HOT' }));
   }
 
   const mixesEl = document.getElementById('home-mixes-section');
   if (mixesEl) {
     mixesEl.innerHTML = _buildDynamicSection('Your Top Mixes', data.mixes, 
-      _sourceBadge(sources.mixes, { bg: '#a855f7,#6366f1', color: '#fff', text: 'MIX' }), sources.mixes);
+      _sourceBadge(sources.mixes, { bg: '#a855f7,#6366f1', color: '#fff', text: 'MIX' }));
   }
 
   const podcastsEl = document.getElementById('home-podcasts-section');
   if (podcastsEl) {
     podcastsEl.innerHTML = _buildDynamicSection('Podcasts & Talks', data.podcasts, 
-      _sourceBadge(sources.podcasts, { bg: '#0ea5e9,#06b6d4', color: '#fff', text: 'TALK' }), sources.podcasts);
+      _sourceBadge(sources.podcasts, { bg: '#0ea5e9,#06b6d4', color: '#fff', text: 'TALK' }));
   }
 
   const mfySongs = [...(data.mfy1 || []), ...(data.mfy2 || []), ...(data.mfy3 || [])];
@@ -538,16 +658,92 @@ async function _populateHomeSections() {
   const mfyEl = document.getElementById('home-madeforyou-section');
   if (mfyEl) {
     const mfyLabel = userArtists.length >= 2 
-      ? `Made For You â€” ${userArtists.slice(0, 2).join(', ')} & more`
-      : "Made For You â€” India's Best";
+      ? `Made For You — ${userArtists.slice(0, 2).join(', ')} & more`
+      : "Made For You — India's Best";
     mfyEl.innerHTML = _buildDynamicSection(mfyLabel, uniqueMfy.slice(0, 12), 
-      _sourceBadge(mfySource, { bg: '#a855f7,#ec4899', color: '#fff', text: 'FOR YOU' }), mfySource);
+      _sourceBadge(mfySource, { bg: '#a855f7,#ec4899', color: '#fff', text: 'FOR YOU' }));
   }
 
   const newReleasesEl = document.getElementById('home-newreleases-section');
   if (newReleasesEl) {
     newReleasesEl.innerHTML = _buildDynamicSection('New Releases', data.newReleases, 
-      _sourceBadge(sources.newReleases, { bg: '#f59e0b,#ef4444', color: '#fff', text: 'LATEST' }), sources.newReleases);
+      _sourceBadge(sources.newReleases, { bg: '#f59e0b,#ef4444', color: '#fff', text: 'LATEST' }));
+  }
+
+  // Dynamic Artists Section
+  const artistsEl = document.getElementById('home-artists-section');
+  if (artistsEl) {
+    let homeArtists = [];
+    let sectionTitle = 'Popular Artists';
+    
+    // Extract unique artist names from recent plays
+    const recentArtistNames = [];
+    state.recentSongs.forEach(s => {
+      const primaryArtist = s.artist.split(',')[0].trim();
+      if (primaryArtist && !recentArtistNames.includes(primaryArtist)) {
+        recentArtistNames.push(primaryArtist);
+      }
+    });
+
+    if (recentArtistNames.length > 0) {
+      sectionTitle = 'Your Artists';
+      
+      const artistPromises = recentArtistNames.map(async (name) => {
+        const cleanName = name.trim();
+        const matched = ARTISTS.find(a => a.name.toLowerCase() === cleanName.toLowerCase());
+        if (matched) return matched;
+
+        // Try to query real profile picture from JioSaavn
+        try {
+          const apiArtists = await JIOSAAVN_API.searchArtists(cleanName);
+          const bestMatch = apiArtists.find(a => a.name.toLowerCase() === cleanName.toLowerCase()) || apiArtists[0];
+          if (bestMatch && bestMatch.img) {
+            const dynamicArtist = {
+              id: `artist-${bestMatch.id}`,
+              name: cleanName,
+              img: bestMatch.img,
+              listeners: '1,500,000',
+              sub: 'Recent Artist'
+            };
+            RESOLVED_ARTISTS_CACHE.set(dynamicArtist.id, dynamicArtist);
+            // Also cache with name-slug format to cover both lookup methods
+            const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            RESOLVED_ARTISTS_CACHE.set(`artist-${slug}`, dynamicArtist);
+            return dynamicArtist;
+          }
+        } catch (e) {
+          console.error('Failed fetching artist profile image:', e);
+        }
+
+        // Fallback to song poster/thumb
+        const matchingSong = state.recentSongs.find(s => s.artist.split(',')[0].trim() === cleanName);
+        const fallbackImg = matchingSong ? matchingSong.thumb : '';
+        const fallbackArtist = getArtistObj(cleanName, fallbackImg);
+        RESOLVED_ARTISTS_CACHE.set(fallbackArtist.id, fallbackArtist);
+        return fallbackArtist;
+      });
+
+      const resolved = await Promise.allSettled(artistPromises);
+      resolved.forEach(r => {
+        if (r.status === 'fulfilled' && r.value) {
+          homeArtists.push(r.value);
+        }
+      });
+      
+      // Pad with default artists up to 8
+      if (homeArtists.length < 8) {
+        ARTISTS.forEach(defArtist => {
+          if (homeArtists.length < 8 && !homeArtists.some(a => a.name.toLowerCase() === defArtist.name.toLowerCase())) {
+            homeArtists.push(defArtist);
+          }
+        });
+      }
+    } else {
+      homeArtists = [...ARTISTS];
+    }
+    
+    homeArtists = homeArtists.slice(0, 8);
+    artistsEl.innerHTML = buildSection(sectionTitle, homeArtists, false);
   }
 }
 
@@ -563,7 +759,6 @@ function getFooterHTML() {
         </div>
         <div class="footer-col">
           <h4>Data Sources</h4>
-          <a href="#" onclick="event.preventDefault(); openFooterPopup('youtube')">YouTube Music</a>
           <a href="#" onclick="event.preventDefault(); openFooterPopup('jiosaavn')">JioSaavn</a>
           <a href="#" onclick="event.preventDefault(); openFooterPopup('howItWorks')">How It Works</a>
         </div>
@@ -599,44 +794,40 @@ function getFooterHTML() {
 function openFooterPopup(type) {
   const popupData = {
     about: {
-      icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'About Wave Music',
-      content: '<div class="fp-section"><p>Wave Music is a <strong>modern, fast and beautiful</strong> music streaming app that gives you the best listening experience.</p></div><div class="fp-section"><h4>Features</h4><ul><li>YouTube Music + JioSaavn dual-source streaming</li><li>Smart search across multiple platforms</li><li>Dynamic Island with live now-playing info</li><li>Like songs, create playlists, track history</li><li>Mini player, queue management, shuffle & repeat</li><li>Beautiful dark theme with glassmorphism design</li><li>PWA support — install as app on any device</li></ul></div><div class="fp-section"><h4>Developer</h4><p>Built with love using vanilla HTML, CSS & JavaScript with a Python FastAPI backend. No frameworks, pure performance.</p></div><div class="fp-badge">Version 2.0 — May 2026</div>'
+      icon: '🎵', title: 'About Wave Music',
+      content: '<div class="fp-section"><p>Wave Music ek <strong>modern, fast aur beautiful</strong> music streaming app hai jo aapko best listening experience deta hai.</p></div><div class="fp-section"><h4>✨ Features</h4><ul><li>🎶 JioSaavn high-quality audio streaming</li><li>🔍 Smart search with instant results</li><li>📱 Dynamic Island with live now-playing info</li><li>💜 Like songs, create playlists, track history</li><li>🎧 Mini player, queue management, shuffle & repeat</li><li>🌙 Beautiful dark theme with glassmorphism design</li><li>⚡ PWA support — install as app on any device</li></ul></div><div class="fp-section"><h4>👨‍💻 Developer</h4><p>Built with ❤️ using vanilla HTML, CSS & JavaScript with a Python FastAPI backend. No frameworks, pure performance.</p></div><div class="fp-badge">Version 2.0 — May 2026</div>'
     },
     updates: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: "What's New — Updates",
-      content: '<div class="fp-update-item"><span class="fp-update-date">May 2026 — v2.0</span><h4>Major Update</h4><ul><li><strong>3-Layer Smart Extraction:</strong> yt-dlp → Piped API → Invidious API automatic fallback</li><li><strong>Auto-Play Fix:</strong> YouTube songs automatically play after loading</li><li><strong>Dynamic Island Sync:</strong> Now Playing info real-time sync</li><li><strong>Streaming Proxy:</strong> Audio is proxied from server, fast streaming</li><li><strong>Resume Playback:</strong> Continue from the same point after pause</li><li><strong>Cookie System:</strong> Fresh cookies support for reliable extraction</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Apr 2026 — v1.5</span><h4>UI Improvements</h4><ul><li>JioSaavn integration as fallback source</li><li>Profile system with avatar upload</li><li>Custom playlist creation & management</li><li>Mobile responsive design</li><li>Service Worker for offline caching</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Mar 2026 — v1.0</span><h4>Initial Release</h4><ul><li>YouTube Music search & streaming</li><li>Liked songs & recent history</li><li>Queue management & dark theme</li></ul></div><div class="fp-tip"><strong>Tip:</strong> If YouTube songs don\'t play then try the JioSaavn Browse section!</div>'
-    },
-    youtube: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'YouTube Music',
-      content: '<div class="fp-section"><p>Wave Music uses <strong>YouTube Music</strong> as the primary data source — the world\'s largest music library.</p></div><div class="fp-section"><h4>How YouTube Streaming Works</h4><ul><li><strong>YTMusic API</strong> is used to search songs</li><li><strong>yt-dlp</strong> is used to extract audio stream URLs</li><li>If yt-dlp fails then <strong>Piped API</strong> is tried</li><li>If Piped also fails then <strong>Invidious API</strong> is the last resort</li><li>Stream URLs are cached for instant playback</li></ul></div><div class="fp-section"><h4>If YouTube doesn\'t work?</h4><p>Sometimes songs don\'t play due to YouTube restrictions or cookie expiry. In that case:</p><ul><li>1. Go to the <strong>JioSaavn</strong> section in the sidebar</li><li>2. Search the same song from there</li><li>3. JioSaavn also provides high quality audio!</li></ul></div><div class="fp-badge">Powered by YouTube Music API</div>'
+      icon: '🚀', title: "What's New — Updates",
+      content: '<div class="fp-update-item"><span class="fp-update-date">May 2026 — v2.0</span><h4>🔥 Major Update</h4><ul><li>✅ <strong>Pure JioSaavn Streaming:</strong> Moved fully to JioSaavn for 100% reliable, fast, and high-quality audio streaming.</li><li>✅ <strong>Zero Extraction Delay:</strong> Instant playback without waiting for YouTube extraction.</li><li>✅ <strong>Dynamic Island Sync:</strong> Now Playing info real-time sync</li><li>✅ <strong>Resume Playback:</strong> Pause ke baad wahi se continue</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Apr 2026 — v1.5</span><h4>🎨 UI Improvements</h4><ul><li>✅ JioSaavn integration</li><li>✅ Profile system with avatar upload</li><li>✅ Custom playlist creation & management</li><li>✅ Mobile responsive design</li><li>✅ Service Worker for offline caching</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Mar 2026 — v1.0</span><h4>🎉 Initial Release</h4><ul><li>✅ Music search & streaming</li><li>✅ Liked songs & recent history</li><li>✅ Queue management & dark theme</li></ul></div>'
     },
     jiosaavn: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'JioSaavn',
-      content: '<div class="fp-section"><p><strong>JioSaavn</strong> is India\'s leading music streaming platform. Wave Music uses it as a secondary/fallback source.</p></div><div class="fp-section"><h4>JioSaavn Features</h4><ul><li>Bollywood, Indie, Devotional, Regional — everything available</li><li>High quality 320kbps audio streaming</li><li>Fast loading — no extraction delay</li><li>YouTube\'s backup — JioSaavn works when YT fails</li></ul></div><div class="fp-section"><h4>When to use it?</h4><p>When YouTube songs are taking time to load or showing errors, click on <strong>"JioSaavn"</strong> in the sidebar and browse from there.</p></div><div class="fp-tip"><strong>Pro Tip:</strong> JioSaavn gives the best quality for Bollywood and Hindi songs!</div>'
+      icon: '🎵', title: 'JioSaavn',
+      content: '<div class="fp-section"><p><strong>JioSaavn</strong> India ka leading music streaming platform hai. Wave Music ise primary source ke roop mein use karta hai high-quality audio streaming ke liye.</p></div><div class="fp-section"><h4>🎶 JioSaavn Features</h4><ul><li>🇮🇳 Bollywood, Indie, Devotional, Regional — sab milta hai</li><li>🔊 High quality audio streaming</li><li>⚡ Fast loading — no extraction delay</li></ul></div><div class="fp-tip"><strong>Pro Tip:</strong> Bollywood aur Hindi songs ke liye JioSaavn best quality deta hai!</div>'
     },
     howItWorks: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'How Wave Music Works',
-      content: '<div class="fp-section"><h4>Search</h4><p>When you search for a song, Wave first fetches results from the YouTube Music API. If YouTube is not available then results come from JioSaavn.</p></div><div class="fp-section"><h4>Streaming — 3-Layer System</h4><div class="fp-layers"><div class="fp-layer"><span class="fp-layer-num">1</span><div><strong>yt-dlp</strong><p>First, direct Google Video URL is extracted via yt-dlp.</p></div></div><div class="fp-layer"><span class="fp-layer-num">2</span><div><strong>Piped API</strong><p>If yt-dlp fails, then Piped API instances are tried.</p></div></div><div class="fp-layer"><span class="fp-layer-num">3</span><div><strong>Invidious API</strong><p>Last resort — audio is fetched from Invidious instances.</p></div></div></div></div><div class="fp-section"><h4>Fallback to JioSaavn</h4><p>If all three layers fail, you can play the song from the JioSaavn section.</p></div>'
+      icon: '⚙️', title: 'How Wave Music Works',
+      content: '<div class="fp-section"><h4>🔍 Search & Streaming</h4><p>Jab aap koi song search karte hain, Wave JioSaavn API se high quality results fetch karta hai aur direct stream URLs play karta hai for instant playback.</p></div>'
     },
     faq: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'FAQ',
-      content: '<div class="fp-faq"><div class="fp-faq-item"><h4>Q: Song is loading but not playing?</h4><p>A: Hard refresh the page (Ctrl+Shift+R). If still not working then try JioSaavn.</p></div><div class="fp-faq-item"><h4>Q: YouTube songs loading slowly?</h4><p>A: It takes 2-3 seconds to extract the stream for the first time. After that it stays cached.</p></div><div class="fp-faq-item"><h4>Q: Can we install on phone?</h4><p>A: Yes! Install via "Add to Home Screen" in the browser. This is a PWA.</p></div><div class="fp-faq-item"><h4>Q: Are liked songs saved?</h4><p>A: Yes, everything is saved in local storage.</p></div><div class="fp-faq-item"><h4>Q: What is Dynamic Island?</h4><p>A: A floating widget in the top center that shows current song info and controls — just like iPhone!</p></div></div>'
+      icon: '❓', title: 'FAQ',
+      content: '<div class="fp-faq"><div class="fp-faq-item"><h4>Q: Song loading ho raha hai lekin play nahi ho raha?</h4><p>A: Page ko hard refresh karein (Ctrl+Shift+R). Check your internet connection.</p></div><div class="fp-faq-item"><h4>Q: Phone par install kar sakte hain?</h4><p>A: Haan! Browser mein "Add to Home Screen" se install karein. Yeh ek PWA hai.</p></div><div class="fp-faq-item"><h4>Q: Liked songs save hoti hain?</h4><p>A: Haan, sab local storage mein save hota hai.</p></div><div class="fp-faq-item"><h4>Q: Dynamic Island kya hai?</h4><p>A: Top center mein floating widget jo current song info aur controls dikhata hai — iPhone jaisa!</p></div></div>'
     },
     tips: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Tips & Tricks',
-      content: '<div class="fp-section"><ul class="fp-tips-list"><li><strong>YouTube fail?</strong> — Try JioSaavn Browse section!</li><li><strong>Search:</strong> Start typing directly in the top bar</li><li><strong>Install:</strong> Browser menu → "Add to Home Screen"</li><li><strong>Shuffle:</strong> Randomize the queue</li><li><strong>Repeat:</strong> Play current song on loop</li><li><strong>Like:</strong> Press heart icon — saves in Liked Songs</li><li><strong>Playlists:</strong> Create custom playlist with "+" in the sidebar</li><li><strong>Dynamic Island:</strong> Click on top widget to expand</li><li><strong>Volume:</strong> Adjust with bottom right slider</li></ul></div>'
+      icon: '💡', title: 'Tips & Tricks',
+      content: '<div class="fp-section"><ul class="fp-tips-list"><li>⌨️ <strong>Search:</strong> Top bar mein direct type karna shuru karein</li><li>📱 <strong>Install:</strong> Browser menu → "Add to Home Screen"</li><li>🔀 <strong>Shuffle:</strong> Queue randomize karein</li><li>🔁 <strong>Repeat:</strong> Current song loop par chalayein</li><li>💜 <strong>Like:</strong> Heart icon dabayein — Liked Songs mein save</li><li>📋 <strong>Playlists:</strong> Sidebar mein "+" se custom playlist banayein</li><li>🏝️ <strong>Dynamic Island:</strong> Top widget par click karke expand karein</li><li>🔊 <strong>Volume:</strong> Bottom right slider se adjust karein</li></ul></div>'
     },
     privacy: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Privacy Policy',
-      content: '<div class="fp-section"><p>Wave Music takes your privacy seriously.</p><ul><li>No personal data is stored on the server</li><li>All data stays in browser\'s local storage</li><li>No third-party tracking or analytics</li><li>Music is only streamed, not downloaded</li><li>Cookies only for YouTube extraction</li></ul></div><div class="fp-badge">Your data stays on your device</div>'
+      icon: '🔒', title: 'Privacy Policy',
+      content: '<div class="fp-section"><p>Wave Music aapki privacy ko seriously leta hai.</p><ul><li>🔒 Koi personal data server par store nahi hota</li><li>📱 Sab data browser ke local storage mein rehta hai</li><li>🚫 Koi third-party tracking ya analytics nahi</li><li>🎵 Music sirf stream hota hai, download nahi</li></ul></div><div class="fp-badge">Your data stays on your device</div>'
     },
     legal: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Legal Information',
-      content: '<div class="fp-section"><p>Wave Music is a <strong>personal/educational project</strong>.</p><ul><li>This app does not host any music — it only streams from publicly available APIs</li><li>YouTube and JioSaavn trademarks belong to their respective owners</li><li>Copyright of music content belongs to original artists and labels</li><li>This app is not for commercial use</li></ul></div>'
+      icon: '⚖️', title: 'Legal Information',
+      content: '<div class="fp-section"><p>Wave Music ek <strong>personal/educational project</strong> hai.</p><ul><li>📌 Yeh app koi music host nahi karta — sirf publicly available JioSaavn APIs se stream karta hai</li><li>📌 JioSaavn ke trademarks unke respective owners ke hain</li><li>📌 Music content ka copyright original artists aur labels ke paas hai</li><li>📌 Yeh app commercial use ke liye nahi hai</li></ul></div>'
     },
     contact: {
-       icon: '<span style="display:block;text-align:center;font-size:40px;font-weight:bold;line-height:1;position: relative;top: -8px;color:blue;">.</span>', title: 'Contact Us',
-      content: '<div class="fp-section"><p>Any questions or suggestions about Wave Music?</p><div class="fp-contact-items"><div class="fp-contact-item"><span>.</span><div><strong>Email</strong><p>wave.music.app@gmail.com</p></div></div><div class="fp-contact-item"><span>.</span><div><strong>Feedback</strong><p>If there is any bug or feature request in the app then do let us know!</p></div></div><div class="fp-contact-item"><span>.</span><div><strong>Share</strong><p>If you liked the app then share it with friends!</p></div></div></div></div>'
+      icon: '📬', title: 'Contact Us',
+      content: '<div class="fp-section"><p>Wave Music ke baare mein koi sawaal ya suggestion?</p><div class="fp-contact-items"><div class="fp-contact-item"><span>📧</span><div><strong>Email</strong><p>wave.music.app@gmail.com</p></div></div><div class="fp-contact-item"><span>💬</span><div><strong>Feedback</strong><p>App mein koi bug ya feature request ho toh zaroor batayen!</p></div></div><div class="fp-contact-item"><span>⭐</span><div><strong>Share</strong><p>Agar app pasand aaya toh friends ke sath share karein!</p></div></div></div></div>'
     }
   };
   const data = popupData[type];
@@ -668,7 +859,7 @@ function getPlaylistHTML(playlistId) {
   const playlist = allPlaylists.find(p => p.id === playlistId) || allPlaylists[0];
 
   const isCustom = playlistId.startsWith('up_');
-  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')"> Delete Playlist</button>` : '';
+  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')">ðŸ—‘ï¸ Delete Playlist</button>` : '';
 
   let playlistSongs = [];
   let isDynamicMix = false;
@@ -695,10 +886,10 @@ function getPlaylistHTML(playlistId) {
     setTimeout(async () => {
       try {
         const query = playlist.title.replace('Mix', '').trim() + " hits";
-        const results = await YOUTUBE_API.searchSongs(query, 20);
+        const results = await JIOSAAVN_API.searchSongs(query, 20);
 
         let loadedHtml = '';
-        results.forEach((song, i) => {
+        results.filter(s => s.audioUrl).forEach((song, i) => {
           if (!SONGS.find(s => s.id === song.id)) SONGS.push(song);
 
           loadedHtml += `
@@ -761,7 +952,7 @@ function getPlaylistHTML(playlistId) {
       <div class="pl-info">
         <span style="font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Playlist</span>
         <h1>${playlist.title}</h1>
-        <p style="color: var(--text-muted);">${playlist.sub}  ${isDynamicMix ? '50' : playlistSongs.length} songs</p>
+        <p style="color: var(--text-muted);">${playlist.sub} - ${isDynamicMix ? '50' : playlistSongs.length} songs</p>
         ${deleteBtn}
       </div>
     </div>
@@ -855,7 +1046,7 @@ function getLibraryHTML() {
         </div>
         <div class="lib-card-info">
           <div class="lib-card-title">${pl.title}</div>
-          <div class="lib-card-sub">Playlist â€¢ ${songCount} songs</div>
+          <div class="lib-card-sub">Playlist - ${songCount} songs</div>
         </div>
         <button class="lib-card-play" onclick="event.stopPropagation(); navigateTo('playlist', null, '${pl.id}')">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
@@ -944,39 +1135,90 @@ function playLikedSongs() {
 }
 
 function getArtistHTML(artistId) {
-  const artist = ARTISTS.find(a => a.id === artistId) || ARTISTS[0];
-  const artistSongs = SONGS.filter(s => s.artist.toLowerCase() === artist.name.toLowerCase());
-
-  const listHTML = artistSongs.map((song, i) => `
-    <div class="list-row" onclick="playSpecificSong('${song.id}')">
-      <div class="col-num">${i + 1}</div>
-      <div class="col-title">
-        <img src="${song.thumb}" alt="">
-        <div><h4>${song.title}</h4><p>${song.artist}</p></div>
-      </div>
-      <div class="col-time">${song.duration}</div>
-    </div>
-  `).join('');
-
+  const artist = findArtistById(artistId);
   const isFollowed = state.followedArtists.includes(artist.id);
   const followBtnClass = isFollowed ? 'follow-btn following' : 'follow-btn';
   const followBtnText = isFollowed ? 'Following' : 'Follow';
 
+  setTimeout(async () => {
+    try {
+      const container = document.getElementById('artist-songs-container');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+          <div style="margin: 0 auto 15px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--neon-purple); border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite;"></div>
+          Loading songs by ${artist.name}...
+        </div>
+      `;
+
+      const results = await JIOSAAVN_API.searchSongs(artist.name + ' songs', 25);
+      
+      if (results.length === 0) {
+        container.innerHTML = `<div style="padding: 20px; color: var(--text-muted); text-align: center;">No songs found for this artist.</div>`;
+        return;
+      }
+
+      results.forEach(song => {
+        if (!SONGS.find(s => s.id === song.id)) {
+          SONGS.push(song);
+        }
+      });
+
+      const listHTML = results.map((song, i) => `
+        <div class="list-row" onclick="playJioSaavnSong(SONGS.find(s => s.id === '${song.id}'))">
+          <div class="col-num">${i + 1}</div>
+          <div class="col-title">
+            <img src="${song.thumb}" alt="" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Music'">
+            <div>
+              <h4>${song.title}</h4>
+              <p>${song.artist}</p>
+            </div>
+          </div>
+          <div class="col-album">${song.album || 'Single'}</div>
+          <div class="col-time">${song.duration}</div>
+        </div>
+      `).join('');
+
+      container.innerHTML = listHTML;
+    } catch (err) {
+      console.error(err);
+      const container = document.getElementById('artist-songs-container');
+      if (container) {
+        container.innerHTML = `<div style="padding: 20px; color: #ff5555; text-align: center;">Failed to load songs. Please try again.</div>`;
+      }
+    }
+  }, 100);
+
   return `
+    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
     <div class="pl-header" style="align-items: center; margin-top: 20px;">
-      <img src="${artist.img}" class="pl-cover" style="border-radius: 50%;" alt="">
+      <img src="${artist.img}" class="pl-cover" style="border-radius: 50%; object-fit: cover;" alt="" onerror="this.src='https://placehold.co/300x300/1a1a2e/a855f7?text=Artist'">
       <div class="pl-info">
         <span style="font-size: 12px; font-weight: 700; color: #3b82f6; display: flex; align-items: center; gap: 4px;">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
           Verified Artist
         </span>
-        <h1 style="font-size: 72px;">${artist.name}</h1>
+        <h1 style="font-size: 72px; line-height: 1.1;">${artist.name}</h1>
         <p style="color: var(--text-muted); margin-bottom: 16px;">${artist.listeners || '1,234,567'} monthly listeners</p>
         <button class="${followBtnClass}" onclick="toggleFollow('${artist.id}')">${followBtnText}</button>
       </div>
     </div>
     <h3 style="margin: 30px 0 16px; font-size: 24px;">Popular</h3>
-    ${listHTML}
+    
+    <div class="list-head">
+      <div class="col-num">#</div>
+      <div class="col-title">TITLE</div>
+      <div class="col-album">ALBUM</div>
+      <div class="col-time">TIME</div>
+    </div>
+    
+    <div id="artist-songs-container">
+      <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+        <div style="margin: 0 auto 15px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--neon-purple); border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite;"></div>
+        Loading popular songs...
+      </div>
+    </div>
   `;
 }
 
@@ -987,7 +1229,7 @@ function getDiscoverPageHTML() {
       if (!container) return;
       container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-muted);"><div style="margin: 0 auto 15px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--neon-purple); border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite;"></div>Discovering fresh music from JioSaavn...</div>';
 
-      const results = await YOUTUBE_API.searchSongs('New Hits 2024', 16);
+      const results = await JIOSAAVN_API.searchSongs('New Hits 2026', 16);
 
       let html = `
         <div class="section-block" style="margin-top:8px;">
@@ -1055,14 +1297,14 @@ function getTrendingPageHTML() {
       if (!container) return;
       container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-muted);"><div style="margin: 0 auto 15px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--neon-purple); border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite;"></div>Loading Live Trending Charts from JioSaavn...</div>';
 
-      const results = await YOUTUBE_API.getTrending(16);
+      const results = await JIOSAAVN_API.searchSongs('trending hits ' + new Date().getFullYear(), 16);
 
       let html = `
         <div class="section-block" style="margin-top:8px;">
           <div class="section-header">
             <h2>Live Top Charts</h2>
-            <span style="font-size:12px; color:#ef4444; font-weight:600; display:flex; align-items:center; gap:5px;">
-               Live
+            <span style="font-size:12px; color:#1db954; font-weight:600; display:flex; align-items:center; gap:5px;">
+              🟢 JioSaavn Live
             </span>
           </div>
           <div class="cards-container">
@@ -1101,7 +1343,7 @@ function getTrendingPageHTML() {
     </div>
 
     <div class="jiosaavn-trending-bar">
-      <span class="trending-label"> Quick Play from JioSaavn:</span>
+      <span class="trending-label">ðŸ”¥ Quick Play from JioSaavn:</span>
       <div class="trending-quick-btns">
         <button onclick="showSearchResults('trending Hindi songs 2024')">Hindi Trending</button>
         <button onclick="showSearchResults('Diljit Dosanjh')">Diljit Dosanjh</button>
@@ -1122,7 +1364,7 @@ function getPodcastsPageHTML() {
       if (!container) return;
       container.innerHTML = '<div style="padding: 40px; text-align: center; color: var(--text-muted);"><div style="margin: 0 auto 15px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--neon-purple); border-radius: 50%; width: 28px; height: 28px; animation: spin 1s linear infinite;"></div>Loading popular podcasts...</div>';
 
-      const results = await YOUTUBE_API.searchSongs('Popular Podcasts', 12);
+      const results = await JIOSAAVN_API.searchSongs('Popular Podcasts', 12);
 
       let html = `
         <div class="section-block" style="margin-top:8px;">
@@ -1173,7 +1415,7 @@ function getPodcastsPageHTML() {
 async function renderJioSaavnBrowse(container) {
   container.innerHTML = `
     <div style="padding-top: 20px; margin-bottom: 30px;">
-      <h1 style="font-size: 42px; font-weight: 800;"> Browse JioSaavn</h1>
+      <h1 style="font-size: 42px; font-weight: 800;">ðŸŽµ Browse JioSaavn</h1>
       <p style="color: var(--text-muted); margin-top: 8px;">Search and play millions of songs</p>
     </div>
     <div class="jiosaavn-discover-search" style="margin-bottom:40px;">
@@ -1226,7 +1468,7 @@ function getAlbumHTML(albumName) {
         <span style="font-size: 12px; font-weight: 700;">ALBUM</span>
         <h1>${albumName}</h1>
         <p style="color: var(--text-muted);">
-          <a href="#" onclick="navigateTo('artist', event, '${ARTISTS.find(a=>a.name===artist)?.id||'a1'}')" style="color: white; font-weight: 600; text-decoration: none;">${artist}</a> â€¢ 2024 â€¢ ${albumSongs.length} songs
+          <a href="#" onclick="navigateTo('artist', event, '${ARTISTS.find(a=>a.name===artist)?.id||('artist-' + artist.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}')" style="color: white; font-weight: 600; text-decoration: none;">${artist}</a> - 2024 - ${albumSongs.length} songs
         </p>
       </div>
     </div>
@@ -1250,15 +1492,20 @@ function buildSection(title, items, isWide) {
       ? `navigateTo('artist', event, '${item.id}')`
       : (isRecent ? `playRecentSong('${item.id}')` : (isWide ? `navigateTo('playlist', event, '${item.id}')` : `playSpecificSong('${item.id}')`));
 
+    const badgeHtml = isRecent 
+      ? `<div style="position:absolute; top:8px; right:8px; background:linear-gradient(135deg,#a855f7,#6366f1); padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; color:#fff; letter-spacing:0.5px;">RECENT</div>` 
+      : '';
+
     return `
-      <div class="music-card ${isWide ? 'wide' : ''}" onclick="${clickAction}">
+      <div class="music-card ${isWide ? 'wide' : ''} ${isArtist ? 'artist-card' : ''}" onclick="${clickAction}">
         <div class="card-img-wrap" style="${isArtist ? 'border-radius: 50%;' : ''}">
-          <img src="${item.thumb || item.img}" alt="${item.title || item.name}" loading="lazy">
+          <img src="${item.thumb || item.img}" alt="${item.title || item.name}" loading="lazy" onerror="this.src='https://placehold.co/200x200/1a1a1a/a855f7?text=${isArtist ? 'Artist' : 'Music'}'">
           <div class="card-overlay" style="${isArtist ? 'border-radius: 50%;' : ''}">
             <button class="card-play-btn" onclick="${playAction}">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </button>
           </div>
+          ${badgeHtml}
         </div>
         <div class="card-info" style="${isArtist ? 'text-align: center;' : ''}">
           <h3>${item.title || item.name}</h3>
@@ -1281,36 +1528,12 @@ function buildSection(title, items, isWide) {
   `;
 }
 
-let ytApiSearchResults = [];
-
 function setSearchSource(source) {
-  searchSource = source;
-  document.querySelectorAll('.sst-btn').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.querySelector(`.sst-${source === 'youtube' ? 'yt' : 'jio'}`);
-  if (activeBtn) activeBtn.classList.add('active');
-  const inputs = document.querySelectorAll('#search-input, #mobile-search-input');
-  let input = null;
-  inputs.forEach(inp => { if (inp.offsetParent !== null) input = inp; });
-  if (!input && inputs.length > 0) input = inputs[inputs.length - 1];
-  if (input && input.value.trim()) {
-    handleSearch({ target: input });
-  }
+  searchSource = 'jiosaavn';
 }
 
 function _getToggleHTML() {
-  const ytActive = searchSource === 'youtube' ? ' active' : '';
-  const jioActive = searchSource === 'jiosaavn' ? ' active' : '';
-  const ytOffline = !ytBackendOnline ? ' offline' : '';
-  return `<div class="search-source-toggle">
-    <button class="sst-btn sst-yt${ytActive}${ytOffline}" onclick="event.stopPropagation(); setSearchSource('youtube')" ${!ytBackendOnline ? 'title="Start backend to enable"' : ''}>
-      <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
-      YT Music
-    </button>
-    <button class="sst-btn sst-jio${jioActive}" onclick="event.stopPropagation(); setSearchSource('jiosaavn')">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-      JioSaavn
-    </button>
-  </div>`;
+  return '';
 }
 
 function handleSearch(e) {
@@ -1324,11 +1547,10 @@ function handleSearch(e) {
     return;
   }
 
-  const srcLabel = searchSource === 'youtube' ? 'YouTube Music' : 'JioSaavn';
   dropdown.innerHTML = _getToggleHTML() + `
     <div class="search-loading">
       <div class="search-spinner"></div>
-      <span>Searching ${srcLabel}...</span>
+      <span>Searching JioSaavn...</span>
     </div>
   `;
   dropdown.classList.remove('hidden');
@@ -1357,55 +1579,28 @@ function handleSearch(e) {
       `;
     });
 
-    if (searchSource === 'jiosaavn') {
-      try {
-        const apiResults = await handleJioSaavnSearch(term);
-        if (apiResults.length > 0) {
-          if (songResults.length || artistResults.length) html += '<div class="search-divider"></div>';
-          html += '<div class="search-section-label"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg> JioSaavn</div>';
-          apiResults.slice(0, 6).forEach((s, i) => {
-            html += `
-              <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(apiSearchResults[${i}])">
-                <img src="${s.thumb}">
-                <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
-                <div class="search-quality-badge">HD</div>
-              </div>
-            `;
-          });
+    try {
+      const apiResults = await handleJioSaavnSearch(term);
+      if (apiResults.length > 0) {
+        if (songResults.length || artistResults.length) html += '<div class="search-divider"></div>';
+        html += '<div class="search-section-label"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg> JioSaavn</div>';
+        apiResults.slice(0, 6).forEach((s, i) => {
           html += `
-            <div class="search-view-all" onclick="this.closest('.search-dropdown').classList.add('hidden'); showSearchResults('${term.replace(/'/g, "\\'")}')">
-              View all results for "${term}"
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(apiSearchResults[${i}])">
+              <img src="${s.thumb}">
+              <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
+              <div class="search-quality-badge">HD</div>
             </div>
           `;
-        }
-      } catch (err) {
+        });
+        html += `
+          <div class="search-view-all" onclick="this.closest('.search-dropdown').classList.add('hidden'); showSearchResults('${term.replace(/'/g, "\\'")}')">
+            View all results for "${term}"
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </div>
+        `;
       }
-    } else {
-      try {
-        const ytResults = await YOUTUBE_API.searchSongs(term, 6);
-        ytApiSearchResults = ytResults;
-        if (ytResults.length > 0) {
-          if (songResults.length || artistResults.length) html += '<div class="search-divider"></div>';
-          html += '<div class="search-section-label" style="color: #ef4444;"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg> YouTube Music</div>';
-          ytResults.forEach((s, i) => {
-            html += `
-              <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(ytApiSearchResults[${i}])">
-                <img src="${s.thumb}" style="border-radius: 4px;">
-                <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
-                <div class="search-quality-badge" style="background: linear-gradient(135deg, #ef4444, #f97316);">YT</div>
-              </div>
-            `;
-          });
-          html += `
-            <div class="search-view-all" onclick="this.closest('.search-dropdown').classList.add('hidden'); showSearchResults('${term.replace(/'/g, "\\'")}')">
-              View all results for "${term}"
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-            </div>
-          `;
-        }
-      } catch (err) {
-      }
+    } catch (err) {
     }
 
     if (html === _getToggleHTML()) {
@@ -1430,30 +1625,23 @@ async function showSearchResults(query) {
   const container = document.getElementById('main-view');
   const target = isMobile ? targetArea : container;
 
-  const srcLabel = searchSource === 'youtube' ? 'YouTube Music' : 'JioSaavn';
   target.innerHTML = `
     <div style="padding-top: ${isMobile ? '10' : '20'}px; margin-bottom: 30px;">
       ${isMobile ? '' : '<h1 style="font-size: 42px; font-weight: 800;">Search Results</h1>'}
-      <p style="color: var(--text-muted); margin-top: 8px;">Results for "${query}" on ${srcLabel}</p>
+      <p style="color: var(--text-muted); margin-top: 8px;">Results for "${query}" on JioSaavn</p>
     </div>
     <div class="search-results-loading">
       <div class="search-spinner large"></div>
-      <p>Searching ${srcLabel}...</p>
+      <p>Searching JioSaavn...</p>
     </div>
   `;
 
-  let jioSongs = [], ytSongs = [];
-  if (searchSource === 'jiosaavn') {
-    const jioResult = await JIOSAAVN_API.searchSongs(query, 30).catch(() => []);
-    jioSongs = jioResult || [];
-  } else {
-    const ytResult = await YOUTUBE_API.searchSongs(query, 20).catch(() => []);
-    ytSongs = ytResult || [];
-  }
+  let jioSongs = [];
+  const jioResult = await JIOSAAVN_API.searchSongs(query, 30).catch(() => []);
+  jioSongs = jioResult || [];
   apiSearchResults = jioSongs;
-  ytApiSearchResults = ytSongs;
 
-  if (jioSongs.length === 0 && ytSongs.length === 0) {
+  if (jioSongs.length === 0) {
     target.innerHTML = `
       <div style="padding-top: 20px; margin-bottom: 30px;">
         ${isMobile ? '' : '<h1 style="font-size: 42px; font-weight: 800;">Search Results</h1>'}
@@ -1488,7 +1676,7 @@ async function showSearchResults(query) {
       <div class="jiosaavn-badge-bar">
         <div class="jiosaavn-badge">
           <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-          JioSaavn â€” ${jioSongs.length} results
+          JioSaavn — ${jioSongs.length} results
         </div>
         <button class="play-all-btn" onclick="playAllSearchResults()">
           <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg>
@@ -1505,47 +1693,6 @@ async function showSearchResults(query) {
     `;
   }
 
-  let ytSection = '';
-  if (ytSongs.length > 0) {
-    const ytListHTML = ytSongs.map((song, i) => `
-      <div class="list-row" style="cursor:pointer;" onclick="playJioSaavnSong(ytApiSearchResults[${i}])">
-        <div class="col-num">${i + 1}</div>
-        <div class="col-title">
-          <img src="${song.thumb}" alt="" style="border-radius: 4px;">
-          <div>
-            <h4>${song.title}</h4>
-            <p>${song.artist}</p>
-          </div>
-        </div>
-        <div class="col-album">${song.album || ''}</div>
-        <div class="col-time">
-          <span class="quality-tag" style="background: linear-gradient(135deg, #ef4444, #f97316);">YT</span>
-        </div>
-      </div>
-    `).join('');
-
-    ytSection = `
-      <div style="margin-top: 32px;"></div>
-      <div class="jiosaavn-badge-bar" style="border-color: rgba(239,68,68,0.15); background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(249,115,22,0.03));">
-        <div class="jiosaavn-badge" style="color: #ef4444;">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
-          YouTube Music â€” ${ytSongs.length} results
-        </div>
-        <button class="play-all-btn" onclick="state.queue = [...ytApiSearchResults]; state.currentIndex = 0; playSong(0);">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg>
-          Play All
-        </button>
-      </div>
-      <div class="list-head">
-        <div class="col-num">#</div>
-        <div class="col-title">TITLE</div>
-        <div class="col-album">ALBUM</div>
-        <div class="col-time">TIME</div>
-      </div>
-      ${ytListHTML}
-    `;
-  }
-
   let artistsSection = '';
   const localArtists = ARTISTS.filter(a => a.name.toLowerCase().includes(query.toLowerCase())).slice(0, 6);
   if (localArtists.length > 0) {
@@ -1554,10 +1701,19 @@ async function showSearchResults(query) {
         <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">Artists</h2>
         <div style="display: flex; gap: 16px; overflow-x: auto; padding-bottom: 20px; margin-bottom: -20px;">
           ${localArtists.map(a => `
-            <div class="music-card" style="width: 150px; text-align: center; flex-shrink: 0;" onclick="navigateTo('artist', null, '${a.id}')">
-              <img src="${a.img}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px; display: block; box-shadow: 0 8px 16px rgba(0,0,0,0.5);">
-              <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">${a.name}</h3>
-              <p style="font-size: 12px; color: var(--text-muted);">Artist</p>
+            <div class="music-card artist-card" style="width: 150px; text-align: center; flex-shrink: 0;" onclick="navigateTo('artist', event, '${a.id}')">
+              <div class="card-img-wrap" style="border-radius: 50%; width: 120px; height: 120px; margin: 0 auto 12px;">
+                <img src="${a.img}" alt="${a.name}" onerror="this.src='https://placehold.co/200x200/1a1a1a/a855f7?text=Artist'">
+                <div class="card-overlay" style="border-radius: 50%;">
+                  <button class="card-play-btn" onclick="event.stopPropagation(); navigateTo('artist', null, '${a.id}')">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="card-info" style="text-align: center;">
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">${a.name}</h3>
+                <p style="font-size: 12px; color: var(--text-muted);">Artist</p>
+              </div>
             </div>
           `).join('')}
         </div>
@@ -1565,7 +1721,7 @@ async function showSearchResults(query) {
     `;
   }
 
-  const totalResults = jioSongs.length + ytSongs.length;
+  const totalResults = jioSongs.length;
   target.innerHTML = `
     <div style="padding-top: 20px; margin-bottom: 30px;">
       ${isMobile ? '' : '<h1 style="font-size: 42px; font-weight: 800;">Search Results</h1>'}
@@ -1573,7 +1729,6 @@ async function showSearchResults(query) {
     </div>
     ${artistsSection}
     ${jioSection ? `<h2 style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">Songs</h2>${jioSection}` : ''}
-    ${ytSection}
   `;
 }
 
@@ -1598,16 +1753,12 @@ async function triggerSmartRecommendations(song) {
   _injectRecSkeleton('rec-artist-section', `More from ${artistName}`);
   _injectRecSkeleton('rec-genre-section',  `Because you played "${songTitle}"`);
 
-  let relatedPromise;
-  if (song.id.startsWith('yt_')) {
-    relatedPromise = YOUTUBE_API.getRelated(song.videoId || song.id.replace('yt_', ''), 12);
-  } else {
-    const lang = song.language && song.language !== 'unknown' ? song.language : '';
-    relatedPromise = YOUTUBE_API.searchSongs(`${lang} ${artistName} similar songs`.trim(), 12);
-  }
+  const lang = song.language && song.language !== 'unknown' ? song.language : 'Hindi';
+  const cleanSongTitle = songTitle.replace(/[^\w\s]/gi, '').split(' ')[0] || '';
+  const relatedPromise = JIOSAAVN_API.searchSongs(`${lang} ${cleanSongTitle} hits`.trim(), 12);
 
   const [artistSongs, genreSongs] = await Promise.allSettled([
-    YOUTUBE_API.searchSongs(`${artistName} top songs`, 12),
+    JIOSAAVN_API.searchSongs(`${artistName} top songs`, 12),
     relatedPromise,
   ]);
 
@@ -1698,7 +1849,7 @@ function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
 
-  
+  // Sync state.isPlaying and Dynamic Island with native audio element state
   audio.addEventListener('playing', () => {
     state.isPlaying = true;
     updatePlayButtonUI();
@@ -1719,19 +1870,18 @@ function initAudio() {
 
   audio.addEventListener('waiting', () => {
     const currentSong = state.queue[state.currentIndex];
-    if (currentSong && currentSong.audioUrl && (currentSong.audioUrl.startsWith('yt_stream_pending_') || currentSong.audioUrl.includes('/audio/'))) {
+    if (currentSong) {
       const playerTitle = document.getElementById('pl-title');
-      if (playerTitle) playerTitle.textContent = currentSong.title + ' — Loading...';
-      showDynamicIsland('Loading YouTube stream...', 'warning', 10000);
+      if (playerTitle) playerTitle.textContent = currentSong.title + ' — Buffering...';
     }
   });
 
   audio.addEventListener('error', () => {
     const currentSong = state.queue[state.currentIndex];
-    if (currentSong && currentSong.audioUrl && (currentSong.audioUrl.startsWith('yt_stream_pending_') || currentSong.audioUrl.includes('/audio/'))) {
+    if (currentSong) {
       const playerTitle = document.getElementById('pl-title');
       if (playerTitle) playerTitle.textContent = currentSong.title;
-      showDynamicIsland('Stream failed — is backend running?', 'warning', 4000);
+      showDynamicIsland('Audio stream failed to load', 'warning', 4000);
     }
   });
 
@@ -1760,10 +1910,7 @@ function initAudio() {
     const resumeSong = state.queue[state.currentIndex];
     loadSongUI(state.currentIndex);
 
-    if (resumeSong.audioUrl && resumeSong.audioUrl.startsWith('yt_stream_pending_')) {
-      const videoId = resumeSong.audioUrl.replace('yt_stream_pending_', '');
-      audio.src = YOUTUBE_API.getProxyUrl(videoId);
-    } else if (resumeSong.audioUrl) {
+    if (resumeSong.audioUrl) {
       audio.src = resumeSong.audioUrl;
     }
 
@@ -1856,21 +2003,7 @@ function playSong(idx) {
 
   loadSongUI(idx);
 
-  if (song.audioUrl && song.audioUrl.startsWith('yt_stream_pending_')) {
-    const videoId = song.audioUrl.replace('yt_stream_pending_', '');
-    const proxyUrl = YOUTUBE_API.getProxyUrl(videoId);
-    const playerTitle = document.getElementById('pl-title');
-    if (playerTitle) playerTitle.textContent = song.title + ' — Loading...';
-    
-    
-    showDynamicIsland('Loading YouTube stream...', 'warning', 10000);
-    
-    audio.src = proxyUrl;
-    song.audioUrl = proxyUrl; 
-    audio.play().catch(e => {
-      console.warn("Initial play failed (expected during redirect):", e);
-    });
-  } else if (song.audioUrl) {
+  if (song.audioUrl) {
     audio.src = song.audioUrl;
     audio.play().catch(() => {});
   } else {
@@ -1886,7 +2019,7 @@ function playSong(idx) {
     audio.removeEventListener('loadedmetadata', resumeOnce);
   });
   
-
+  // Set playing state and UI update instantly
   state.isPlaying = true;
   updatePlayButtonUI();
   syncEqualizer();
@@ -1926,9 +2059,7 @@ function togglePlay() {
   if (!audio.paused) {
     audio.pause();
   } else {
-    const currentSong = state.queue[state.currentIndex];
-    const needsFullLoad = !audio.src || audio.src === window.location.href || 
-      (currentSong && currentSong.audioUrl && currentSong.audioUrl.startsWith('yt_stream_pending_'));
+    const needsFullLoad = !audio.src || audio.src === window.location.href;
     
     if (needsFullLoad) {
       playSong(state.currentIndex);
@@ -2791,7 +2922,7 @@ window.loadSongUI = function(idx) {
     const mnpArtist = document.getElementById('mnp-artist');
     if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
     if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
-    if (mnpArtist) mnpArtist.textContent = song.artist || '”';
+    if (mnpArtist) mnpArtist.textContent = song.artist || 'â€”';
   }
 };
 

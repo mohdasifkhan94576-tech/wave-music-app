@@ -47,6 +47,34 @@ const JIOSAAVN_API = {
     return results.map(r => this.normalizeSong(r));
   },
 
+  async searchArtists(query) {
+    try {
+      const data = await this.fetchWithFallback(
+        `/search/artists?query=${encodeURIComponent(query)}`
+      );
+      const results = data.data?.results || data.results || [];
+      return results.map(r => {
+        let imgUrl = this._extractBest(r.image, ['500x500', '150x150', '50x50']);
+        if (!imgUrl) {
+          imgUrl = r.image_url || r.img || r.thumbnail || r.artwork || '';
+        }
+        if (!imgUrl || imgUrl.includes('artist-default') || imgUrl.includes('artist-placeholder')) {
+          imgUrl = '';
+        }
+        return {
+          id: r.id,
+          name: r.name,
+          img: imgUrl,
+          listeners: '1,200,000',
+          sub: 'Artist'
+        };
+      });
+    } catch (e) {
+      console.error('Error searching artists:', e);
+      return [];
+    }
+  },
+
   async getSongById(id) {
     const data = await this.fetchWithFallback(`/songs/${id}`);
     const songs = data.data || data || [];
@@ -202,70 +230,46 @@ async function playJioSaavnSong(song) {
     let addedCount = 0;
     const TARGET = 20;
 
-    if (song.id.startsWith('yt_')) {
-      try {
-        const related = await YOUTUBE_API.getRelated(song.videoId || song.id.replace('yt_', ''), TARGET);
-        for (const rs of related) {
-          if (addedCount >= TARGET) break;
+    try {
+      const artistName = song.artist.split(',')[0].trim();
+      const genre = song.language || song.genre || 'Hindi';
+      const songTitle = song.title || '';
+
+      const [artistRes, genreRes] = await Promise.allSettled([
+        JIOSAAVN_API.searchSongs(artistName + ' songs', 15),
+        JIOSAAVN_API.searchSongs(genre + ' ' + songTitle.split(' ')[0] + ' hits', 15),
+      ]);
+
+      const artistSongs = (artistRes.status === 'fulfilled' ? artistRes.value : []);
+      const genreSongs  = (genreRes.status === 'fulfilled'  ? genreRes.value  : []);
+
+      let ai = 0, gi = 0;
+      while (addedCount < TARGET && (ai < artistSongs.length || gi < genreSongs.length)) {
+        for (let n = 0; n < 2 && ai < artistSongs.length && addedCount < TARGET; ai++) {
+          const rs = artistSongs[ai];
           if (rs.audioUrl && !addedIds.has(rs.id)) {
             addedIds.add(rs.id);
             if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
             state.queue.push(rs);
             addedCount++;
+            n++;
           }
         }
-        if (addedCount > 0) {
+        for (; gi < genreSongs.length && addedCount < TARGET; gi++) {
+          const rs = genreSongs[gi];
+          if (rs.audioUrl && !addedIds.has(rs.id)) {
+            addedIds.add(rs.id);
+            if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
+            state.queue.push(rs);
+            addedCount++;
+            break;
+          }
         }
-      } catch (err) {
-      } finally {
-        state.isFetchingRelated = false;
-        if (typeof renderQueuePanel === 'function') renderQueuePanel();
       }
-    } else {
-      try {
-        const artistName = song.artist.split(',')[0].trim();
-        const genre = song.language || song.genre || 'Hindi';
-        const songTitle = song.title || '';
-
-        const [artistRes, genreRes] = await Promise.allSettled([
-          JIOSAAVN_API.searchSongs(artistName + ' songs', 15),
-          JIOSAAVN_API.searchSongs(genre + ' ' + songTitle.split(' ')[0] + ' hits', 15),
-        ]);
-
-        const artistSongs = (artistRes.status === 'fulfilled' ? artistRes.value : []);
-        const genreSongs  = (genreRes.status === 'fulfilled'  ? genreRes.value  : []);
-
-        let ai = 0, gi = 0;
-        while (addedCount < TARGET && (ai < artistSongs.length || gi < genreSongs.length)) {
-          for (let n = 0; n < 2 && ai < artistSongs.length && addedCount < TARGET; ai++) {
-            const rs = artistSongs[ai];
-            if (rs.audioUrl && !addedIds.has(rs.id)) {
-              addedIds.add(rs.id);
-              if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
-              state.queue.push(rs);
-              addedCount++;
-              n++;
-            }
-          }
-          for (; gi < genreSongs.length && addedCount < TARGET; gi++) {
-            const rs = genreSongs[gi];
-            if (rs.audioUrl && !addedIds.has(rs.id)) {
-              addedIds.add(rs.id);
-              if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
-              state.queue.push(rs);
-              addedCount++;
-              break;
-            }
-          }
-        }
-
-        if (addedCount > 0) {
-        }
-      } catch (err) {
-      } finally {
-        state.isFetchingRelated = false;
-        if (typeof renderQueuePanel === 'function') renderQueuePanel();
-      }
+    } catch (err) {
+    } finally {
+      state.isFetchingRelated = false;
+      if (typeof renderQueuePanel === 'function') renderQueuePanel();
     }
 }
 
