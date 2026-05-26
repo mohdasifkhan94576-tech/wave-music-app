@@ -2,6 +2,7 @@
 'use strict';
 
 const SONGS = [];
+
 const RESOLVED_ARTISTS_CACHE = new Map();
 
 function findArtistById(artistId) {
@@ -685,7 +686,7 @@ async function _populateHomeSections() {
       _sourceBadge(sources.newReleases, { bg: '#f59e0b,#ef4444', color: '#fff', text: 'LATEST' }));
   }
 
-  // Dynamic Artists Section
+  
   const artistsEl = document.getElementById('home-artists-section');
   if (artistsEl) {
     let homeArtists = [];
@@ -1529,7 +1530,7 @@ function buildTop10Section(title, items) {
     const clickAction = `playSpecificSong('${item.id}')`;
 
     const badgeHtml = item.recentlyAdded 
-      ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">NEW</div>` 
+      ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">Recently added</div>` 
       : '';
 
     return `
@@ -1595,63 +1596,69 @@ function handleSearch(e) {
   dropdown.classList.remove('hidden');
 
   searchTimeout = setTimeout(async () => {
-    const songResults = SONGS.filter(s => s.title.toLowerCase().includes(term) || s.artist.toLowerCase().includes(term)).slice(0, 3);
-    const artistResults = ARTISTS.filter(a => a.name.toLowerCase().includes(term)).slice(0, 2);
-
-    let html = _getToggleHTML();
-
-    artistResults.forEach(a => {
-      html += `
-        <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); navigateTo('artist', null, '${a.id}')">
-          <img src="${a.img}" style="border-radius:50%;">
-          <div class="search-item-info"><h4>${a.name}</h4><p>Artist</p></div>
-        </div>
-      `;
-    });
-
-    songResults.forEach(s => {
-      normalizeSongFields(s);
-      const clickAction = s.isCloud
-        ? `playSpecificSong('${s.id}')`
-        : `playJioSaavnSong(SONGS.find(x=>x.id==='${s.id}'))`;
-      html += `
-        <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); ${clickAction}">
-          <img src="${s.thumb}" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Music'">
-          <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
-        </div>
-      `;
-    });
-
     try {
-      const apiResults = await handleJioSaavnSearch(term);
-      if (apiResults.length > 0) {
-        if (songResults.length || artistResults.length) html += '<div class="search-divider"></div>';
-        html += '<div class="search-section-label"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg> JioSaavn</div>';
-        apiResults.slice(0, 6).forEach((s, i) => {
-          html += `
-            <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(apiSearchResults[${i}])">
-              <img src="${s.thumb}">
-              <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
-              <div class="search-quality-badge">HD</div>
-            </div>
-          `;
-        });
+      const songResults = SONGS.filter(s => s && typeof s.title === 'string' && typeof s.artist === 'string' && (s.title.toLowerCase().includes(term) || s.artist.toLowerCase().includes(term))).slice(0, 3);
+      const artistResults = ARTISTS.filter(a => a && typeof a.name === 'string' && a.name.toLowerCase().includes(term)).slice(0, 2);
+
+      let html = _getToggleHTML();
+
+      artistResults.forEach(a => {
         html += `
-          <div class="search-view-all" onclick="this.closest('.search-dropdown').classList.add('hidden'); showSearchResults('${term.replace(/'/g, "\\'")}')">
-            View all results for "${term}"
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); navigateTo('artist', null, '${a.id}')">
+            <img src="${a.img || ''}" style="border-radius:50%;" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Artist'">
+            <div class="search-item-info"><h4>${a.name}</h4><p>Artist</p></div>
           </div>
         `;
+      });
+
+      songResults.forEach(s => {
+        normalizeSongFields(s);
+        const clickAction = s.isCloud
+          ? `playSpecificSong('${s.id}')`
+          : `playJioSaavnSong(SONGS.find(x=>x && (x.id==='${s.id}' || String(x.id)==='${s.id}')))`;
+        html += `
+          <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); ${clickAction}">
+            <img src="${s.thumb}" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Music'">
+            <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
+          </div>
+        `;
+      });
+
+      try {
+        const apiResults = await handleJioSaavnSearch(term);
+        if (apiResults.length > 0) {
+          if (songResults.length || artistResults.length) html += '<div class="search-divider"></div>';
+          html += '<div class="search-section-label"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg> JioSaavn</div>';
+          apiResults.slice(0, 6).forEach((s, i) => {
+            html += `
+              <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(apiSearchResults[${i}])">
+                <img src="${s.thumb}">
+                <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
+                <div class="search-quality-badge">HD</div>
+              </div>
+            `;
+          });
+          html += `
+            <div class="search-view-all" onclick="this.closest('.search-dropdown').classList.add('hidden'); showSearchResults('${term.replace(/'/g, "\\'")}')">
+              View all results for "${term}"
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </div>
+          `;
+        }
+      } catch (err) {
+        console.error('Error in JioSaavn search:', err);
       }
-    } catch (err) {
-    }
 
-    if (html === _getToggleHTML()) {
-      html += `<div style="padding:14px; color:var(--text-muted); text-align:center; font-size:13px;">No results found</div>`;
-    }
+      if (html === _getToggleHTML()) {
+        html += `<div style="padding:14px; color:var(--text-muted); text-align:center; font-size:13px;">No results found</div>`;
+      }
 
-    dropdown.innerHTML = html;
-    dropdown.classList.remove('hidden');
+      dropdown.innerHTML = html;
+      dropdown.classList.remove('hidden');
+    } catch (e) {
+      console.error('Error inside searchTimeout:', e);
+      dropdown.innerHTML = `<div style="padding:14px; color:#ff5555; text-align:center; font-size:13px;">Search error. Please try again.</div>`;
+    }
   }, 300);
 }
 
@@ -1738,9 +1745,10 @@ async function showSearchResults(query) {
 
   const queryLower = query.toLowerCase().trim();
   const cloudMatches = cloudData.songs ? cloudData.songs.filter(s => 
-    s.title.toLowerCase().includes(queryLower) || 
-    s.artist.toLowerCase().includes(queryLower) ||
-    (s.album && s.album.toLowerCase().includes(queryLower))
+    s && 
+    (typeof s.title === 'string' && s.title.toLowerCase().includes(queryLower) || 
+     typeof s.artist === 'string' && s.artist.toLowerCase().includes(queryLower) ||
+     (s.album && typeof s.album === 'string' && s.album.toLowerCase().includes(queryLower)))
   ) : [];
 
   let cloudSection = '';
@@ -1748,7 +1756,7 @@ async function showSearchResults(query) {
     const cloudListHTML = cloudMatches.map((song, i) => {
       song.isCloud = true;
       normalizeSongFields(song);
-      const globalIdx = SONGS.findIndex(s => s.id === song.id);
+      const globalIdx = SONGS.findIndex(s => s && s.id === song.id);
       return `
         <div class="list-row cloud-row" onclick="playSpecificSong('${song.id}')">
           <div class="col-num">${i + 1}</div>
@@ -1790,7 +1798,7 @@ async function showSearchResults(query) {
     ...ARTISTS,
     ...(cloudData.artists || [])
   ];
-  const localArtists = allSearchArtists.filter(a => a.name.toLowerCase().includes(query.toLowerCase())).slice(0, 6);
+  const localArtists = allSearchArtists.filter(a => a && typeof a.name === 'string' && a.name.toLowerCase().includes(query.toLowerCase())).slice(0, 6);
   if (localArtists.length > 0) {
     artistsSection = `
       <div style="margin-bottom: 40px;">
@@ -1946,6 +1954,7 @@ function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
 
+  // Sync state.isPlaying and Dynamic Island with native audio element state
   audio.addEventListener('playing', () => {
     state.isPlaying = true;
     updatePlayButtonUI();
@@ -2132,6 +2141,7 @@ function playSong(idx) {
     audio.play().catch(() => {});
   }
 
+ 
   state.isPlaying = true;
   updatePlayButtonUI();
   syncEqualizer();
@@ -3039,7 +3049,7 @@ window.loadSongUI = function(idx) {
     const mnpArtist = document.getElementById('mnp-artist');
     if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
     if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
-    if (mnpArtist) mnpArtist.textContent = song.artist;
+    if (mnpArtist) mnpArtist.textContent = song.artist || 'Unknown';
   }
 };
 
