@@ -3,6 +3,65 @@
 
 const SONGS = [];
 
+const ARTISTS = [
+  {
+    id: 'arijit-singh',
+    name: 'Arijit Singh',
+    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=300&h=300&fit=crop',
+    listeners: '38,451,920',
+    sub: '38.4M listeners'
+  },
+  {
+    id: 'shreya-ghoshal',
+    name: 'Shreya Ghoshal',
+    img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=300&h=300&fit=crop',
+    listeners: '18,230,140',
+    sub: '18.2M listeners'
+  },
+  {
+    id: 'atif-aslam',
+    name: 'Atif Aslam',
+    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=300&h=300&fit=crop',
+    listeners: '15,842,910',
+    sub: '15.8M listeners'
+  },
+  {
+    id: 'neha-kakkar',
+    name: 'Neha Kakkar',
+    img: 'https://images.unsplash.com/photo-1487180142328-054b783fc471?q=80&w=300&h=300&fit=crop',
+    listeners: '22,510,870',
+    sub: '22.5M listeners'
+  },
+  {
+    id: 'diljit-dosanjh',
+    name: 'Diljit Dosanjh',
+    img: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=300&h=300&fit=crop',
+    listeners: '14,350,210',
+    sub: '14.3M listeners'
+  },
+  {
+    id: 'badshah',
+    name: 'Badshah',
+    img: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&h=300&fit=crop',
+    listeners: '16,120,440',
+    sub: '16.1M listeners'
+  },
+  {
+    id: 'armaan-malik',
+    name: 'Armaan Malik',
+    img: 'https://images.unsplash.com/photo-1525417071002-5ee4e6bb44f7?q=80&w=300&h=300&fit=crop',
+    listeners: '11,890,520',
+    sub: '11.8M listeners'
+  },
+  {
+    id: 'anirudh-ravichander',
+    name: 'Anirudh Ravichander',
+    img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=300&h=300&fit=crop',
+    listeners: '12,980,110',
+    sub: '12.9M listeners'
+  }
+];
+
 const RESOLVED_ARTISTS_CACHE = new Map();
 
 function findArtistById(artistId) {
@@ -843,7 +902,7 @@ function getPlaylistHTML(playlistId) {
   const playlist = allPlaylists.find(p => p.id === playlistId) || allPlaylists[0];
 
   const isCustom = playlistId.startsWith('up_');
-  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')">ðŸ—‘ï¸ Delete Playlist</button>` : '';
+  const deleteBtn = isCustom ? `<br><button class="clear-queue-btn" style="margin-top: 15px; padding: 6px 12px; background: rgba(255,50,50,0.1); color: #ff5555; border: 1px solid rgba(255,50,50,0.3);" onclick="deletePlaylist('${playlistId}')"> Delete Playlist</button>` : '';
 
   let playlistSongs = [];
   let isDynamicMix = false;
@@ -1486,7 +1545,7 @@ function buildSection(title, items, isWide) {
 
     const badgeHtml = isRecent 
       ? `<div style="position:absolute; top:8px; right:8px; background:linear-gradient(135deg,#a855f7,#6366f1); padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; color:#fff; letter-spacing:0.5px;">RECENT</div>` 
-      : (item.recentlyAdded ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">NEW</div>` : '');
+      : (item.recentlyAdded ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">Recently added</div>` : '');
 
     const cardOverlayHtml = isTopArtists 
       ? '' 
