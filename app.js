@@ -2,65 +2,6 @@
 'use strict';
 
 const SONGS = [];
-const ARTISTS = [
-  {
-    id: 'arijit-singh',
-    name: 'Arijit Singh',
-    img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=300&h=300&fit=crop',
-    listeners: '38,451,920',
-    sub: '38.4M listeners'
-  },
-  {
-    id: 'shreya-ghoshal',
-    name: 'Shreya Ghoshal',
-    img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?q=80&w=300&h=300&fit=crop',
-    listeners: '18,230,140',
-    sub: '18.2M listeners'
-  },
-  {
-    id: 'atif-aslam',
-    name: 'Atif Aslam',
-    img: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=300&h=300&fit=crop',
-    listeners: '15,842,910',
-    sub: '15.8M listeners'
-  },
-  {
-    id: 'neha-kakkar',
-    name: 'Neha Kakkar',
-    img: 'https://images.unsplash.com/photo-1487180142328-054b783fc471?q=80&w=300&h=300&fit=crop',
-    listeners: '22,510,870',
-    sub: '22.5M listeners'
-  },
-  {
-    id: 'diljit-dosanjh',
-    name: 'Diljit Dosanjh',
-    img: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=300&h=300&fit=crop',
-    listeners: '14,350,210',
-    sub: '14.3M listeners'
-  },
-  {
-    id: 'badshah',
-    name: 'Badshah',
-    img: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=300&h=300&fit=crop',
-    listeners: '16,120,440',
-    sub: '16.1M listeners'
-  },
-  {
-    id: 'armaan-malik',
-    name: 'Armaan Malik',
-    img: 'https://images.unsplash.com/photo-1525417071002-5ee4e6bb44f7?q=80&w=300&h=300&fit=crop',
-    listeners: '11,890,520',
-    sub: '11.8M listeners'
-  },
-  {
-    id: 'anirudh-ravichander',
-    name: 'Anirudh Ravichander',
-    img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=300&h=300&fit=crop',
-    listeners: '12,980,110',
-    sub: '12.9M listeners'
-  }
-];
-
 const RESOLVED_ARTISTS_CACHE = new Map();
 
 function findArtistById(artistId) {
@@ -194,6 +135,19 @@ function saveUserState() {
   }
 }
 
+function normalizeSongFields(song) {
+  if (song) {
+    if (song.isCloud || (typeof song.id === 'string' && song.id.startsWith('c-'))) {
+      song.isCloud = true;
+    }
+    const url = song.thumb || song.img || song.image || 'https://placehold.co/200x200/1a1a1a/a855f7?text=Music';
+    song.thumb = url;
+    song.img = url;
+    song.image = url;
+  }
+  return song;
+}
+
 function loadUserState() {
   const today = new Date().toISOString().split('T')[0];
   try {
@@ -212,6 +166,7 @@ function loadUserState() {
     const recentDate = localStorage.getItem('wave_recent_date');
     if (recentDate === today) {
       state.recentSongs = JSON.parse(localStorage.getItem('wave_recent_songs') || '[]');
+      state.recentSongs.forEach(normalizeSongFields);
     } else {
       state.recentSongs = [];
     }
@@ -221,6 +176,7 @@ function loadUserState() {
       const parsedQueue = JSON.parse(savedQueue);
       if (parsedQueue.length > 0) {
         state.queue = parsedQueue;
+        state.queue.forEach(normalizeSongFields);
         state.currentIndex = parseInt(localStorage.getItem('wave_session_index') || '0', 10);
         state._resumeProgress = parseFloat(localStorage.getItem('wave_session_progress') || '0');
         parsedQueue.forEach(s => {
@@ -240,13 +196,58 @@ function cacheJioSaavnSong(song) {
   }
 }
 
+let cloudData = { songs: [], artists: [] };
+
+async function loadCloudData() {
+  try {
+    const res = await fetch('cloud_data.json');
+    if (res.ok) {
+      cloudData = await res.json();
+      if (cloudData.artists) {
+        cloudData.artists.forEach(art => {
+          RESOLVED_ARTISTS_CACHE.set(art.id, art);
+        });
+      }
+      if (cloudData.songs) {
+        cloudData.songs.forEach(song => {
+          song.isCloud = true;
+          normalizeSongFields(song);
+          const existing = SONGS.find(s => s.id === song.id);
+          if (!existing) {
+            SONGS.push({
+              ...song,
+              album: song.album || 'Cloud Exclusive',
+              plays: 'Local Play',
+              duration: song.duration || '0:00'
+            });
+          } else {
+            existing.isCloud = true;
+            existing.img = song.img;
+            existing.thumb = song.thumb;
+            existing.image = song.image;
+            existing.audioUrl = song.audioUrl;
+            if (song.tags) existing.tags = song.tags;
+            if (song.rank !== undefined) existing.rank = song.rank;
+            if (song.recentlyAdded !== undefined) existing.recentlyAdded = song.recentlyAdded;
+            if (song.duration) existing.duration = song.duration;
+            if (song.album) existing.album = song.album;
+          }
+        });
+      }
+    }
+  } catch (e) {
+    console.error('Error loading cloud_data.json:', e);
+  }
+}
+
 window.addEventListener('beforeunload', () => {
   saveUserState();
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   loadUserState();
   loadUserProfile();
+  await loadCloudData();
   renderView('home');
   initAudio();
 
@@ -436,6 +437,20 @@ function getHomeHTML() {
       ${recentRow}
       <!-- Dynamic Artists Section -->
       <div id="home-artists-section">${_homeSkeleton('Popular Artists')}</div>
+      
+      <!-- Curated Cloud & Netflix Sections -->
+      <div id="cloud-recently-added-section"></div>
+      <div id="cloud-top-10-english-section"></div>
+      <div id="cloud-english-section"></div>
+      <div id="cloud-top-10-hindi-section"></div>
+      <div id="cloud-anime-section"></div>
+      <div id="cloud-kpop-section"></div>
+      <div id="cloud-kdrama-section"></div>
+      <div id="cloud-pakistani-section"></div>
+      <div id="cloud-islamic-section"></div>
+      <div id="cloud-top-10-islamic-section"></div>
+      <div id="cloud-podcasts-section"></div>
+
       <!-- Smart Recommendations (injected live when song plays) -->
       <div id="rec-artist-section"></div>
       <div id="rec-genre-section"></div>
@@ -670,80 +685,48 @@ async function _populateHomeSections() {
       _sourceBadge(sources.newReleases, { bg: '#f59e0b,#ef4444', color: '#fff', text: 'LATEST' }));
   }
 
-  
+  // Dynamic Artists Section
   const artistsEl = document.getElementById('home-artists-section');
   if (artistsEl) {
     let homeArtists = [];
-    let sectionTitle = 'Popular Artists';
-    
-    
-    const recentArtistNames = [];
-    state.recentSongs.forEach(s => {
-      const primaryArtist = s.artist.split(',')[0].trim();
-      if (primaryArtist && !recentArtistNames.includes(primaryArtist)) {
-        recentArtistNames.push(primaryArtist);
-      }
-    });
-
-    if (recentArtistNames.length > 0) {
-      sectionTitle = 'Your Artists';
-      
-      const artistPromises = recentArtistNames.map(async (name) => {
-        const cleanName = name.trim();
-        const matched = ARTISTS.find(a => a.name.toLowerCase() === cleanName.toLowerCase());
-        if (matched) return matched;
-
-        
-        try {
-          const apiArtists = await JIOSAAVN_API.searchArtists(cleanName);
-          const bestMatch = apiArtists.find(a => a.name.toLowerCase() === cleanName.toLowerCase()) || apiArtists[0];
-          if (bestMatch && bestMatch.img) {
-            const dynamicArtist = {
-              id: `artist-${bestMatch.id}`,
-              name: cleanName,
-              img: bestMatch.img,
-              listeners: '1,500,000',
-              sub: 'Recent Artist'
-            };
-            RESOLVED_ARTISTS_CACHE.set(dynamicArtist.id, dynamicArtist);
-            
-            const slug = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            RESOLVED_ARTISTS_CACHE.set(`artist-${slug}`, dynamicArtist);
-            return dynamicArtist;
-          }
-        } catch (e) {
-          console.error('Failed fetching artist profile image:', e);
-        }
-
-        
-        const matchingSong = state.recentSongs.find(s => s.artist.split(',')[0].trim() === cleanName);
-        const fallbackImg = matchingSong ? matchingSong.thumb : '';
-        const fallbackArtist = getArtistObj(cleanName, fallbackImg);
-        RESOLVED_ARTISTS_CACHE.set(fallbackArtist.id, fallbackArtist);
-        return fallbackArtist;
-      });
-
-      const resolved = await Promise.allSettled(artistPromises);
-      resolved.forEach(r => {
-        if (r.status === 'fulfilled' && r.value) {
-          homeArtists.push(r.value);
-        }
-      });
-      
-      
-      if (homeArtists.length < 15) {
-        ARTISTS.forEach(defArtist => {
-          if (homeArtists.length < 15 && !homeArtists.some(a => a.name.toLowerCase() === defArtist.name.toLowerCase())) {
-            homeArtists.push(defArtist);
-          }
-        });
-      }
+    if (cloudData.artists && cloudData.artists.length > 0) {
+      homeArtists = [...cloudData.artists];
     } else {
       homeArtists = [...ARTISTS];
     }
-    
-    homeArtists = homeArtists.slice(0, 15);
-    artistsEl.innerHTML = buildSection(sectionTitle, homeArtists, false);
+    homeArtists = homeArtists.slice(0, 10);
+    artistsEl.innerHTML = buildSection('Top Artists This Week', homeArtists, false);
+  }
+  
+  if (cloudData.songs && cloudData.songs.length > 0) {
+    const recAdded = cloudData.songs.filter(s => s.recentlyAdded);
+    const top10Eng = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-english')).sort((a,b) => a.rank - b.rank);
+    const engSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('english'));
+    const top10Hindi = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-hindi')).sort((a,b) => a.rank - b.rank);
+    const animeSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('anime'));
+    const kpopSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('kpop'));
+    const kdramaSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('k-drama'));
+    const pakSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('pakistani'));
+    const islamicSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('islamic'));
+    const top10Islamic = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-islamic')).sort((a,b) => a.rank - b.rank);
+    const podcasts = cloudData.songs.filter(s => s.tags && s.tags.includes('podcast'));
+
+    const setHTML = (id, html) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    };
+
+    if (recAdded.length > 0) setHTML('cloud-recently-added-section', buildSection('Recently Added Exclusives ', recAdded, false));
+    if (top10Eng.length > 0) setHTML('cloud-top-10-english-section', buildTop10Section('Top 10 English Songs ', top10Eng));
+    if (engSongs.length > 0) setHTML('cloud-english-section', buildSection('Best of English Hits ', engSongs, false));
+    if (top10Hindi.length > 0) setHTML('cloud-top-10-hindi-section', buildTop10Section('Top 10 Hindi Songs ', top10Hindi));
+    if (animeSongs.length > 0) setHTML('cloud-anime-section', buildSection('Best of Anime OSTs ', animeSongs, false));
+    if (kpopSongs.length > 0) setHTML('cloud-kpop-section', buildSection('K-Pop Specials ', kpopSongs, false));
+    if (kdramaSongs.length > 0) setHTML('cloud-kdrama-section', buildSection('Top K-Drama Soundtracks ', kdramaSongs, false));
+    if (pakSongs.length > 0) setHTML('cloud-pakistani-section', buildSection('Best of Pakistan 🇵🇰', pakSongs, false));
+    if (islamicSongs.length > 0) setHTML('cloud-islamic-section', buildSection('Beautiful Islamic Naats ', islamicSongs, false));
+    if (top10Islamic.length > 0) setHTML('cloud-top-10-islamic-section', buildTop10Section('Top 10 Naats', top10Islamic));
+    if (podcasts.length > 0) setHTML('cloud-podcasts-section', buildSection('Curated Podcasts & Talks ', podcasts, false));
   }
 }
 
@@ -794,40 +777,40 @@ function getFooterHTML() {
 function openFooterPopup(type) {
   const popupData = {
     about: {
-      icon: '🎵', title: 'About Wave Music',
-      content: '<div class="fp-section"><p>Wave Music ek <strong>modern, fast aur beautiful</strong> music streaming app hai jo aapko best listening experience deta hai.</p></div><div class="fp-section"><h4>✨ Features</h4><ul><li>🎶 JioSaavn high-quality audio streaming</li><li>🔍 Smart search with instant results</li><li>📱 Dynamic Island with live now-playing info</li><li>💜 Like songs, create playlists, track history</li><li>🎧 Mini player, queue management, shuffle & repeat</li><li>🌙 Beautiful dark theme with glassmorphism design</li><li>⚡ PWA support — install as app on any device</li></ul></div><div class="fp-section"><h4>👨‍💻 Developer</h4><p>Built with ❤️ using vanilla HTML, CSS & JavaScript with a Python FastAPI backend. No frameworks, pure performance.</p></div><div class="fp-badge">Version 2.0 — May 2026</div>'
+      icon: '', title: 'About Wave Music',
+      content: '<div class="fp-section"><p>Wave Music is a <strong>modern, fast, and beautiful</strong> music streaming application designed to provide you with the best listening experience.</p></div><div class="fp-section"><h4>Features</h4><ul><li>JioSaavn high-quality audio streaming</li><li>Smart search with instant results</li><li>Dynamic Island with live now-playing info</li><li>Like songs, create playlists, and track history</li><li>Mini player, queue management, shuffle, and repeat</li><li>Beautiful dark theme with glassmorphism design</li><li>PWA support — install as an app on any device</li></ul></div><div class="fp-section"><h4>Developer</h4><p>Built with love using vanilla HTML, CSS, and JavaScript with a Python FastAPI backend. No frameworks, pure performance.</p></div><div class="fp-badge">Version 2.0 — May 2026</div>'
     },
     updates: {
-      icon: '🚀', title: "What's New — Updates",
-      content: '<div class="fp-update-item"><span class="fp-update-date">May 2026 — v2.0</span><h4>🔥 Major Update</h4><ul><li>✅ <strong>Pure JioSaavn Streaming:</strong> Moved fully to JioSaavn for 100% reliable, fast, and high-quality audio streaming.</li><li>✅ <strong>Zero Extraction Delay:</strong> Instant playback without waiting for YouTube extraction.</li><li>✅ <strong>Dynamic Island Sync:</strong> Now Playing info real-time sync</li><li>✅ <strong>Resume Playback:</strong> Pause ke baad wahi se continue</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Apr 2026 — v1.5</span><h4>🎨 UI Improvements</h4><ul><li>✅ JioSaavn integration</li><li>✅ Profile system with avatar upload</li><li>✅ Custom playlist creation & management</li><li>✅ Mobile responsive design</li><li>✅ Service Worker for offline caching</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Mar 2026 — v1.0</span><h4>🎉 Initial Release</h4><ul><li>✅ Music search & streaming</li><li>✅ Liked songs & recent history</li><li>✅ Queue management & dark theme</li></ul></div>'
+      icon: '', title: "What's New — Updates",
+      content: '<div class="fp-update-item"><span class="fp-update-date">May 2026 — v2.0</span><h4>Major Update</h4><ul><li><strong>Pure JioSaavn Streaming:</strong> Moved fully to JioSaavn for 100% reliable, fast, and high-quality audio streaming.</li><li><strong>Zero Extraction Delay:</strong> Instant playback without waiting for YouTube extraction.</li><li><strong>Dynamic Island Sync:</strong> Real-time synchronization of Now Playing info.</li><li><strong>Resume Playback:</strong> Continue playback exactly where you left off after pausing.</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Apr 2026 — v1.5</span><h4>UI Improvements</h4><ul><li>JioSaavn integration</li><li>Profile system with avatar upload</li><li>Custom playlist creation & management</li><li>Mobile responsive design</li><li>Service Worker for offline caching</li></ul></div><div class="fp-update-item"><span class="fp-update-date">Mar 2026 — v1.0</span><h4>Initial Release</h4><ul><li>Music search & streaming</li><li>Liked songs & recent history</li><li>Queue management & dark theme</li></ul></div>'
     },
     jiosaavn: {
-      icon: '🎵', title: 'JioSaavn',
-      content: '<div class="fp-section"><p><strong>JioSaavn</strong> India ka leading music streaming platform hai. Wave Music ise primary source ke roop mein use karta hai high-quality audio streaming ke liye.</p></div><div class="fp-section"><h4>🎶 JioSaavn Features</h4><ul><li>🇮🇳 Bollywood, Indie, Devotional, Regional — sab milta hai</li><li>🔊 High quality audio streaming</li><li>⚡ Fast loading — no extraction delay</li></ul></div><div class="fp-tip"><strong>Pro Tip:</strong> Bollywood aur Hindi songs ke liye JioSaavn best quality deta hai!</div>'
+      icon: '', title: 'JioSaavn',
+      content: '<div class="fp-section"><p><strong>JioSaavn</strong> is a leading music streaming platform. Wave Music uses it as the primary source for high-quality audio streaming.</p></div><div class="fp-section"><h4>JioSaavn Features</h4><ul><li>Bollywood, Indie, Devotional, Regional, and more</li><li>High-quality audio streaming</li><li>Fast loading with no extraction delay</li></ul></div><div class="fp-tip"><strong>Pro Tip:</strong> JioSaavn provides the best streaming quality for Bollywood and regional music.</div>'
     },
     howItWorks: {
-      icon: '⚙️', title: 'How Wave Music Works',
-      content: '<div class="fp-section"><h4>🔍 Search & Streaming</h4><p>Jab aap koi song search karte hain, Wave JioSaavn API se high quality results fetch karta hai aur direct stream URLs play karta hai for instant playback.</p></div>'
+      icon: '', title: 'How Wave Music Works',
+      content: '<div class="fp-section"><h4>Search & Streaming</h4><p>When you search for a song, Wave fetches high-quality results from the JioSaavn API and plays the direct stream URLs for instant playback.</p></div>'
     },
     faq: {
-      icon: '❓', title: 'FAQ',
-      content: '<div class="fp-faq"><div class="fp-faq-item"><h4>Q: Song loading ho raha hai lekin play nahi ho raha?</h4><p>A: Page ko hard refresh karein (Ctrl+Shift+R). Check your internet connection.</p></div><div class="fp-faq-item"><h4>Q: Phone par install kar sakte hain?</h4><p>A: Haan! Browser mein "Add to Home Screen" se install karein. Yeh ek PWA hai.</p></div><div class="fp-faq-item"><h4>Q: Liked songs save hoti hain?</h4><p>A: Haan, sab local storage mein save hota hai.</p></div><div class="fp-faq-item"><h4>Q: Dynamic Island kya hai?</h4><p>A: Top center mein floating widget jo current song info aur controls dikhata hai — iPhone jaisa!</p></div></div>'
+      icon: '', title: 'FAQ',
+      content: '<div class="fp-faq"><div class="fp-faq-item"><h4>Q: The song is loading but not playing?</h4><p>A: Perform a hard refresh of the page (Ctrl+Shift+R or Cmd+Shift+R) and check your internet connection.</p></div><div class="fp-faq-item"><h4>Q: Can I install this on my phone?</h4><p>A: Yes! You can install it by selecting "Add to Home Screen" in your browser menu. It is fully PWA-compatible.</p></div><div class="fp-faq-item"><h4>Q: Are liked songs saved?</h4><p>A: Yes, all data is saved locally in your browser storage.</p></div><div class="fp-faq-item"><h4>Q: What is the Dynamic Island?</h4><p>A: It is a floating widget at the top center that displays the current song information and playback controls.</p></div></div>'
     },
     tips: {
-      icon: '💡', title: 'Tips & Tricks',
-      content: '<div class="fp-section"><ul class="fp-tips-list"><li>⌨️ <strong>Search:</strong> Top bar mein direct type karna shuru karein</li><li>📱 <strong>Install:</strong> Browser menu → "Add to Home Screen"</li><li>🔀 <strong>Shuffle:</strong> Queue randomize karein</li><li>🔁 <strong>Repeat:</strong> Current song loop par chalayein</li><li>💜 <strong>Like:</strong> Heart icon dabayein — Liked Songs mein save</li><li>📋 <strong>Playlists:</strong> Sidebar mein "+" se custom playlist banayein</li><li>🏝️ <strong>Dynamic Island:</strong> Top widget par click karke expand karein</li><li>🔊 <strong>Volume:</strong> Bottom right slider se adjust karein</li></ul></div>'
+      icon: '', title: 'Tips & Tricks',
+      content: '<div class="fp-section"><ul class="fp-tips-list"><li><strong>Search:</strong> Start typing directly in the top search bar.</li><li><strong>Install:</strong> Open your browser menu and click "Add to Home Screen" to install.</li><li><strong>Shuffle:</strong> Randomize your queue layout.</li><li><strong>Repeat:</strong> Loop the currently playing song.</li><li><strong>Like:</strong> Click the heart icon to save songs to your Liked list.</li><li><strong>Playlists:</strong> Click the "+" icon in the sidebar to create custom playlists.</li><li><strong>Dynamic Island:</strong> Click the top center widget to expand media controls.</li><li><strong>Volume:</strong> Adjust the volume slider in the bottom right corner.</li></ul></div>'
     },
     privacy: {
-      icon: '🔒', title: 'Privacy Policy',
-      content: '<div class="fp-section"><p>Wave Music aapki privacy ko seriously leta hai.</p><ul><li>🔒 Koi personal data server par store nahi hota</li><li>📱 Sab data browser ke local storage mein rehta hai</li><li>🚫 Koi third-party tracking ya analytics nahi</li><li>🎵 Music sirf stream hota hai, download nahi</li></ul></div><div class="fp-badge">Your data stays on your device</div>'
+      icon: '', title: 'Privacy Policy',
+      content: '<div class="fp-section"><p>Wave Music takes your privacy seriously.</p><ul><li>No personal data is ever stored on a server.</li><li>All your data remains in your browser local storage.</li><li>There is no third-party tracking or analytics.</li><li>Music is only streamed, not stored or downloaded.</li></ul></div><div class="fp-badge">Your data stays on your device</div>'
     },
     legal: {
-      icon: '⚖️', title: 'Legal Information',
-      content: '<div class="fp-section"><p>Wave Music ek <strong>personal/educational project</strong> hai.</p><ul><li>📌 Yeh app koi music host nahi karta — sirf publicly available JioSaavn APIs se stream karta hai</li><li>📌 JioSaavn ke trademarks unke respective owners ke hain</li><li>📌 Music content ka copyright original artists aur labels ke paas hai</li><li>📌 Yeh app commercial use ke liye nahi hai</li></ul></div>'
+      icon: '', title: 'Legal Information',
+      content: '<div class="fp-section"><p>Wave Music is a <strong>personal and educational project</strong>.</p><ul><li>This app does not host any music files — it only streams from publicly available JioSaavn APIs.</li><li>JioSaavn trademarks and brands belong to their respective owners.</li><li>Music copyright belongs to the original artists and music labels.</li><li>This application is not intended for commercial use.</li></ul></div>'
     },
     contact: {
-      icon: '📬', title: 'Contact Us',
-      content: '<div class="fp-section"><p>Wave Music ke baare mein koi sawaal ya suggestion?</p><div class="fp-contact-items"><div class="fp-contact-item"><span>📧</span><div><strong>Email</strong><p>wave.music.app@gmail.com</p></div></div><div class="fp-contact-item"><span>💬</span><div><strong>Feedback</strong><p>App mein koi bug ya feature request ho toh zaroor batayen!</p></div></div><div class="fp-contact-item"><span>⭐</span><div><strong>Share</strong><p>Agar app pasand aaya toh friends ke sath share karein!</p></div></div></div></div>'
+      icon: '', title: 'Contact Us',
+      content: '<div class="fp-section"><p>Do you have questions or suggestions about Wave Music?</p><div class="fp-contact-items"><div class="fp-contact-item"><div><strong>Email</strong><p>wave.music.app@gmail.com</p></div></div><div class="fp-contact-item"><div><strong>Feedback</strong><p>If you find any bugs or have feature requests, please let us know.</p></div></div><div class="fp-contact-item"><div><strong>Share</strong><p>If you enjoy using the app, feel free to share it with your friends.</p></div></div></div></div>'
     }
   };
   const data = popupData[type];
@@ -844,7 +827,7 @@ function openFooterPopup(type) {
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
       <div class="footer-popup-header">
-        <span class="footer-popup-icon">${data.icon}</span>
+        ${data.icon ? `<span class="footer-popup-icon">${data.icon}</span>` : ''}
         <h2>${data.title}</h2>
       </div>
       <div class="footer-popup-body">${data.content}</div>
@@ -915,17 +898,18 @@ function getPlaylistHTML(playlistId) {
         if (container) container.innerHTML = '<div style="padding:20px; color:#ff5555; text-align:center;">Failed to load mix from JioSaavn.</div>';
       }
     }, 100);
-  } else {
-    listHTML = playlistSongs.length > 0 ? playlistSongs.map((song, i) => `
-      <div class="list-row" onclick="playSong(${SONGS.indexOf(song)})">
-        <div class="col-num">${i + 1}</div>
-        <div class="col-title">
-          <img src="${song.thumb}" alt="">
-          <div>
-            <h4>${song.title}</h4>
-            <p>${song.artist}</p>
+    listHTML = playlistSongs.length > 0 ? playlistSongs.map((song, i) => {
+      normalizeSongFields(song);
+      return `
+        <div class="list-row" onclick="playSong(${SONGS.indexOf(song)})">
+          <div class="col-num">${i + 1}</div>
+          <div class="col-title">
+            <img src="${song.thumb || song.img || 'https://placehold.co/200x200/1a1a1a/a855f7?text=Music'}" alt="">
+            <div>
+              <h4>${song.title}</h4>
+              <p>${song.artist}</p>
+            </div>
           </div>
-        </div>
         <div class="col-album">${song.album || 'Single'}</div>
         <div class="col-time" style="display: flex; align-items: center; justify-content: space-between;">
           <span>${song.duration}</span>
@@ -942,7 +926,7 @@ function getPlaylistHTML(playlistId) {
           </div>` : ''}
         </div>
       </div>
-    `).join('') : '<div style="padding: 20px; color: var(--text-muted); text-align: center;">No songs in this playlist yet. Add some!</div>';
+    `; }).join('') : '<div style="padding: 20px; color: var(--text-muted); text-align: center;">No songs in this playlist yet. Add some!</div>';
   }
 
   return `
@@ -975,17 +959,20 @@ function getLikedHTML() {
     return `<div style="padding: 40px;"><h2>Liked Songs</h2><p style="color: var(--text-muted); margin-top:10px;">You haven't liked any songs yet.</p></div>`;
   }
 
-  const listHTML = likedSongs.length > 0 ? likedSongs.map((song, i) => `
-    <div class="list-row" onclick="playSpecificSong('${song.id}')">
-      <div class="col-num">${i + 1}</div>
-      <div class="col-title">
-        <img src="${song.thumb}" alt="">
-        <div><h4>${song.title}</h4><p>${song.artist}</p></div>
+  const listHTML = likedSongs.length > 0 ? likedSongs.map((song, i) => {
+    normalizeSongFields(song);
+    return `
+      <div class="list-row" onclick="playSpecificSong('${song.id}')">
+        <div class="col-num">${i + 1}</div>
+        <div class="col-title">
+          <img src="${song.thumb || song.img || 'https://placehold.co/200x200/1a1a1a/a855f7?text=Music'}" alt="">
+          <div><h4>${song.title}</h4><p>${song.artist}</p></div>
+        </div>
+        <div class="col-album">${song.album}</div>
+        <div class="col-time">${song.duration}</div>
       </div>
-      <div class="col-album">${song.album}</div>
-      <div class="col-time">${song.duration}</div>
-    </div>
-  `).join('') : '<div style="padding: 20px; color: var(--text-muted);">No liked songs yet.</div>';
+    `;
+  }).join('') : '<div style="padding: 20px; color: var(--text-muted);">No liked songs yet.</div>';
 
   return `
     <div style="padding-top: 20px; margin-bottom: 30px;">
@@ -1058,15 +1045,18 @@ function getLibraryHTML() {
   const recentSection = recentSongs.length > 0 ? `
     <div style="margin-top: 32px;">
       <h2 style="font-size:18px; font-weight:700; margin-bottom:14px;">Recently Played</h2>
-      ${recentSongs.map(song => `
-        <div class="list-row" onclick="playRecentSong('${song.id}')">
-          <div class="col-title" style="flex:1;">
-            <img src="${song.thumb}" alt="" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
-            <div><h4 style="font-size:14px;">${song.title}</h4><p style="font-size:12px;color:var(--text-muted);">${song.artist}</p></div>
+      ${recentSongs.map(song => {
+        normalizeSongFields(song);
+        return `
+          <div class="list-row" onclick="playRecentSong('${song.id}')">
+            <div class="col-title" style="flex:1;">
+              <img src="${song.thumb || song.img || 'https://placehold.co/100x100/1a1a1a/a855f7?text=Music'}" alt="" style="width:44px;height:44px;border-radius:8px;object-fit:cover;">
+              <div><h4 style="font-size:14px;">${song.title}</h4><p style="font-size:12px;color:var(--text-muted);">${song.artist}</p></div>
+            </div>
+            <div style="color:var(--text-dark);font-size:12px;">${song.duration || ''}</div>
           </div>
-          <div style="color:var(--text-dark);font-size:12px;">${song.duration || ''}</div>
-        </div>
-      `).join('')}
+        `;
+      }).join('')}
     </div>
   ` : '';
 
@@ -1483,6 +1473,7 @@ function getAlbumHTML(albumName) {
 
 function buildSection(title, items, isWide) {
   const isRecent = title === 'Recently Played';
+  const isTopArtists = title === 'Top Artists This Week';
   const cards = items.map((item, i) => {
     const isArtist = !!item.name;
     const playAction = isArtist 
@@ -1494,17 +1485,21 @@ function buildSection(title, items, isWide) {
 
     const badgeHtml = isRecent 
       ? `<div style="position:absolute; top:8px; right:8px; background:linear-gradient(135deg,#a855f7,#6366f1); padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; color:#fff; letter-spacing:0.5px;">RECENT</div>` 
-      : '';
+      : (item.recentlyAdded ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">NEW</div>` : '');
+
+    const cardOverlayHtml = isTopArtists 
+      ? '' 
+      : `<div class="card-overlay" style="${isArtist ? 'border-radius: 50%;' : ''}">
+          <button class="card-play-btn" onclick="${playAction}">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>`;
 
     return `
-      <div class="music-card ${isWide ? 'wide' : ''} ${isArtist ? 'artist-card' : ''}" onclick="${clickAction}">
+      <div class="music-card ${isWide ? 'wide' : ''} ${isArtist ? 'artist-card' : ''}" ${isTopArtists ? '' : `onclick="${clickAction}"`} style="${isTopArtists ? 'cursor: default;' : ''}">
         <div class="card-img-wrap" style="${isArtist ? 'border-radius: 50%;' : ''}">
           <img src="${item.thumb || item.img}" alt="${item.title || item.name}" loading="lazy" onerror="this.src='https://placehold.co/200x200/1a1a1a/a855f7?text=${isArtist ? 'Artist' : 'Music'}'">
-          <div class="card-overlay" style="${isArtist ? 'border-radius: 50%;' : ''}">
-            <button class="card-play-btn" onclick="${playAction}">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
+          ${cardOverlayHtml}
           ${badgeHtml}
         </div>
         <div class="card-info" style="${isArtist ? 'text-align: center;' : ''}">
@@ -1519,9 +1514,53 @@ function buildSection(title, items, isWide) {
     <div class="section-block">
       <div class="section-header">
         <h2>${title}</h2>
-        <a href="#">See all</a>
+        ${isTopArtists ? '' : '<a href="#">See all</a>'}
       </div>
       <div class="cards-container">
+        ${cards}
+      </div>
+    </div>
+  `;
+}
+
+function buildTop10Section(title, items) {
+  const cards = items.map((item, i) => {
+    const playAction = `event.stopPropagation(); playSpecificSong('${item.id}')`;
+    const clickAction = `playSpecificSong('${item.id}')`;
+
+    const badgeHtml = item.recentlyAdded 
+      ? `<div style="position:absolute; bottom:8px; left:8px; background:#e50914; padding:3px 8px; border-radius:4px; font-size:9px; font-weight:800; color:#fff; letter-spacing:0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 3;">NEW</div>` 
+      : '';
+
+    return `
+      <div class="top10-item">
+        <div class="top10-rank">${i + 1}</div>
+        <div class="music-card" onclick="${clickAction}">
+          <div class="card-img-wrap">
+            <img src="${item.thumb || item.img}" alt="${item.title}" loading="lazy" onerror="this.src='https://placehold.co/200x200/1a1a1a/a855f7?text=Music'">
+            <div class="card-overlay">
+              <button class="card-play-btn" onclick="${playAction}">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+            ${badgeHtml}
+          </div>
+          <div class="card-info">
+            <h3>${item.title}</h3>
+            <p>${item.artist}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="section-block">
+      <div class="section-header">
+        <h2>${title}</h2>
+        <a href="#">See all</a>
+      </div>
+      <div class="top10-container">
         ${cards}
       </div>
     </div>
@@ -1571,9 +1610,13 @@ function handleSearch(e) {
     });
 
     songResults.forEach(s => {
+      normalizeSongFields(s);
+      const clickAction = s.isCloud
+        ? `playSpecificSong('${s.id}')`
+        : `playJioSaavnSong(SONGS.find(x=>x.id==='${s.id}'))`;
       html += `
-        <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); playJioSaavnSong(SONGS.find(x=>x.id==='${s.id}'))">
-          <img src="${s.thumb}">
+        <div class="search-item" onclick="this.closest('.search-dropdown').classList.add('hidden'); ${clickAction}">
+          <img src="${s.thumb}" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Music'">
           <div class="search-item-info"><h4>${s.title}</h4><p>${s.artist}</p></div>
         </div>
       `;
@@ -1693,8 +1736,61 @@ async function showSearchResults(query) {
     `;
   }
 
+  const queryLower = query.toLowerCase().trim();
+  const cloudMatches = cloudData.songs ? cloudData.songs.filter(s => 
+    s.title.toLowerCase().includes(queryLower) || 
+    s.artist.toLowerCase().includes(queryLower) ||
+    (s.album && s.album.toLowerCase().includes(queryLower))
+  ) : [];
+
+  let cloudSection = '';
+  if (cloudMatches.length > 0) {
+    const cloudListHTML = cloudMatches.map((song, i) => {
+      song.isCloud = true;
+      normalizeSongFields(song);
+      const globalIdx = SONGS.findIndex(s => s.id === song.id);
+      return `
+        <div class="list-row cloud-row" onclick="playSpecificSong('${song.id}')">
+          <div class="col-num">${i + 1}</div>
+          <div class="col-title">
+            <img src="${song.thumb}" alt="" onerror="this.src='https://placehold.co/100x100/1a1a1a/a855f7?text=Music'">
+            <div>
+              <h4>${song.title} <span class="cloud-badge">CLOUD</span></h4>
+              <p>${song.artist}</p>
+            </div>
+          </div>
+          <div class="col-album">${song.album || 'Cloud Exclusive'}</div>
+          <div class="col-time">
+            <span class="quality-tag" style="background: rgba(168,85,247,0.2); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-right: 10px;">HQ</span>
+            ${song.duration}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    cloudSection = `
+      <div style="margin-bottom: 45px;">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          Cloud Exclusives 
+          <span style="font-size: 11px; padding: 2px 8px; background: rgba(168,85,247,0.15); color: #c084fc; border-radius: 20px; font-weight: 600; border: 1px solid rgba(168,85,247,0.2);">EXCLUSIVE</span>
+        </h2>
+        <div class="list-head">
+          <div class="col-num">#</div>
+          <div class="col-title">TITLE</div>
+          <div class="col-album">ALBUM</div>
+          <div class="col-time">TIME</div>
+        </div>
+        ${cloudListHTML}
+      </div>
+    `;
+  }
+
   let artistsSection = '';
-  const localArtists = ARTISTS.filter(a => a.name.toLowerCase().includes(query.toLowerCase())).slice(0, 6);
+  const allSearchArtists = [
+    ...ARTISTS,
+    ...(cloudData.artists || [])
+  ];
+  const localArtists = allSearchArtists.filter(a => a.name.toLowerCase().includes(query.toLowerCase())).slice(0, 6);
   if (localArtists.length > 0) {
     artistsSection = `
       <div style="margin-bottom: 40px;">
@@ -1727,6 +1823,7 @@ async function showSearchResults(query) {
       ${isMobile ? '' : '<h1 style="font-size: 42px; font-weight: 800;">Search Results</h1>'}
       <p style="color: var(--text-muted); margin-top: 8px;">${totalResults} songs found for "${query}"</p>
     </div>
+    ${cloudSection}
     ${artistsSection}
     ${jioSection ? `<h2 style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">Songs</h2>${jioSection}` : ''}
   `;
@@ -1849,7 +1946,6 @@ function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
 
-  // Sync state.isPlaying and Dynamic Island with native audio element state
   audio.addEventListener('playing', () => {
     state.isPlaying = true;
     updatePlayButtonUI();
@@ -1956,6 +2052,39 @@ function loadSongUI(idx) {
 window.playSpecificSong = function(id) {
   const song = SONGS.find(s => s.id === id) || SONGS.find(s => s.id === Number(id));
   if (!song) return;
+
+  if (song.isCloud) {
+    const primaryTag = (song.tags && song.tags.length > 0) ? song.tags[0] : null;
+    let matchingSongs = [];
+    if (primaryTag) {
+      matchingSongs = (cloudData.songs || []).filter(s => s.tags && s.tags.includes(primaryTag));
+    } else {
+      matchingSongs = cloudData.songs || [];
+    }
+
+    matchingSongs.forEach(ms => {
+      ms.isCloud = true;
+      normalizeSongFields(ms);
+      if (!SONGS.find(s => s.id === ms.id)) {
+        SONGS.push({
+          ...ms,
+          album: ms.album || 'Cloud Exclusive',
+          plays: 'Local Play',
+          duration: ms.duration || '0:00'
+        });
+      }
+    });
+
+    const queueList = matchingSongs.map(ms => SONGS.find(s => s.id === ms.id)).filter(Boolean);
+    if (queueList.length > 0) {
+      state.queue = queueList;
+      let playIdx = state.queue.findIndex(s => s.id === song.id);
+      if (playIdx === -1) playIdx = 0;
+      playSong(playIdx);
+      return;
+    }
+  }
+
   let idx = state.queue.findIndex(s => s.id === song.id);
   if (idx === -1) {
     state.queue.push(song);
@@ -1975,19 +2104,11 @@ function playSong(idx) {
   if (!state.queue || state.queue.length === 0) return;
   if (idx < 0 || idx >= state.queue.length) idx = 0;
 
-  const oldSongId = state.currentPlayingSongId || (state.queue[state.currentIndex] ? state.queue[state.currentIndex].id : null);
-  if (audio && audio.currentTime > 0 && oldSongId) {
-    if (audio.duration && audio.currentTime >= audio.duration - 1) {
-      delete state.songProgress[oldSongId];
-    } else {
-      state.songProgress[oldSongId] = audio.currentTime;
-    }
-  }
-
   state.currentIndex = idx;
   const song = state.queue[idx];
   if (!song) return;
 
+  normalizeSongFields(song);
   state.currentPlayingSongId = song.id;
 
   const recentIdx = state.recentSongs.findIndex(s => s.id === song.id);
@@ -2011,15 +2132,6 @@ function playSong(idx) {
     audio.play().catch(() => {});
   }
 
-  audio.addEventListener('loadedmetadata', function resumeOnce() {
-    if (state.songProgress[song.id] && state.songProgress[song.id] > 0) {
-      audio.currentTime = state.songProgress[song.id];
-      delete state.songProgress[song.id];
-    }
-    audio.removeEventListener('loadedmetadata', resumeOnce);
-  });
-  
-  // Set playing state and UI update instantly
   state.isPlaying = true;
   updatePlayButtonUI();
   syncEqualizer();
@@ -2267,8 +2379,13 @@ function clearQueue() {
 }
 
 function formatTime(secs) {
-  const m = Math.floor(secs / 60);
+  if (isNaN(secs) || secs === Infinity) return '0:00';
+  const hrs = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
   const s = Math.floor(secs % 60).toString().padStart(2, '0');
+  if (hrs > 0) {
+    return `${hrs}:${m.toString().padStart(2, '0')}:${s}`;
+  }
   return `${m}:${s}`;
 }
 
@@ -2922,7 +3039,7 @@ window.loadSongUI = function(idx) {
     const mnpArtist = document.getElementById('mnp-artist');
     if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
     if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
-    if (mnpArtist) mnpArtist.textContent = song.artist || 'â€”';
+    if (mnpArtist) mnpArtist.textContent = song.artist;
   }
 };
 

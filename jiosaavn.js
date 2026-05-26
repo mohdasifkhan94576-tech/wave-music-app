@@ -227,6 +227,10 @@ async function playJioSaavnSong(song) {
   if (typeof renderQueuePanel === 'function') renderQueuePanel();
 
     const addedIds = new Set([song.id]);
+    const addedTitles = new Set();
+    const norm = (t) => t ? t.toLowerCase().replace(/[^a-z0-9]/g, '').trim() : '';
+    addedTitles.add(norm(song.title));
+
     let addedCount = 0;
     const TARGET = 20;
 
@@ -247,8 +251,10 @@ async function playJioSaavnSong(song) {
       while (addedCount < TARGET && (ai < artistSongs.length || gi < genreSongs.length)) {
         for (let n = 0; n < 2 && ai < artistSongs.length && addedCount < TARGET; ai++) {
           const rs = artistSongs[ai];
-          if (rs.audioUrl && !addedIds.has(rs.id)) {
+          const rsNorm = norm(rs.title);
+          if (rs.audioUrl && !addedIds.has(rs.id) && !addedTitles.has(rsNorm)) {
             addedIds.add(rs.id);
+            addedTitles.add(rsNorm);
             if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
             state.queue.push(rs);
             addedCount++;
@@ -257,8 +263,10 @@ async function playJioSaavnSong(song) {
         }
         for (; gi < genreSongs.length && addedCount < TARGET; gi++) {
           const rs = genreSongs[gi];
-          if (rs.audioUrl && !addedIds.has(rs.id)) {
+          const rsNorm = norm(rs.title);
+          if (rs.audioUrl && !addedIds.has(rs.id) && !addedTitles.has(rsNorm)) {
             addedIds.add(rs.id);
+            addedTitles.add(rsNorm);
             if (!SONGS.find(s => s.id === rs.id)) SONGS.push(rs);
             state.queue.push(rs);
             addedCount++;

@@ -454,6 +454,37 @@ body {
   box-shadow: 0 12px 32px rgba(168, 85, 247, 0.4);
 }
 
+
+.top10-container {
+  display: flex; gap: 20px; overflow-x: auto; padding: 20px 10px;
+  scrollbar-width: none;
+}
+.top10-container::-webkit-scrollbar { display: none; }
+.top10-item {
+  display: flex; align-items: center; position: relative; flex-shrink: 0; width: 235px; margin-top: 10px;
+}
+.top10-rank {
+  font-size: 170px; font-weight: 900; color: rgba(0,0,0,0);
+  -webkit-text-stroke: 3px rgba(255,255,255,0.25);
+  line-height: 1; margin-right: -45px; z-index: 1; pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+  user-select: none;
+  transition: -webkit-text-stroke 0.3s, text-shadow 0.3s;
+}
+.top10-item:hover .top10-rank {
+  -webkit-text-stroke: 3px var(--neon-purple);
+  text-shadow: 0 0 30px rgba(168,85,247,0.7);
+}
+.top10-item .music-card {
+  z-index: 2; width: 170px;
+}
+
+.cloud-badge {
+  font-size: 8px; font-weight: 800; background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  color: #fff; padding: 1px 5px; border-radius: 3px; vertical-align: middle;
+  margin-left: 6px; letter-spacing: 0.5px;
+}
+
 .pl-header { display: flex; gap: 30px; align-items: flex-end; margin-bottom: 40px; padding-top: 20px; }
 .pl-cover { width: 220px; height: 220px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: cover; }
 .pl-info h1 { font-size: 56px; font-weight: 800; margin: 8px 0 16px; line-height: 1.1; }
@@ -723,7 +754,6 @@ body {
 .footer-links a { font-size: 12px; color: var(--text-dark); text-decoration: none; transition: 0.2s; }
 .footer-links a:hover { color: var(--text-muted); }
 
-/* Footer Popup Styles */
 .footer-popup-overlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
@@ -1056,6 +1086,12 @@ body {
   .music-card { width: 140px; padding: 10px; }
   .music-card.wide { width: 170px; }
   .music-card:hover { transform: scale(1.05) translateY(-4px); }
+  
+  .top10-container { gap: 12px; padding: 15px 5px; }
+  .top10-item { width: 175px; }
+  .top10-rank { font-size: 110px; margin-right: -25px; -webkit-text-stroke: 2px rgba(255,255,255,0.25); }
+  .top10-item .music-card { width: 130px; padding: 8px; }
+
   .cards-container { gap: 12px; padding: 20px 10px 20px 4px; margin: -20px -10px -20px -4px; }
   .card-info h3 { font-size: 12px; }
   .card-info p { font-size: 10px; }
