@@ -2013,7 +2013,7 @@ function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
 
-  // Sync state.isPlaying and Dynamic Island with native audio element state
+  
   audio.addEventListener('playing', () => {
     state.isPlaying = true;
     updatePlayButtonUI();
