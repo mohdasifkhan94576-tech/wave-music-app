@@ -272,7 +272,7 @@ window.toggleNotifications = function() {
   const dd = document.getElementById('notif-dropdown');
   if (!dd) return;
   dd.classList.toggle('hidden');
-
+  
   if (!dd.classList.contains('hidden')) {
     setTimeout(() => {
       document.addEventListener('click', function _closeNotif(e) {
@@ -328,7 +328,7 @@ async function loadCloudData() {
     const res = await fetch('cloud_data.json');
     if (res.ok) {
       cloudData = await res.json();
-      // Load notifications
+      
       if (cloudData.notifications) {
         renderCloudNotifications();
       }
@@ -565,10 +565,8 @@ function getHomeHTML() {
 
     <div id="sections-container">
       ${recentRow}
-      <!-- Dynamic Artists Section -->
       <div id="home-artists-section">${_homeSkeleton('Popular Artists')}</div>
       
-      <!-- Curated Cloud & Netflix Sections -->
       <div id="cloud-recently-added-section"></div>
       <div id="cloud-top-10-english-section"></div>
       <div id="cloud-english-section"></div>
@@ -581,10 +579,8 @@ function getHomeHTML() {
       <div id="cloud-top-10-islamic-section"></div>
       <div id="cloud-podcasts-section"></div>
 
-      <!-- Smart Recommendations (injected live when song plays) -->
       <div id="rec-artist-section"></div>
       <div id="rec-genre-section"></div>
-      <!-- Dynamic JioSaavn Music Sections (populated after render) -->
       <div id="home-discover-section">${_homeSkeleton('Discover Fresh')}</div>
       <div id="home-trending-section">${_homeSkeleton('Trending Now')}</div>
       <div id="home-mixes-section">${_homeSkeleton('Your Top Mixes')}</div>
@@ -747,7 +743,7 @@ async function _populateHomeSections() {
   if (bannerEl) {
     const ids = ['c-song-2', 'c-song-1', 'c-song-5', 'c-song-79', 'c-song-60'];
     const spotlights = SONGS.filter(s => s.isCloud && ids.includes(s.id));
-    // Sort by ids order
+    
     spotlights.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
     
     if (spotlights.length === 0 && SONGS.length > 0) {
@@ -760,7 +756,7 @@ async function _populateHomeSections() {
       bannerEl.style.opacity = '1';
       
       const colors = {
-        'c-song-1': '244, 63, 94',  
+        'c-song-1': '244, 63, 94',   
         'c-song-2': '6, 182, 212',    
         'c-song-5': '217, 70, 239',   
         'c-song-79': '245, 158, 11',  
@@ -869,17 +865,26 @@ async function _populateHomeSections() {
   }
   
   if (cloudData.songs && cloudData.songs.length > 0) {
-    const recAdded = cloudData.songs.filter(s => s.recentlyAdded);
+    const getRandomSubset = (arr, n) => {
+      let shuffled = [...arr];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled.slice(0, n);
+    };
+
+    const recAdded = getRandomSubset(cloudData.songs.filter(s => s.recentlyAdded), 15);
     const top10Eng = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-english')).sort((a,b) => a.rank - b.rank);
-    const engSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('english'));
+    const engSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('english')), 15);
     const top10Hindi = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-hindi')).sort((a,b) => a.rank - b.rank);
-    const animeSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('anime'));
-    const kpopSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('kpop'));
-    const kdramaSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('k-drama'));
-    const pakSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('pakistani'));
-    const islamicSongs = cloudData.songs.filter(s => s.tags && s.tags.includes('islamic'));
+    const animeSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('anime')), 15);
+    const kpopSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('kpop')), 15);
+    const kdramaSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('k-drama')), 15);
+    const pakSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('pakistani')), 15);
+    const islamicSongs = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('islamic')), 15);
     const top10Islamic = cloudData.songs.filter(s => s.tags && s.tags.includes('top-10-islamic')).sort((a,b) => a.rank - b.rank);
-    const podcasts = cloudData.songs.filter(s => s.tags && s.tags.includes('podcast'));
+    const podcasts = getRandomSubset(cloudData.songs.filter(s => s.tags && s.tags.includes('podcast')), 15);
 
     const setHTML = (id, html) => {
       const el = document.getElementById(id);
@@ -2123,7 +2128,7 @@ function initAudio() {
   audio = document.getElementById('audio-el');
   audio.volume = 0.7;
 
-  // Sync state.isPlaying and Dynamic Island with native audio element state
+  
   audio.addEventListener('playing', () => {
     state.isPlaying = true;
     updatePlayButtonUI();
@@ -2963,7 +2968,7 @@ function renderSidebarPlaylists() {
   const playlistSection = document.querySelectorAll('.nav-section')[2];
   if (!playlistSection) return;
 
- 
+  
   const customLinks = playlistSection.querySelectorAll('.nav-item[id^="sidebar-up_"]');
   customLinks.forEach(link => link.remove());
 
@@ -3201,7 +3206,7 @@ function syncMobileNowPlaying() {
   syncMnpRepeatState();
   syncMnpMarquees();
 
- 
+  
   triggerMnpPillFeedback(`${song.title} — ${song.artist}`, true);
 }
 
@@ -3420,7 +3425,7 @@ function triggerMnpPillFeedback(text, isSongNotice = false) {
   brandPill.classList.remove('feedback-active');
   brandPill.classList.remove('expanded');
 
- 
+  
   void brandPill.offsetWidth;
 
   if (isSongNotice) {
@@ -3525,7 +3530,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }, 200);
         } else {
-        
+          
           if (mnpArt) {
             mnpArt.style.transform = 'translateX(100px) scale(0.96)';
             mnpArt.style.opacity = '0';

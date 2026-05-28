@@ -460,6 +460,7 @@ body {
   box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
 }
 
+
 .hero-artwork-wrap {
   perspective: 1000px;
   display: flex;
@@ -495,6 +496,7 @@ body {
     transform: rotateY(-18deg) rotateX(10deg) translateY(5px);
   }
 }
+
 
 .hero-carousel-dots {
   position: absolute;
@@ -1283,7 +1285,7 @@ body {
   .music-card.wide { width: 170px; }
   .music-card:hover { transform: scale(1.05) translateY(-4px); }
   
-
+  
   .top10-container { gap: 12px; padding: 15px 5px; }
   .top10-item { width: 175px; }
   .top10-rank { font-size: 110px; margin-right: -25px; -webkit-text-stroke: 2px rgba(255,255,255,0.25); }
@@ -1471,10 +1473,11 @@ body {
   align-items: center;
   overflow: hidden;
 
- 
+  
   background: radial-gradient(circle at 50% -20%, rgba(var(--dom-color-rgb, 168, 85, 247), 0.28) 0%, transparent 70%),
               #000000;
   backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  
   
 
   transform: translateY(100%);
@@ -1508,6 +1511,7 @@ body {
   margin: 0;
   border-radius: 0 !important;
 }
+
 
 .mnp-art-wrap::after {
   content: '';
@@ -1869,6 +1873,7 @@ body {
   stroke: var(--neon-purple);
 }
 
+
 .mnp-progress-wrap {
   margin-bottom: 12px;
   width: calc(100% - 48px);
@@ -1961,6 +1966,7 @@ body {
   color: var(--neon-purple);
 }
 
+
 .mnp-play-btn {
   width: 72px;
   height: 72px;
@@ -1983,6 +1989,7 @@ body {
   flex-shrink: 0;
   will-change: transform;
 }
+
 
 .mnp-play-btn::before {
   content: '';
