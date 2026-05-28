@@ -1,10 +1,15 @@
 {
+  "notifications": [
+    { "id": "n1", "msg": " New Song Added — When the phone rings", "type": "new-song", "time": "Just now" },
+    { "id": "n2", "msg": " Legacy (Free Fire) is now on Hero Spotlight", "type": "update", "time": "2 min ago" },
+    { "id": "n3", "msg": " 5 New English Hits added to the library", "type": "new-song", "time": "1 hour ago" }
+  ],
   "artists": [
     {
       "id": "c-artist-101",
       "name": "Annural Khalid",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlO4cQS1LClETpJ_jbKjgFv88tIro2ZOgAzw&s",
-      "sub": "Pakistani Sufi & Pop Legend"
+      "sub": "Anime & J-Pop Artist"
     },
     {
       "id": "c-artist-102",
@@ -15,13 +20,13 @@
     {
       "id": "c-artist-103",
       "name": "BTS",
-      "img": "https://i.scdn.co/image/ab6761610000e5ebf80ec63ea7a0ef0fba60957d",
+      "img": "https://i.scdn.co/image/ab67616100005174f80ec63ea7a0ef0fba60957d",
       "sub": "Korean K-Pop Group"
     },
     {
       "id": "c-artist-104",
       "name": "Maher Zain",
-      "img": "https://i.scdn.co/image/ab67616d00001e0212175ca24ea0d0fceef05764",
+      "img": "https://i.scdn.co/image/ab67616d0000b273bb618f7428e414ba792aa75c",
       "sub": "Islamic Naat & Nasheed Vocalist"
     },
     {
