@@ -171,7 +171,8 @@ let state = {
   userPlaylists: [],
   followedArtists: [],
   heroIndex: 0,
-  heroInterval: null
+  heroInterval: null,
+  mnpMode: 'song'
 };
 
 let audio;
@@ -351,10 +352,13 @@ async function loadCloudData() {
             });
           } else {
             existing.isCloud = true;
+            if (song.title) existing.title = song.title;
+            if (song.artist) existing.artist = song.artist;
             existing.img = song.img;
             existing.thumb = song.thumb;
             existing.image = song.image;
             existing.audioUrl = song.audioUrl;
+            if (song.canvasUrl) existing.canvasUrl = song.canvasUrl;
             if (song.tags) existing.tags = song.tags;
             if (song.rank !== undefined) existing.rank = song.rank;
             if (song.recentlyAdded !== undefined) existing.recentlyAdded = song.recentlyAdded;
@@ -1076,7 +1080,7 @@ function getPlaylistHTML(playlistId) {
     listHTML = playlistSongs.length > 0 ? playlistSongs.map((song, i) => {
       normalizeSongFields(song);
       return `
-        <div class="list-row" onclick="playSong(${SONGS.indexOf(song)})">
+        <div class="list-row" onclick="playSpecificSong('${song.id}')">
           <div class="col-num">${i + 1}</div>
           <div class="col-title">
             <img src="${song.thumb || song.img || 'https://placehold.co/200x200/1a1a1a/a855f7?text=Music'}" alt="">
@@ -3136,36 +3140,34 @@ document.addEventListener('keydown', (e) => {
 
 let isMobileNowPlayingOpen = false;
 
-function openMobileNowPlaying(e) {
-  if (window.innerWidth > 768) return;
-  if (e && e.target.closest('button')) return;
+function toggleMobileNowPlaying(e) {
+  if (e) {
+    if (e.target.closest('button') && !e.target.closest('[title="Now Playing View"]')) return;
+    if (e.target.closest('input') || e.target.closest('.progress-container') || e.target.closest('.vol-control')) return;
+    e.stopPropagation();
+  }
 
   const card = document.getElementById('mobile-now-playing');
   if (!card) return;
 
-  isMobileNowPlayingOpen = true;
-  syncMobileNowPlaying();
-  card.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  if (isMobileNowPlayingOpen) {
+    closeMobileNowPlaying();
+  } else {
+    isMobileNowPlayingOpen = true;
+    syncMobileNowPlaying();
+    card.classList.add('open');
+    document.body.classList.add('mnp-active');
+    if (window.innerWidth <= 768) {
+      document.body.style.overflow = 'hidden';
+    }
 
-  
-  const brandPill = document.getElementById('mnp-brand-pill');
-  if (brandPill) {
-    brandPill.classList.remove('visible');
-    setTimeout(() => {
-      if (isMobileNowPlayingOpen) {
-        brandPill.classList.add('visible');
-      }
-    }, 1000);
-  }
-
-  
-  const mnpSlider = document.getElementById('mnp-vol-slider');
-  if (mnpSlider) {
-    const currentVol = audio ? Math.round(audio.volume * 100) : (state.lastVolume || 70);
-    mnpSlider.value = currentVol;
-    mnpSlider.style.setProperty('--mnp-vol-fill', currentVol + '%');
-    syncMnpVolumeUI(currentVol, state.isMuted);
+    const mnpSlider = document.getElementById('mnp-vol-slider');
+    if (mnpSlider) {
+      const currentVol = audio ? Math.round(audio.volume * 100) : (state.lastVolume || 70);
+      mnpSlider.value = currentVol;
+      mnpSlider.style.setProperty('--mnp-vol-fill', currentVol + '%');
+      syncMnpVolumeUI(currentVol, state.isMuted);
+    }
   }
 }
 
@@ -3174,13 +3176,54 @@ function closeMobileNowPlaying() {
   if (!card) return;
   isMobileNowPlayingOpen = false;
   card.classList.remove('open');
+  document.body.classList.remove('mnp-active');
   document.body.style.overflow = '';
 
   const brandPill = document.getElementById('mnp-brand-pill');
   if (brandPill) {
     brandPill.classList.remove('visible');
   }
+
+  // Pause video when player is closed
+  const mnpVideo = document.getElementById('mnp-bg-video');
+  if (mnpVideo) mnpVideo.pause();
 }
+
+window.setMnpMode = function(mode) {
+  state.mnpMode = mode || 'song';
+  
+  const toggleSong = document.getElementById('mnp-toggle-song');
+  const toggleVideo = document.getElementById('mnp-toggle-video');
+  const mnpVideo = document.getElementById('mnp-bg-video');
+  const mnpImg = document.getElementById('mnp-art');
+
+  if (state.mnpMode === 'video') {
+    if (toggleSong) toggleSong.classList.remove('active');
+    if (toggleVideo) toggleVideo.classList.add('active');
+    
+    if (mnpVideo) {
+      mnpVideo.classList.remove('hidden');
+      const song = state.queue[state.currentIndex];
+      if (song && song.canvasUrl) {
+        if (mnpVideo.src !== song.canvasUrl) {
+          mnpVideo.src = song.canvasUrl;
+          mnpVideo.load();
+        }
+        mnpVideo.play().catch(() => {});
+      }
+    }
+    if (mnpImg) mnpImg.style.opacity = '0';
+  } else {
+    if (toggleSong) toggleSong.classList.add('active');
+    if (toggleVideo) toggleVideo.classList.remove('active');
+    
+    if (mnpVideo) {
+      mnpVideo.classList.add('hidden');
+      mnpVideo.pause();
+    }
+    if (mnpImg) mnpImg.style.opacity = '1';
+  }
+};
 
 function syncMobileNowPlaying() {
   const song = state.queue[state.currentIndex];
@@ -3190,13 +3233,25 @@ function syncMobileNowPlaying() {
   const mnpInfoThumb = document.getElementById('mnp-info-thumb');
   const mnpTitle = document.getElementById('mnp-title');
   const mnpArtist = document.getElementById('mnp-artist');
+  const togglePill = document.getElementById('mnp-toggle-pill');
 
   if (mnpArt) mnpArt.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
   if (mnpInfoThumb) mnpInfoThumb.src = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
   if (mnpTitle) mnpTitle.textContent = song.title || 'Unknown';
   if (mnpArtist) mnpArtist.textContent = song.artist || '';
 
-  
+  if (song.canvasUrl) {
+    if (togglePill) togglePill.style.display = 'flex';
+    if (state.mnpMode === 'video') {
+      setMnpMode('video');
+    } else {
+      setMnpMode('song');
+    }
+  } else {
+    if (togglePill) togglePill.style.display = 'none';
+    setMnpMode('song');
+  }
+
   const coverUrl = song.thumb || song.img || 'https://placehold.co/300x300/1a1a1a/a855f7?text=Music';
   updateDominantColor(coverUrl);
 
@@ -3206,7 +3261,6 @@ function syncMobileNowPlaying() {
   syncMnpRepeatState();
   syncMnpMarquees();
 
-  
   triggerMnpPillFeedback(`${song.title} — ${song.artist}`, true);
 }
 
@@ -3264,7 +3318,9 @@ function syncMobileNowPlayingProgress() {
 }
 
 function openMobileQueue() {
-  closeMobileNowPlaying();
+  if (window.innerWidth <= 768) {
+    closeMobileNowPlaying();
+  }
   setTimeout(() => toggleQueue(), 100);
 }
 

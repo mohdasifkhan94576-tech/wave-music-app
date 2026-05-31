@@ -204,40 +204,54 @@
       </nav>
       
       <div class="mobile-now-playing" id="mobile-now-playing">
+        <div class="mnp-bg-media">
+          <img src="https://placehold.co/200x200/1a1a1a/a855f7?text=Music" alt="" class="mnp-bg-img" id="mnp-art">
+          <video class="mnp-bg-video hidden" id="mnp-bg-video" loop muted playsinline></video>
+          <div class="mnp-art-glow" id="mnp-art-glow"></div>
+          <div class="mnp-bg-overlay"></div>
+        </div>
+
         <div class="mnp-handle-bar" id="mnp-drag-handle"></div>
 
-        <div class="mnp-art-wrap">
-          <img src="https://placehold.co/200x200/1a1a1a/a855f7?text=Music" alt="" class="mnp-art" id="mnp-art">
-          <div class="mnp-art-glow" id="mnp-art-glow"></div>
+        <div class="mnp-topbar">
+          <button class="mnp-close-btn" onclick="closeMobileNowPlaying()" title="Close Player">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
           
-          <div class="mnp-topbar">
-            <div class="mnp-brand-pill" id="mnp-brand-pill">
-              <span class="mnp-brand-text">Now Playing on Wave</span>
-            </div>
-            <div class="mnp-menu-container">
-              <button class="mnp-menu-btn" id="mnp-menu-btn" onclick="toggleMnpMenu(event)">
-                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
-              </button>
-              <div class="mnp-menu-dropdown" id="mnp-menu-dropdown">
-                <div class="mnp-menu-item" onclick="handleMnpAddToPlaylist(event)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-                  <span>Add to Playlist</span>
-                </div>
-                <div class="mnp-menu-item" onclick="handleMnpAddToLiked(event)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                  <span>Add to Liked</span>
-                </div>
-                <div class="mnp-menu-item" onclick="closeMobileNowPlaying(); toggleMnpMenu(event)">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                  <span>Close Player</span>
-                </div>
+          <div class="mnp-toggle-pill" id="mnp-toggle-pill">
+            <button class="mnp-toggle-btn active" id="mnp-toggle-song" onclick="setMnpMode('song')">Song</button>
+            <button class="mnp-toggle-btn" id="mnp-toggle-video" onclick="setMnpMode('video')">Video</button>
+          </div>
+
+          <div class="mnp-brand-pill" id="mnp-brand-pill">
+            <span class="mnp-brand-text">Now Playing on Wave</span>
+          </div>
+
+          <div class="mnp-menu-container">
+            <button class="mnp-menu-btn" id="mnp-menu-btn" onclick="toggleMnpMenu(event)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+            </button>
+            <div class="mnp-menu-dropdown" id="mnp-menu-dropdown">
+              <div class="mnp-menu-item" onclick="handleMnpAddToPlaylist(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                <span>Add to Playlist</span>
+              </div>
+              <div class="mnp-menu-item" onclick="handleMnpAddToLiked(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>Add to Liked</span>
+              </div>
+              <div class="mnp-menu-item" onclick="closeMobileNowPlaying(); toggleMnpMenu(event)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <span>Close Player</span>
               </div>
             </div>
           </div>
         </div>
 
         <div class="mnp-info-card">
-          <img src="https://placehold.co/200x200/1a1a1a/a855f7?text=Music" alt="" class="mnp-info-thumb" id="mnp-info-thumb">
+          <img src="https://placehold.co/200x200/1a1a1a/a855f7?text=Music" alt="" class="mnp-info-thumb" id="mnp-info-thumb" style="display: none;">
           
           <div class="mnp-waveform" id="mnp-waveform">
             <span></span>
@@ -300,7 +314,7 @@
         </div>
       </div>
 
-      <div class="bottom-player" id="bottom-player-bar" onclick="openMobileNowPlaying(event)">
+      <div class="bottom-player" id="bottom-player-bar" onclick="toggleMobileNowPlaying(event)">
         <div class="player-left">
           <img src="https://placehold.co/200x200/1a1a1a/a855f7?text=Music" alt="Thumb" class="player-thumb" id="pl-thumb">
           <div class="equalizer" id="equalizer">
@@ -338,7 +352,7 @@
         <div class="player-right">
 
           <button class="icon-btn sm-btn" onclick="toggleMiniPlayer()" id="mini-toggle" title="Mini Player"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z"/></svg></button>
-          <button class="icon-btn sm-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></button>
+          <button class="icon-btn sm-btn" onclick="toggleMobileNowPlaying(event)" title="Now Playing View"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></button>
           <button class="icon-btn sm-btn" onclick="toggleQueue()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg></button>
           <div class="vol-control">
             <button class="icon-btn sm-btn" onclick="toggleMute()" id="mute-btn">
