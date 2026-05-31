@@ -1,6 +1,6 @@
 {
   "notifications": [
-    { "id": "n1", "msg": " New Song Added — When the phone rings", "type": "new-song", "time": "Just now" },
+    { "id": "n1", "msg": " New Song Added — Where Are You", "type": "new-song", "time": "Just now" },
     { "id": "n2", "msg": " Legacy (Free Fire) is now on Hero Spotlight", "type": "update", "time": "2 min ago" },
     { "id": "n3", "msg": " 5 New English Hits added to the library", "type": "new-song", "time": "1 hour ago" }
   ],
@@ -20,19 +20,19 @@
     {
       "id": "c-artist-103",
       "name": "BTS",
-      "img": "https://i.scdn.co/image/ab67616100005174f80ec63ea7a0ef0fba60957d",
+      "img": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=300&h=300&fit=crop",
       "sub": "Korean K-Pop Group"
     },
     {
       "id": "c-artist-104",
       "name": "Maher Zain",
-      "img": "https://i.scdn.co/image/ab67616d0000b273bb618f7428e414ba792aa75c",
+      "img": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=300&h=300&fit=crop",
       "sub": "Islamic Naat & Nasheed Vocalist"
     },
     {
       "id": "c-artist-105",
       "name": "Rahat Fateh Ali Khan",
-      "img": "https://i.scdn.co/image/ab6761610000e5ebac45eaf028dc58810df0f382",
+      "img": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=300&h=300&fit=crop",
       "sub": "Pakistani Sufi & Pop Legend"
     },
     {
@@ -56,6 +56,7 @@
       "album": "Jhol",
       "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1778407877/jhol_loza3x.mp3",
       "img": "https://c.saavncdn.com/574/Jhol-English-2024-20250715210327-500x500.jpg",
+      "canvasUrl": "https://res.cloudinary.com/ddc7uozv0/video/upload/q_auto/f_auto/v1780226671/Jhol_Mannu_live_shows__jhol_Annural_Khalid_and_Maanu_status._shorts_pakistan_like_1080p_gu923o.mp4",
       "tags": ["top-10-hindi"],
       "rank": 10,
       "recentlyAdded": true
@@ -67,6 +68,7 @@
       "album": "EDM Exclusives",
       "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1778412071/Alan_Walker_-_Faded_320k_y9ljqr.mp3",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS7d9cGQQNtSbmnkDodXDWlu0tcuCUPdhGsg&s",
+      "canvasUrl": "https://assets.mixkit.co/videos/preview/mixkit-retro-futuristic-grid-background-loop-41445-large.mp4",
       "tags": ["english", "top-10-english"],
       "rank": 1,
       "recentlyAdded": false
@@ -78,6 +80,7 @@
       "album": "Queen Of Tears OST",
       "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779691996/Love_You_With_All_My_Heart_zuwrpj.mp3",
       "img": "https://i.scdn.co/image/ab67616d0000b2737533b658892e7b8dcfdaecb7",
+      "canvasUrl": "https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-background-1611-large.mp4",
       "tags": ["k-drama"],
       "rank": 0,
       "recentlyAdded": false
@@ -1004,7 +1007,7 @@
       "img": "https://i.scdn.co/image/ab67616d0000b2732fc1f0e56f80b5e7cc388b3c",
       "tags": ["top-10-hindi"],
       "rank": 2,
-      "recentlyAdded":false   
+      "recentlyAdded": true   
     },
     {
       "id": "c-song-93",
@@ -1015,7 +1018,7 @@
       "img": "https://i.scdn.co/image/ab67616d0000b273148a06ae24e68c088d8d2954",
       "tags": ["top-10-hindi"],
       "rank": 3,
-      "recentlyAdded": false  
+      "recentlyAdded": true   
     },
     {
       "id": "c-song-94",
@@ -1082,28 +1085,6 @@
       "tags": ["top-10-hindi"],
       "rank": 9,
       "recentlyAdded": false   
-    },
-    {
-      "id": "c-song-100",
-      "title": "Free Fire Lobby theme (2017)",
-      "artist": "Free Fire Orignal Soundtrack vol.1",
-      "album": "free fire ",
-      "audioUrl":"https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779982151/Free_Fire_Original_Lobby_spotdown.org_s5opbm.mp3",
-      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu3oK3QDr0BREO0vCNsz6-8Tcb6fZazPAjGg&s",
-      "tags": ["english"],
-      "rank": 0,
-      "recentlyAdded": true  
-    },
-    {
-      "id": "c-song-101",
-      "title": "Vale Vale ",
-      "artist": "Alok,Zafrir",
-      "album": "free fire ",
-      "audioUrl":"https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779981856/Vale_Vale_spotdown.org_gsbl0z.mp3",
-      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTknyxuMG03qOEZ8YW5eWyD_1KogAJP-ldPWA&s",
-      "tags": ["english"],
-      "rank": 0,
-      "recentlyAdded": true
     }
   ]
 }
