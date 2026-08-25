@@ -1,0 +1,139 @@
+{
+  "songs": [
+    {
+      "id": "c-song-1",
+      "title": "Jhol",
+      "artist": "Annural Khalid",
+      "album": "Jhol",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1778407877/jhol_loza3x.mp3",
+      "img": "https://c.saavncdn.com/574/Jhol-English-2024-20250715210327-500x500.jpg",
+      "canvasUrl": "https://res.cloudinary.com/ddc7uozv0/video/upload/q_auto/f_auto/v1780226671/Jhol_Mannu_live_shows__jhol_Annural_Khalid_and_Maanu_status._shorts_pakistan_like_1080p_gu923o.mp4",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-92",
+      "title": "Tu Jo Mila",
+      "artist": "Pritam,KK,Kausar Munir",
+      "album": "Bajrangi Bhaijaan",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729306/Tu_Jo_Mila_hqoirl.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3ETy_5kl6xMHvMUJilo9I8JRY1KayJBPnzA&s",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-93",
+      "title": "Saiyaara (from Saiyaara)",
+      "artist": "Tanishk Bagchi,Faheem Abdullah,Arslan Nizami",
+      "album": "Saiyaara",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729304/Saiyaara_From_Saiyaara_eii4fz.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2732fc1f0e56f80b5e7cc388b3c",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:28"
+    },
+    {
+      "id": "c-song-93",
+      "title": "Barbaad (from Saiyaara)",
+      "artist": "The Rish,Jubin Nautiyal",
+      "album": "Saiyaara",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779730416/Barbaad_twpnca.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273148a06ae24e68c088d8d2954",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:54"
+    },
+    {
+      "id": "c-song-94",
+      "title": "Tum Hi Aana (From Marjaavaan)",
+      "artist": "Jubin Nautiyal,Payal Dev",
+      "album": "Marjaavaan",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729308/Tum_Hi_Aana_From__Marjaavaan___spotdown.org_ryel9n.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2736539071e0f1833190a491d4d",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-95",
+      "title": "Andaaz e Karam",
+      "artist": "Madhur Sharma,Moin,ER",
+      "album": "Andaaz e Karam",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779730519/Andaaz_e_Karam_q0kghf.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02a8b06ed15718669e3a6d5923",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:05"
+    },
+    {
+      "id": "c-song-96",
+      "title": "Dil Diyan Gallan",
+      "artist": "Vishal-Shekhar,Atif Aslam,Irshad Kamil",
+      "album": "Tiger Zinda Hai",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729298/Dil_Diyan_Gallan_spotdown.org_yatzit.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273576521b1bf3ec2fd7fdfcbd5",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-97",
+      "title": "Thoda Thoda Pyaar",
+      "artist": "Nilesh Ahuja,Kumaar,Stebin Ben",
+      "album": "Thoda Thoda Pyaar",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729304/Thoda_Thoda_Pyaar_spotdown.org_jkfpwf.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW16kT9qBuh-aMas2eHb1s3v-izA4mxpOLrw&s",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-98",
+      "title": "Deva Deva (From Brahmastra)",
+      "artist": "Nilesh Ahuja,Kumaar,Stebin Ben",
+      "album": "Brahmastrahoda",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729301/Deva_Deva_From__Brahmastra___spotdown.org_xu4oid.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ccb8340447b428d8b4330720",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:54"
+    },
+    {
+      "id": "c-song-99",
+      "title": "Love You Zindagi",
+      "artist": "Amit Trivedi,Jasleen Royal,Kausar Munir",
+      "album": "Love You Zindagi",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779729306/Love_You_Zindagi_qjrq59.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273fcf31503544ab70a339ea2fe",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:54"
+    },
+    {
+      "id": "c-song-102",
+      "title": "Tu Hai Kahan",
+      "artist": "AUR",
+      "album": "AUR",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313768/Tu_hai_kahan_spotdown.org_meqvga.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2736b328f3c847bee898e384488",
+      "tags": [
+        "hindi"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    }
+  ]
+}

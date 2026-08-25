@@ -1,0 +1,341 @@
+{
+  "songs": [
+    {
+      "id": "c-song-6",
+      "title": "Maher Zain - Ya Nabi Salam Alayka",
+      "artist": "Maher Zain",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779567222/Maher_Zain_-_Ya_Nabi_Salam_Alayka_International_Version___Official_Music_Video_320k_skhtxz.mp3",
+      "img": "https://i1.sndcdn.com/artworks-Q8DCM8wFQaYw4ina-m4KfIA-t500x500.jpg",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-10",
+      "title": "Sidra Se Bhi Aage Kaun Gaya",
+      "artist": "Syed Musthaqeem",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779562281/Sidra_Se_Bhi_Aage_Kaun_Gaya_%EF%B8%8F__Slowed_Reverb_Version_By_Syed_Musthaqeem_Naat_emotional_320k_xjarr2.mp3",
+      "img": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/ee/1b/8e/ee1b8e63-ffef-6724-c7f1-42c2d13abf9d/8905713510032_cover.jpg/600x600cc.webp",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-11",
+      "title": "Meri Baat Ban Gayi Hai",
+      "artist": "Ghulam Mustafa Qadri ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779563182/Meri_Baat_Ban_Gayi_Hai_szb5td.mp3",
+      "img": "https://c.saavncdn.com/085/Meri-Baat-Ban-Gayi-Hai-Urdu-2024-20240528153559-500x500.jpg",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-12",
+      "title": "Jashn e Amad e Rasool Allah he Allah",
+      "artist": "Ghulam Mustafa Qadri ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779564018/Jashn_e_Amad_e_Rasool_Allah_he_Allah_ggz5pb.mp3",
+      "img": "https://m.media-amazon.com/images/I/511uznFtKaL._UXNaN_FMjpg_QL85_.jpg",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-13",
+      "title": "Koi Bataye Daryaon",
+      "artist": " Muhammad Anas Nazeer",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779564659/Koi_Bataye_Daryaon_Ko_a9base.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273c90cff54c1a6cf4275839e3c",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:33"
+    },
+    {
+      "id": "c-song-14",
+      "title": "Be Khud Kiye Dete Hain",
+      "artist": "Muzammil Hassan Nagri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779565206/Be_Khud_Kiye_Dete_Hain_g9le0g.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e029a90c5b891e85547677f8ab5",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-15",
+      "title": "Kash Main Yaro Palestine ka Basi Hota",
+      "artist": "Anas Nazeer",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779565865/Kash_Main_Yaro_Palestine_ka_Basi_Hota_ywfear.mp3",
+      "img": "https://c.saavncdn.com/319/Kash-Me-Yaro-Palestine-Ka-Basi-Hota-Urdu-2025-20250423214141-500x500.jpg",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-16",
+      "title": "Rukh e Mustafa wo kitab ha",
+      "artist": "Zaheer bilali",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779566561/Rukh_e_Mustafa_wo_kitab_hai_g2pi4v.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA8t-vNpJQ-BANUo5lyQVMkkl2c560MNiYFg&s",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-17",
+      "title": "Mery Tajusharia Ki Kia Bat Hy",
+      "artist": "Ghulam Mustafa Qadri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779568672/Manqabat_2022___Taj_Ul_Shariyya___Ghulam_Mustafa_Qadri_320k_two2oa.mp3",
+      "img": "https://a10.gaanacdn.com/gn_img/albums/9MAWe97WyJ/AWeLZxZj3y/size_m.jpg",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-18",
+      "title": "Sarkar Ka Naukar Hon ",
+      "artist": "Ghulam Mustafa Qadri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779611772/Sarkar_Ka_Naukar_Hon_-_Koi_Aam_Nahi_Hon____Viral_Naat____Ghulam_Mustafa_Qadri____Islam_System_320k_fksvvm.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273c6eab2083f14912361e0b4bd",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:12"
+    },
+    {
+      "id": "c-song-19",
+      "title": "Dil umar dilbar umar",
+      "artist": "Muhammad Anas Nazeer",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779612437/Dil_umar_dilbar_umar_naat_320k_gbpiem.mp3",
+      "img": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/56/10/5a/56105adf-643a-7713-b8c2-e23d010b870a/cover.jpg/600x600cc.webp",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-20",
+      "title": "Badshah Ya Hussain",
+      "artist": " Ghulam Mustafa Qadri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779613166/Imam_Hussain_Badshah_Ya_Hussain_c8fh0o.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273971110c908e4d0a000bf1b42",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-21",
+      "title": "Madine Ka Safar Hai",
+      "artist": "Syed Hassan Ullah Hussaini",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779620302/Madine_Ka_Safar_Hai_hpdarf.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02f107baefecbb83f56f072c09",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-22",
+      "title": "Dar e Nabi Par",
+      "artist": "Ghulam Mustafa Qadri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779622202/Dar_e_Nabi_Par_rucwnr.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273e7dc6278e020e4a79256e48d",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:33"
+    },
+    {
+      "id": "c-song-23",
+      "title": "mein banda e aasi hoon 2",
+      "artist": "Syed Hassan Ullah Hussani",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779622199/Main_Banda_e_Aasi_Hoon_2_New_Version_uubadt.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273cf4a0f89ac131706c5a24c28",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:27"
+    },
+    {
+      "id": "c-song-24",
+      "title": "Mairaj Ko Chaly Dulha",
+      "artist": " Ghulam Mustafa Qadri ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779622213/Meraj_ko_Chalay_Dulha_wmrd5h.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27318dccfdbbc36213f749f1e44",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-25",
+      "title": "Jagah Ji Lgany Ki",
+      "artist": " Ghulam Mustafa Qadri ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779622212/Jagha_Ji_Lagane_ki_Duniya_Nhi_Hai_wooogr.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2730b36417d997897c0eba984e4",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-26",
+      "title": "Wo Mera Nabi Hai",
+      "artist": " Syed Hassan Ullah Hussaini  ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628302/Woh_Mera_Nabi_Hai___Syed_Hassan_Ullah_Hussaini___Muhammad_Shaffan___Muhammad_Junaid___Home_Islamic_320k_u8bqrd.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2739ac96a5d9f1e3743966f56ca",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-27",
+      "title": "Maula Ya Salli Wa Sallim",
+      "artist": "  Nasheed ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628300/Maula_Ya_Salli_Wa_Sallim_Qaseeda_Burda_Sharif_in_Urdu_320k_scnlfu.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2738b7687eec29d2d04ac83684a",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-28",
+      "title": "Kabay Ki Ronaq Kabay Ka Manzar",
+      "artist": "Ghulam Mustafa Qadri  ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628310/New_Naat_-_Ghulam_Mustafa_Qadri_-_Kabay_Ki_Ronaq_-_Official_Video_-_Heera_Gold_320k_alyy2d.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273152d7dbfaffe5ad54be4084b",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-29",
+      "title": "Main Banda e Aasi Hoon",
+      "artist": "Hassan Ullah Hussani ",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628315/Syed_Hassan_Ullah_Hussani____Main_Banda_e_Aasi_Hoon____Shab_e_Barat_Special____Safa_Islamic_320k_tcnn0j.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2732765cde31dfa4e4baae2cd47",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-30",
+      "title": "Gham Ho Gaye Beshumar ",
+      "artist": "Ghulam Mustafa Qadri",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628299/New_Naat_Sharif___Ghulam_Mustafa_Qadri___Gham_Ho_Gaye_Beshumar___Heera_Gold___Hou_Karam_Sarkar_Ab_320k_deulgs.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27390c71ab05d3682187d09a4c9",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-31",
+      "title": "Rahmatun Lil'Alameen",
+      "artist": " Maher Zain",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1779628291/youtube_video_tBbdSzwxqyY_320k_b6xeqn.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273da430ed7bc94d7ae3a2ad5bc",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-32",
+      "title": "Mohamed Nabina",
+      "artist": "Hamada Helal",
+      "album": "Islamic Naats",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1786793899/Mohamed_Nabina_dxon42.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2736312696b7b88d76ee6165d2b",
+      "lyricsUrl" : "https://res.cloudinary.com/deqjgueo8/raw/upload/v1786794151/Mohammad-nabi_jyasmx.json",
+      "tags": [
+        "islamic"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:02"
+    }
+  ]
+}

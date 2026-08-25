@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Wave Mobile App — Android App Coming Soon &amp; Install PWA</title>
+  <meta name="description" content="Wave Music Mobile App: We are actively developing the official native Android App coming soon to Google Play. Install the instant PWA app now on Android, iOS, and PC.">
+  <link rel="canonical" href="https://wave-music-i50w.onrender.com/mobile-app.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/icon-32.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/info-pages.css">
+  <style>
+    
+    .android-coming-soon-card {
+      background: linear-gradient(135deg, rgba(30, 215, 96, 0.08) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(168, 85, 247, 0.08) 100%);
+      border: 1px solid rgba(30, 215, 96, 0.3);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(30, 215, 96, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .android-coming-soon-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(30, 215, 96, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .coming-soon-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 215, 96, 0.18);
+      color: #1ed760;
+      border: 1px solid rgba(30, 215, 96, 0.4);
+      padding: 6px 14px;
+      border-radius: 500px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 16px;
+    }
+
+    .pwa-hero-btn-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 28px 0 16px;
+    }
+
+    .btn-pwa-install-big {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--neon-green);
+      color: #000000;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 16px 36px;
+      border-radius: 500px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 24px var(--neon-green-glow);
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .btn-pwa-install-big:hover {
+      background: #22e366;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(30, 215, 96, 0.6);
+    }
+
+    .btn-notify-android {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 15px 28px;
+      border-radius: 500px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease;
+    }
+
+    .btn-notify-android:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .install-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .install-step-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: all 0.25s ease;
+    }
+
+    .install-step-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .step-os-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .step-os-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .step-list {
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .step-list li {
+      margin-bottom: 8px;
+    }
+
+    .comparison-table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .comparison-table th {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    .check-yes {
+      color: #1ed760;
+      font-weight: bold;
+    }
+
+    .check-soon {
+      color: #a855f7;
+      font-weight: 600;
+      font-size: 0.8rem;
+      background: rgba(168, 85, 247, 0.15);
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-theme">
+    <div class="glow glow-purple"></div>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-pink"></div>
+  </div>
+
+  
+  <header class="info-topbar">
+    <div class="topbar-content">
+      <a href="index.html" class="logo-group" title="Back to Wave Music Player">
+        <svg viewBox="0 0 24 24" fill="none" stroke="url(#wave-logo-grad)" stroke-width="2.2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          <defs>
+            <linearGradient id="wave-logo-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1ed760" />
+              <stop offset="100%" stop-color="#3b82f6" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-name">Wave Music</span>
+        <span class="badge-version">Mobile</span>
+      </a>
+
+      <nav class="topbar-nav">
+        <a href="about.html" class="nav-link">About</a>
+        <a href="whats-new.html" class="nav-link">What's New</a>
+        <a href="how-it-works.html" class="nav-link">Architecture</a>
+        <a href="tips-and-tricks.html" class="nav-link">Tips</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+      </nav>
+
+      <a href="index.html" class="btn-launch-app">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+        Open Player
+      </a>
+    </div>
+  </header>
+
+  
+  <main class="info-main">
+    <div class="info-container">
+
+      
+      <section class="info-hero">
+        <div class="hero-pill-badge">
+          <span class="pulse-dot"></span> Next-Gen Mobile Experience
+        </div>
+        <h1>Stream Wave Music on the Go, <br><span class="gradient-text">Anytime, Anywhere</span></h1>
+        <p class="hero-subtitle">
+          Experience lightning-fast audio playback with full lockscreen controls, media notifications, and offline caching on your smartphone.
+        </p>
+      </section>
+
+      
+      <article class="android-coming-soon-card">
+        <div class="coming-soon-badge-tag">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 0 0-.1521-.5676.416.416 0 0 0-.5676.1521l-2.0223 3.503C15.5802 8.411 13.8407 8.1 12 8.1s-3.5802.411-5.1368 1.1504L4.8409 5.7474a.416.416 0 0 0-.5676-.1521.416.416 0 0 0-.1521.5676l1.9973 3.4592C2.6889 11.4912.449 14.544.0324 18.25h23.9352c-.4166-3.706-2.6565-6.7588-6.0856-8.9286"/></svg>
+          Official Android App — In Active Development
+        </div>
+
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: #ffffff; margin-bottom: 16px; letter-spacing: -0.5px;">
+          We are working on the official Android app — It's Coming Soon!
+        </h2>
+
+        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.75; margin-bottom: 20px; font-weight: 400;">
+          We are excited to share that our mobile engineering team is actively building the official native <strong>Wave Music Android Application</strong>, and it will be launching very soon on the Google Play Store! The upcoming Android app is crafted from the ground up to deliver ultra-smooth 120Hz scrolling, full offline song downloads, dedicated lockscreen media widgets with live audio visualizers, background playback optimization for maximum battery efficiency, Android Auto in-car dashboard support, and Bluetooth high-res LDAC streaming.
+        </p>
+
+        <p style="color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; margin-bottom: 24px;">
+          While we finalize and polish the native APK build, you can enjoy the full, uninterrupted Wave Music experience right now by installing our ultra-lightweight <strong>Progressive Web App (PWA)</strong> directly from your browser in just one click!
+        </p>
+
+        <div class="pwa-hero-btn-row">
+          <button class="btn-pwa-install-big" id="pwa-install-btn" onclick="triggerPwaInstall()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22"><circle cx="12" cy="12" r="9"/><path d="M12 8v7M9 12l3 3 3-3"/></svg>
+            Install PWA App Now
+          </button>
+
+          <a href="#install-guide" class="btn-notify-android">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 18h.01M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"/></svg>
+            View Install Guide &darr;
+          </a>
+        </div>
+      </article>
+
+      
+      <article class="info-card">
+        <div class="card-header">
+          <div class="card-header-icon" style="background: rgba(168,85,247,0.15); color: #a855f7;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div>
+            <h2>What is a PWA (Progressive Web App)?</h2>
+            <p>The modern standard for lightweight, installable mobile applications</p>
+          </div>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.96rem; margin-bottom: 18px;">
+          A Progressive Web App (PWA) gives you all the benefits of a native app without the heavy storage burden. It installs directly from your browser onto your home screen and operates inside a dedicated, standalone fullscreen window without browser URL bars or navigation clutter.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <div class="feature-box-icon" style="background: rgba(30, 215, 96, 0.15); color: #1ed760; display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </div>
+            <h3>Microscopic Storage (&lt; 5MB)</h3>
+            <p>Traditional music apps consume 150MB to 500MB of storage. Wave PWA takes less than 5MB of space on your phone.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-box-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+            </div>
+            <h3>Instant Background Updates</h3>
+            <p>No waiting for Google Play Store updates. When we add new podcast rows or audio codecs, you get them instantly.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-box-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7; display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="7" width="18" height="10" rx="5"/><circle cx="8" cy="12" r="1.5" fill="currentColor"/><circle cx="16" cy="12" r="1.5" fill="currentColor"/></svg>
+            </div>
+            <h3>Lockscreen &amp; Dynamic Island</h3>
+            <p>Control audio playback, scrub timelines, and skip tracks straight from your phone's lock screen and notification bar.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-box-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; display:flex; align-items:center; justify-content:center;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <h3>100% Free &amp; Ad-Free</h3>
+            <p>No intrusive ads, no subscription fees, and no in-app purchases. Pure uninterrupted music streaming.</p>
+          </div>
+        </div>
+      </article>
+
+      
+      <article class="info-card" id="install-guide">
+        <div class="card-header">
+          <div class="card-header-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          </div>
+          <div>
+            <h2>How to Install Wave Music on Your Device</h2>
+            <p>Quick 10-second setup for Android, iPhone, and Desktop</p>
+          </div>
+        </div>
+
+        <div class="install-steps-grid">
+          
+          <div class="install-step-card">
+            <div class="step-os-header">
+              <div class="step-os-icon" style="display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-4.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.68 2.24 12.87 2 12 2c-.87 0-1.68.24-2.64.63L7.88.65c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C6.73 3.69 5.5 5.67 5.5 8h13c0-2.33-1.23-4.31-2.97-5.34zM9 6c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.1rem; color: #fff;">Android (Chrome / Edge)</h3>
+                <span style="font-size: 0.8rem; color: #1ed760; font-weight: 600;">Recommended</span>
+              </div>
+            </div>
+            <ol class="step-list">
+              <li>Open <strong style="color:#fff;">Wave Music</strong> in Chrome or your mobile browser.</li>
+              <li>Tap the <strong style="color:#fff;">Three Dots (⋮)</strong> menu in the top-right corner.</li>
+              <li>Select <strong style="color:#1ed760;">"Install App"</strong> or <strong style="color:#1ed760;">"Add to Home screen"</strong>.</li>
+              <li>Tap <strong style="color:#fff;">Install</strong>. The Wave Music icon will appear on your home screen!</li>
+            </ol>
+          </div>
+
+          
+          <div class="install-step-card">
+            <div class="step-os-header">
+              <div class="step-os-icon" style="display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 0.6-2.65 1.35-.58.66-.99 1.72-.88 2.74 1.01.08 2.01-.52 2.61-1.24z"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.1rem; color: #fff;">iPhone / iPad (Safari)</h3>
+                <span style="font-size: 0.8rem; color: #3b82f6; font-weight: 600;">iOS 14+</span>
+              </div>
+            </div>
+            <ol class="step-list">
+              <li>Open Wave Music in the <strong style="color:#fff;">Safari</strong> browser.</li>
+              <li>Tap the <strong style="color:#fff;">Share button (⎋ with arrow)</strong> at the bottom bar.</li>
+              <li>Scroll down and tap <strong style="color:#1ed760;">"Add to Home Screen"</strong>.</li>
+              <li>Tap <strong style="color:#fff;">Add</strong> in the top-right. Launch directly from your home screen!</li>
+            </ol>
+          </div>
+
+          
+          <div class="install-step-card">
+            <div class="step-os-header">
+              <div class="step-os-icon" style="display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.1rem; color: #fff;">Windows / Mac / Linux</h3>
+                <span style="font-size: 0.8rem; color: #a855f7; font-weight: 600;">Desktop Window</span>
+              </div>
+            </div>
+            <ol class="step-list">
+              <li>Open Wave Music in <strong style="color:#fff;">Chrome, Edge, or Brave</strong>.</li>
+              <li>Click the <strong style="color:#1ed760;">Install icon</strong> in the right side of the URL address bar.</li>
+              <li>Click <strong style="color:#fff;">Install</strong>. Wave will open in its own dedicated, sleek desktop window!</li>
+            </ol>
+          </div>
+        </div>
+      </article>
+
+      
+      <article class="info-card">
+        <div class="card-header">
+          <div class="card-header-icon" style="background: rgba(30, 215, 96, 0.12); color: #1ed760;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div>
+            <h2>Feature Comparison Matrix</h2>
+            <p>Web Player vs. Installed PWA vs. Upcoming Native Android App</p>
+          </div>
+        </div>
+
+        <div class="comparison-table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Browser Web</th>
+                <th>Installed PWA</th>
+                <th>Native Android (Upcoming)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>320 kbps Lossless Audio</td>
+                <td><span class="check-yes">✓ Yes</span></td>
+                <td><span class="check-yes">✓ Yes</span></td>
+                <td><span class="check-yes">✓ Yes</span></td>
+              </tr>
+              <tr>
+                <td>Standalone Fullscreen Window</td>
+                <td style="color:var(--text-dark);">✕ No</td>
+                <td><span class="check-yes">✓ Yes</span></td>
+                <td><span class="check-yes">✓ Yes</span></td>
+              </tr>
+              <tr>
+                <td>Lockscreen &amp; Dynamic Island</td>
+                <td><span class="check-yes">✓ Yes</span></td>
+                <td><span class="check-yes">✓ Yes</span></td>
+                <td><span class="check-yes">✓ Yes</span></td>
+              </tr>
+              <tr>
+                <td>Storage footprint</td>
+                <td>0 MB</td>
+                <td>&lt; 5 MB</td>
+                <td>~35 MB</td>
+              </tr>
+              <tr>
+                <td>Offline Track Downloads</td>
+                <td style="color:var(--text-dark);">✕ No</td>
+                <td style="color:var(--text-muted);">Cache only</td>
+                <td><span class="check-soon">Coming Soon</span></td>
+              </tr>
+              <tr>
+                <td>Android Auto / In-Car UI</td>
+                <td style="color:var(--text-dark);">✕ No</td>
+                <td style="color:var(--text-muted);">Bluetooth only</td>
+                <td><span class="check-soon">Coming Soon</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  
+  <footer class="info-footer">
+    <div class="footer-inner">
+      <div class="footer-nav-grid">
+        <div class="footer-col">
+          <h4>Wave Music</h4>
+          <a href="about.html">About Wave</a>
+          <a href="whats-new.html">What's New</a>
+          <a href="how-it-works.html">How It Works</a>
+          <a href="jiosaavn-audio.html">JioSaavn Audio</a>
+        </div>
+        <div class="footer-col">
+          <h4>Features &amp; Apps</h4>
+          <a href="mobile-app.html">Mobile App &amp; PWA</a>
+          <a href="tips-and-tricks.html">Tips &amp; Tricks</a>
+          <a href="index.html#podcasts">Podcasts</a>
+          <a href="index.html">Launch Player</a>
+        </div>
+        <div class="footer-col">
+          <h4>Help &amp; Support</h4>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="contact.html#feedback">Submit Feedback</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal &amp; Privacy</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="legal.html">Legal Information</a>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 Wave Music App. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="legal.html">Terms</a>
+          <a href="contact.html">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let deferredPwaPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      const btn = document.getElementById('pwa-install-btn');
+      if (btn) btn.style.display = 'inline-flex';
+    });
+
+    function triggerPwaInstall() {
+      if (deferredPwaPrompt) {
+        deferredPwaPrompt.prompt();
+        deferredPwaPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            alert('Thank you for installing Wave Music!');
+          }
+          deferredPwaPrompt = null;
+        });
+      } else {
+        
+        const guide = document.getElementById('install-guide');
+        if (guide) {
+          guide.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

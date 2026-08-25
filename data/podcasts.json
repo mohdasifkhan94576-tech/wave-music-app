@@ -1,0 +1,37 @@
+{
+  "songs": [
+    {
+      "id": "podcast-trs-1",
+      "title": "We Remember Badr — But Not Delhi | Quran Told Us to Study History.",
+      "artist": "Really Maktoob",
+      "album": "Really Maktoob",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787068756/wave_podcast.com.mp4",
+      "img": "https://i.ytimg.com/vi/cKTrQ1uy_RM/hq720.jpg?sqp=-oaymwEnCOgCEMoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAsUrY6tw7Hu71G5bK-1HBY4ARFWA",
+      "tags": ["podcast", "motivation", "health", "hindi", "talks"],
+      "category": "podcasts",
+      "duration": "28:52"
+    },
+    {
+      "id": "podcast-trs-2",
+      "title": "Hazrat Bilal Habshi (RA) ki Akhri Azaan",
+      "artist": "Molana Tariq Jameel",
+      "album": "Molana Tariq Jameel",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787075030/Hazrat_Bilal_Habshi_RA_ki_Akhri_Azaan___Molana_Tariq_Jameel_Latest_Heart_Touching_Bayan_2025_128k.mp4",
+      "img": "https://i.ytimg.com/vi/K_u65etCfXY/hq720.jpg?sqp=-oaymwEnCOgCEMoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAUhPZsP7i5KKrga0CHBDhitvsJxQ",
+      "tags": ["podcast", "motivation", "health", "hindi", "talks"],
+      "category": "podcasts",
+      "duration": "16:18"
+    },
+    {
+      "id": "podcast-trs-3",
+      "title": "Achay Ikhlaq Kaisay Qaboo Mein Aatay Hain?",
+      "artist": "Molana Tariq Jameel",
+      "album": "Molana Tariq Jameel",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787075030/Achay_Ikhlaq_Kaisay_Qaboo_Mein_Aatay_Hain___Molana_Tariq_Jameel_Latest_Bayan_2026_128k.mp4",
+      "img": "https://i.ytimg.com/vi/ST6WNaJXtq8/hq720.jpg?sqp=-oaymwEnCOgCEMoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDK-l0hvesvr3HdUqZ442ydC1pQ2w",
+      "tags": ["podcast", "motivation", "health", "hindi", "talks"],
+      "category": "podcasts",
+      "duration": "15:47"
+    }
+  ]
+}

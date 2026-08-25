@@ -1,0 +1,154 @@
+{
+  "songs": [
+    {
+      "id": "c-song-128",
+      "title": "Thats So True (Apple Music Live 2025)",
+      "artist": "Gracie Abrams",
+      "album": "Gracie Abrams",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313716/Gracie_Abrams_-_That_s_So_True_Apple_Music_Live_2025__320k_kg6erq.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-16kdBEVLZOQnVGIvH1CXY0MfmTlOeJ1kPII1kd4fBKvsG7biUOZy4wIN&s=10",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 1,
+      "recentlyAdded": true,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-138",
+      "title": "Thats So True",
+      "artist": "Gracie Abrams",
+      "album": "Gracie Abrams",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784369975/That_s_So_True_spotdown.org_do2sar.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2731dac3694b3289cd903cb3acf",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 2,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-2",
+      "title": "Faded",
+      "artist": "Alan Walker",
+      "album": "EDM Exclusives",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1778412071/Alan_Walker_-_Faded_320k_y9ljqr.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS7d9cGQQNtSbmnkDodXDWlu0tcuCUPdhGsg&s",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 3,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-103",
+      "title": "Sugar & Brownies",
+      "artist": "DHARIA",
+      "album": "DHARIA",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313767/Sugar_Brownies_spotdown.org_gcjrnu.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e0288104647763f4c2c554f2301",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 5,
+      "recentlyAdded": true,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-105",
+      "title": "Attention",
+      "artist": "Charlie Puth",
+      "album": "Charlie Puth",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313758/Attention_spotdown.org_stajzb.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273897f73256b9128a9d70eaf66",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 6,
+      "recentlyAdded": true,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-79",
+      "title": "Legacy (free fire)",
+      "artist": "Alok",
+      "album": "Alok",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707548/Legacy_spotdown.org_oydszp.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273c72fc87f92c0e770bcc25ce7",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 7,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-135",
+      "title": "Night Changes",
+      "artist": "One Direction",
+      "album": "Night Changes",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313701/Night_Changes_spotdown.org_wvjooy.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a334a29f220057810cce98e1b4",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 7,
+      "recentlyAdded": true,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-60",
+      "title": "On The Floor",
+      "artist": "Jennifer Lopez,Pitbull",
+      "album": "Love?",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707579/On_The_Floor_spotdown.org_qkec2g.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ac888ad505c39f50656eac16",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 8,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-123",
+      "title": "Criminal",
+      "artist": "Britney Spears",
+      "album": "Criminal",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313727/Criminal_spotdown.org_pvvbcm.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a33613a80185a11b15987d2885",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 9,
+      "recentlyAdded": true,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-126",
+      "title": "Safari",
+      "artist": "Serena",
+      "album": "Safari",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313720/Safari_spotdown.org_tumvcz.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3d4ecc9efa75fb775522a78af",
+      "tags": [
+        "english",
+        "top-10-english"
+      ],
+      "rank": 10,
+      "recentlyAdded": false,
+      "duration": "3:27"
+    }
+  ]
+}

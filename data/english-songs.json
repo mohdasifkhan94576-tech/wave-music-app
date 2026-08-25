@@ -1,0 +1,1285 @@
+{
+  "songs": [
+    {
+      "id": "c-song-2",
+      "title": "Faded",
+      "artist": "Alan Walker",
+      "album": "EDM Exclusives",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/q_auto/f_auto/v1778412071/Alan_Walker_-_Faded_320k_y9ljqr.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS7d9cGQQNtSbmnkDodXDWlu0tcuCUPdhGsg&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-51",
+      "title": "Alon",
+      "artist": "Alan Walker",
+      "album": "Alan Walker",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707527/Alone_spotdown.org_yeriso.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtq0mFOq1B9HDWmzKK-oSSMBwfMKzPIo8DIg&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:19"
+    },
+    {
+      "id": "c-song-52",
+      "title": "The Spectre",
+      "artist": "Alan Walker",
+      "album": "Alan Walker",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707595/The_Spectre_spotdown.org_bgwgdc.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273894b01f74528f9e29c27b785",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-53",
+      "title": "The Nights",
+      "artist": "Avicii",
+      "album": "Live A Life You Will Remember",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707593/The_Nights_spotdown.org_j9lvsq.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02ffb343926530168be4724dd4",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-54",
+      "title": "Unity",
+      "artist": "Alan Walker",
+      "album": "Alan Walker",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707590/Unity_spotdown.org_zghkpf.mp3",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d59055868534f458240e7246",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-56",
+      "title": "Team Side Feat. RCB",
+      "artist": "Alan Walker,Sofiloud",
+      "album": "Team Side Feat. RCB",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707586/Team_Side_Feat._RCB_spotdown.org_tarcis.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6qyWJ3uKJKsBiMEyN5SgbKuty-FvO4FmZ_g&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:12"
+    },
+    {
+      "id": "c-song-57",
+      "title": "Mortals",
+      "artist": "Warriyo",
+      "album": "Mortals",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707584/Mortals_spotdown.org_ifmznc.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27375d244478eb566d756fba584",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-58",
+      "title": "Sing Me To Sleep",
+      "artist": "Alan Walker",
+      "album": "Sing Me To Sleep",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707582/Sing_Me_to_Sleep_spotdown.org_w1ieut.mp3",
+      "img": "https://i1.sndcdn.com/artworks-000167707202-viun2b-t500x500.jpg",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:05"
+    },
+    {
+      "id": "c-song-59",
+      "title": "Strongest (Alan Walker Remix)",
+      "artist": "Ina Wroldsen,Alan Walker",
+      "album": "Strongest (Alan Walker Remix)",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707582/Strongest_Alan_Walker_Remix__spotdown.org_b3ryw2.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSetU_BuK8Gb3lQg0dL3wtvZDJTNxmSef-vKQ&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:27"
+    },
+    {
+      "id": "c-song-60",
+      "title": "On The Floor",
+      "artist": "Jennifer Lopez,Pitbull",
+      "album": "Love?",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707579/On_The_Floor_spotdown.org_qkec2g.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ac888ad505c39f50656eac16",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-61",
+      "title": "Out Of This World ICC Mens T20 World Cup 2024",
+      "artist": "Sean Paul, Kes",
+      "album": "ICC Mens T20 World Cup 2024",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707574/Out_Of_This_World_ICC_Men_s_T20_World_Cup_2024_Official_Anthem__spotdown.org_wrilsl.mp3",
+      "img": "https://c.saavncdn.com/945/Virat-Kohli-Rap-Tribute-Hindi-2022-20221105053449-500x500.jpg",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:12"
+    },
+    {
+      "id": "c-song-62",
+      "title": "Ordinary",
+      "artist": "Alex Warren",
+      "album": "Ordinary",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707574/Ordinary_spotdown.org_lj6zj2.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxbyaO-FJtCpjCmm0lsjGIK2BZWHBt7fJpUg&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:19"
+    },
+    {
+      "id": "c-song-63",
+      "title": "Rise Up",
+      "artist": "TheFatRat",
+      "album": "Rise Up",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707573/Rise_Up_spotdown.org_kcrg1k.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273043a40737b9cded403f02ee4",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-64",
+      "title": "One Day (feat.Helena)",
+      "artist": "Arash,Helena",
+      "album": "One Day (feat.Helena)",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707573/One_Day_feat._Helena_-_Radio_Edit_spotdown.org_jhyzs2.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27386734c2b36be7adcaa4ab1f0",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-65",
+      "title": "Play",
+      "artist": "K-391,Alan Walker,Tungevaag,Mangoo",
+      "album": "Play",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707572/Play_spotdown.org_w2n3yq.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAtNT3RkpdCu5qq_7M2ePuOXjIpQijUIi29w&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-66",
+      "title": "On My Way",
+      "artist": "Alan Walker,Sabrina Carpenter",
+      "album": "On My Way",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707570/On_My_Way_spotdown.org_trgsqe.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh-6s_v4mfqxD9ojzJQME8AB2U8PA17t_Yrg&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-67",
+      "title": "Me Myself and The Night ",
+      "artist": "Alan Walker",
+      "album": "Me Myself and The Night",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707567/Me_Myself_and_The_Night_spotdown.org_ktxnad.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27317d91a994c9cf5f9ab422496",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-68",
+      "title": "Let Me Love You ",
+      "artist": "DJ Snake,Justin Bieber",
+      "album": "Let Me Love You",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707565/Let_Me_Love_You_spotdown.org_k5as3f.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTd9Wdx9EBLk0p3kmKEWPdl8sNJ0P-pLBj9w&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-69",
+      "title": "Love Me Like You Do ",
+      "artist": "Ellie Gouldling",
+      "album": "Love Me Like You Do",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707564/Love_Me_Like_You_Do_spotdown.org_fqsher.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2735fb82d91434b878472eb26d0",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-70",
+      "title": "Mind Of A Warrior ",
+      "artist": "Alan Walker",
+      "album": "Alan Walker",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707564/Mind_Of_A_Warrior_spotdown.org_fxtycd.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734106dd59953a30932a7a707f",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:35"
+    },
+    {
+      "id": "c-song-71",
+      "title": "On & On ",
+      "artist": "Cartoon,jeja,Daniel Levi",
+      "album": "On & On",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707563/On_On_spotdown.org_lcmn1m.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273cddf36938e728faddac61d96",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-72",
+      "title": "Lily ",
+      "artist": "Alan Walker,K-391,Emelie Hollow",
+      "album": "Lily",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707557/Lily_spotdown.org_fzrl8v.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjYZKYHSZgkAzl2bok8hhqhV5QsqzH7EU4Nw&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:28"
+    },
+    {
+      "id": "c-song-73",
+      "title": "Hislerim ",
+      "artist": "Serhat Durmus,Zerrin",
+      "album": "Hislerim",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707555/Hislerim_spotdown.org_eam5el.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl56EtdpIv0I6DPN3yoOrL4cobFrKR6W2BOQ&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-74",
+      "title": "Let Me Down Slowly (feat. Alessia Cara) ",
+      "artist": "Alec Benjamin, Alessia Cara",
+      "album": "Let Me Down Slowly",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707555/Let_Me_Down_Slowly_feat._Alessia_Cara__spotdown.org_qdgmw5.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWjd8dCRYX0Fez-HKX-Tw01aegyhRbHoy0wA&s",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-75",
+      "title": "Hymn for the Weekend",
+      "artist": "Coldplay",
+      "album": "A Head Full of Dreams",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707553/Hymn_for_the_Weekend_spotdown.org_ku5wol.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273e31280717e98e8efc40c720b",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-76",
+      "title": "Infinity",
+      "artist": "Jaymmes Young",
+      "album": "Feel Something",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707552/Infinity_spotdown.org_fls4yy.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273a9897f65d1ead1be10a51e3f",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-77",
+      "title": "Intro (Infected)",
+      "artist": "Sickick",
+      "album": "Talksick 3",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707551/Intro_Infected__spotdown.org_achnuw.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2733d66fcf3cac43041b1f81573",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-78",
+      "title": "Ignite",
+      "artist": "Alan Walker",
+      "album": "Alan Walker",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707551/Ignite_spotdown.org_xot5cs.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273eaee7835ad1cd0c435edd7cf",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-79",
+      "title": "Legacy (free fire)",
+      "artist": "Alok",
+      "album": "Alok",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707548/Legacy_spotdown.org_oydszp.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273c72fc87f92c0e770bcc25ce7",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-80",
+      "title": "I'm Good (Blue)",
+      "artist": "David Guetta, Bebe Rexha",
+      "album": "I'm Good (Blue)",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707543/I_m_Good_Blue__spotdown.org_fn5mii.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273f24c7321eabddffc3829676b",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-81",
+      "title": "Darkside",
+      "artist": "Alan Walker,Au/Ra,Tomine Harket",
+      "album": "Darkside",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707543/Darkside_spotdown.org_swkplw.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ec0c748a79aff17ead876f58",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-82",
+      "title": "Fearless Pt.II",
+      "artist": "Lost Sky,Chris Linton",
+      "album": "Fearless Pt.II",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707539/Fearless_Pt._II_spotdown.org_hycwqo.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273df7c14e866cf14a259563ca1",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-83",
+      "title": "Heat Waves",
+      "artist": "Glass Animals",
+      "album": "Dreamland",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707538/Heat_Waves_spotdown.org_oexo0j.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273712701c5e263efc8726b1464",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:30"
+    },
+    {
+      "id": "c-song-84",
+      "title": "Fairytale",
+      "artist": "Alexander Rybak",
+      "album": "Fairytale",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707537/Fairytale_spotdown.org_dh06om.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2731f4dd0b239e64dec4154a467",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-85",
+      "title": "Angels For Each Other",
+      "artist": "Martin Garrix,Arijit singh",
+      "album": "Angels For Each Other",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707537/Angels_For_Each_Other_spotdown.org_e7avy5.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e0288b7d5b6118538683d9082d0",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-86",
+      "title": "Bye Bye Bye ",
+      "artist": "*NSYNC",
+      "album": "Bye Bye Bye",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707534/Bye_Bye_Bye_spotdown.org_q7rl8g.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273a86dc1f0357cee881fbf97c4",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-87",
+      "title": "Headlight (feat.KIDDO) ",
+      "artist": "Alan Walker,Alok,KIDDO",
+      "album": "Headlight (feat.KIDDO)",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707532/Headlights_feat._KIDDO__spotdown.org_lvyvmk.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27330bd40351a5688672cbddfff",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-88",
+      "title": "End Of Time",
+      "artist": "K-391,Alan Walker,Ahirx",
+      "album": "Headlight (feat.KIDDO)",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707528/End_of_Time_spotdown.org_tn7mmm.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27349b9fbf2345c02ca2387a357",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-89",
+      "title": "All The Stars",
+      "artist": "Kendrick Lamar,SAZ",
+      "album": "Black Panther",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707527/All_The_Stars_with_SZA_-_From__Black_Panther__The_Album__spotdown.org_wxrcr5.mp3",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72ca363e2bcb3fb5342b7cbb69d",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-90",
+      "title": "Bad Boy (feat.Luana Kiara)",
+      "artist": "Raaban, Tungevaag, Luana Kiara",
+      "album": "Black Panther",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779707524/Bad_Boy_feat._Luana_Kiara__spotdown.org_zmf7da.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2739b93b7071e8f0d9e14aa5d1c",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:54"
+    },
+    {
+      "id": "c-song-91",
+      "title": "Love Story",
+      "artist": "Indila",
+      "album": "Mini World ",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779727820/Love_Story_spotdown.org_jrxu9t.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734ae8ff731c49965bf2083405",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-100",
+      "title": "Unstoppable",
+      "artist": "Sia",
+      "album": "Unstoppable",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313769/Unstoppable_spotdown.org_pne3of.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273b09bb77fa2284e8ab9a79225",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:19"
+    },
+    {
+      "id": "c-song-101",
+      "title": "Waka Waka (This Time for Africa) - K-Mix",
+      "artist": "Shakira",
+      "album": "This Time for Africa FIFA 2010",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313768/Waka_Waka_This_Time_for_Africa_The_Official_2010_FIFA_World_Cup_TM_Song_feat._Freshlyground__spotdown.org_sfn0mi.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBo03MU4o92gDvTCIFOSJ4fgg96xKeUbq8z6yshsIT0cAboPtdrvRhsIP_&s=10",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-103",
+      "title": "Sugar & Brownies",
+      "artist": "DHARIA",
+      "album": "DHARIA",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313767/Sugar_Brownies_spotdown.org_gcjrnu.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e0288104647763f4c2c554f2301",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:50"
+    },
+    {
+      "id": "c-song-104",
+      "title": "Despacito (Featuring Daddy Yankee)",
+      "artist": "Luis Fonsi , Daddy Yankee",
+      "album": "Despacito",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313762/Luis_Fonsi_-_Despacito_ft._Daddy_Yankee_320k_aiietu.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_S52HXbXBhJ5z4qwqMdgP_vphuq_b4DWpI9XZL06OQyQwkuBDvYe7FG0&s=10",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:05"
+    },
+    {
+      "id": "c-song-105",
+      "title": "Attention",
+      "artist": "Charlie Puth",
+      "album": "Charlie Puth",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313758/Attention_spotdown.org_stajzb.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273897f73256b9128a9d70eaf66",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-106",
+      "title": "Shape of You",
+      "artist": "Ed Sheeran",
+      "album": "Shape of You",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313758/Shape_of_You_spotdown.org_llt9gt.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtUB2Jo2fzEBzdiOs4OoWEIBxLpIS2XE5OsXUafDN_Ez3Nbw6xYH6-ShQ&s=10",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-107",
+      "title": "Señorita",
+      "artist": "Shawn Mendes, Camila Cabello",
+      "album": "Shape of You",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313757/Se%C3%B1orita_spotdown.org_lifaan.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273e6095c382c2853667c1623eb",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-108",
+      "title": "Sorry",
+      "artist": "Justin Bieber",
+      "album": "justin Bieber",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313757/Sorry_spotdown.org_ymibd8.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273f46b9d202509a8f7384b90de",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:05"
+    },
+    {
+      "id": "c-song-109",
+      "title": "Seven (feat. Latto) (Explicit Ver.)",
+      "artist": "Jung Kook, Latto",
+      "album": "Jung Kook",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313757/Seven_feat._Latto_Clean_Ver.__spotdown.org_ncoajw.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273741fd4807f442af3f7359316",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-110",
+      "title": "Perfect",
+      "artist": "Ed Sheeran",
+      "album": "Ed Sheeran",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313749/Perfect_spotdown.org_fev7uo.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-111",
+      "title": "Harleys In Hawaii",
+      "artist": "Katy Perry",
+      "album": "Katy Perry",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313747/Katy_Perry_-_Harleys_In_Hawaii_Official__320k_exd2h7.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273f36563773a882c66e3fca58e",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:35"
+    },
+    {
+      "id": "c-song-112",
+      "title": "I Wanna Be Yours",
+      "artist": "Arctic Monkeys",
+      "album": "Arctic Monkeys",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313746/I_Wanna_Be_Yours_spotdown.org_voksko.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2730b4f0565f8a790f5105aeb1c",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:27"
+    },
+    {
+      "id": "c-song-113",
+      "title": "Him & I",
+      "artist": "G-Eazy, Halsey",
+      "album": "Him & I",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313746/Him_I_spotdown.org_x7dczt.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273046527a9c176f7c2916f3530",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-114",
+      "title": "I Think They Call This Love Cover",
+      "artist": "Matthew Ifield",
+      "album": "Matthew Ifield",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313740/I_Think_They_Call_This_Love_-_Cover_spotdown.org_b3w9ev.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2732c0448b550da2511854404d9",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-115",
+      "title": "golden hour",
+      "artist": "JVKE",
+      "album": "golden hour",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313739/golden_hour_spotdown.org_gqvbgo.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2730af4476af141051c728ee8b9",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:54"
+    },
+    {
+      "id": "c-song-116",
+      "title": "Animals",
+      "artist": "Maroon 5",
+      "album": "Animals",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313737/Animals_spotdown.org_wfu2s5.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273442b53773d50e1b5369bb16c",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-117",
+      "title": "APT.",
+      "artist": "ROSÉ, Bruno Mars",
+      "album": "APT.",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313737/APT._spotdown.org_blrypv.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b27346085aa1855bd888abc51a5a",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-118",
+      "title": "Yes or No",
+      "artist": "Jung Kook",
+      "album": "Yes or No",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313735/Yes_or_No_spotdown.org_ar5w3d.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273741fd4807f442af3f7359316",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-119",
+      "title": "Wake Me Up",
+      "artist": "Avicii",
+      "album": "Wake Me Up",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313734/Wake_Me_Up_spotdown.org_uxpzri.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273e14f11f796cef9f9a82691a7",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-120",
+      "title": "Dracula - JENNIE Remix",
+      "artist": "Tame Impala, JENNIE",
+      "album": "Dracula - JENNIE Remix",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313733/Dracula_-_JENNIE_Remix_spotdown.org_pstmsa.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3c7c031ce9d06b131f8563676",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-122",
+      "title": "Silence",
+      "artist": "Marshmello, Khalid",
+      "album": "Silence",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313728/Silence_spotdown.org_pp9dnz.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273f33ba583059dc2f7d08bf2b8",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-123",
+      "title": "Criminal",
+      "artist": "Britney Spears",
+      "album": "Criminal",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313727/Criminal_spotdown.org_pvvbcm.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a33613a80185a11b15987d2885",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-124",
+      "title": "Dance Monkey",
+      "artist": "Tones And I",
+      "album": "Dance Monkey",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313726/Dance_Monkey_spotdown.org_eje0qa.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a34825aaa2ef0d72461644f113",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-126",
+      "title": "Safari",
+      "artist": "Serena",
+      "album": "Safari",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313720/Safari_spotdown.org_tumvcz.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3d4ecc9efa75fb775522a78af",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:27"
+    },
+    {
+      "id": "c-song-128",
+      "title": "Thats So True (Apple Music Live 2025)",
+      "artist": "Gracie Abrams",
+      "album": "Gracie Abrams",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313716/Gracie_Abrams_-_That_s_So_True_Apple_Music_Live_2025__320k_kg6erq.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-16kdBEVLZOQnVGIvH1CXY0MfmTlOeJ1kPII1kd4fBKvsG7biUOZy4wIN&s=10",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-129",
+      "title": "Cheap Thrills feat.Sean Paul",
+      "artist": "Sia, Sean Paul",
+      "album": "Cheap Thrills feat.Sean Paul",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313715/Cheap_Thrills_feat._Sean_Paul__spotdown.org_yrbkoo.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3fc36b265066a58e205ecbd5c",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:12"
+    },
+    {
+      "id": "c-song-130",
+      "title": "Rhythm Divine",
+      "artist": "Enrique Iglesias",
+      "album": "Rhythm",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313713/Rhythm_spotdown.org_ls8l6l.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3d7e8f8a721c820d787f8e940",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-131",
+      "title": "Believer",
+      "artist": "Imagine Dragons",
+      "album": "Believer",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313713/Believer_spotdown.org_drxldc.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a35675e83f707f1d7271e5cf8a",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-132",
+      "title": "Die With A Smile",
+      "artist": "Lady Gaga, Bruno Mars",
+      "album": "Die With A Smile",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313711/Die_With_A_Smile_spotdown.org_jossmo.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a382ea2e9e1858aa012c57cd45",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:33"
+    },
+    {
+      "id": "c-song-133",
+      "title": "blue",
+      "artist": "yung kai",
+      "album": "blue",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313708/blue_spotdown.org_blp6nj.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3e3c060bdd41fed06a866c494",
+      "tags": [
+        "kpop",
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:30"
+    },
+    {
+      "id": "c-song-134",
+      "title": "Blank Space",
+      "artist": "Taylor Swift",
+      "album": "Blank Space",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313708/Blank_Space_spotdown.org_whoak4.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a352b2a3824413eefe9e33817a",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-134",
+      "title": "Okey Dokey",
+      "artist": "MINO, ZICO",
+      "album": "Okey Dokey",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313708/Okey_Dokey_spotdown.org_aumkov.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a395768aaeb6607d53450a527b",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-135",
+      "title": "Night Changes",
+      "artist": "One Direction",
+      "album": "Night Changes",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313701/Night_Changes_spotdown.org_wvjooy.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a334a29f220057810cce98e1b4",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-136",
+      "title": "Magnolia",
+      "artist": "Magnolia Celebration",
+      "album": "Magnolia",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313700/Magnolia_spotdown.org_p8mlyu.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3a1747c65e8a8dffde09ab201",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:46"
+    },
+    {
+      "id": "c-song-137",
+      "title": "Copines",
+      "artist": "Aya Nakamura",
+      "album": "Copines",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313700/Copines_spotdown.org_nccpno.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a356feea19a0436ec52a9217c9",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:15"
+    },
+    {
+      "id": "c-song-138",
+      "title": "Thats So True",
+      "artist": "Gracie Abrams",
+      "album": "Gracie Abrams",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784369975/That_s_So_True_spotdown.org_do2sar.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2731dac3694b3289cd903cb3acf",
+      "tags": [
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-139",
+      "title": "What It Sounds Like",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770044/What_It_Sounds_Like_spotdown.org_piq35v.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:10"
+    },
+    {
+      "id": "c-song-140",
+      "title": "How It’s Done",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770046/How_It_s_Done_spotdown.org_aralhp.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "2:56"
+    },
+    {
+      "id": "c-song-141",
+      "title": "Golden",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770043/Golden_spotdown.org_bp9nhi.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e029febcc4cd68d476ac83877cf",
+      "lyricsUrl": "https://res.cloudinary.com/deqjgueo8/raw/upload/v1786790749/golden_lcbu2n.json",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:34"
+    },
+    {
+      "id": "c-song-142",
+      "title": "Soda Pop",
+      "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493320/Soda_Pop_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2735a90ee35c1a3537005905820",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "2:30"
+    },
+    {
+      "id": "c-song-143",
+      "title": "Free",
+      "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493317/Free_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2735a90ee35c1a3537005905820",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:07"
+    },
+    {
+      "id": "c-song-144",
+      "title": "Your Idol",
+      "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Your_Idol_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:11"
+    },
+    {
+      "id": "c-song-145",
+      "title": "Score Suite",
+      "artist": "Marcelo Zarvos",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Score_Suite_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:00"
+    },
+    {
+      "id": "c-song-146",
+      "title": "Strategy",
+      "artist": "TWICE",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Strategy_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "2:46"
+    },
+    {
+      "id": "c-song-147",
+      "title": "TAKEDOWN (JEONGYEON JIHYO CHAEYOUNG)",
+      "artist": "TWICE",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493323/TAKEDOWN_JEONGYEON_JIHYO_CHAEYOUNG__spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:01"
+    },
+    {
+      "id": "c-song-148",
+      "title": "Takedown",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493325/Takedown_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:01"
+    },
+    {
+      "id": "c-song-149",
+      "title": "사랑인가 봐 Love, Maybe",
+      "artist": "MeloMance",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493328/%EC%82%AC%EB%9E%91%EC%9D%B8%EA%B0%80_%EB%B4%90_Love_Maybe_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop",
+        "korean"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:05"
+    },
+    {
+      "id": "c-song-150",
+      "title": "오솔길 Path",
+      "artist": "MeloMance",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493326/%EC%98%A4%EC%86%94%EA%B8%B8_Path_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop",
+        "korean"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:43"
+    },
+    {
+      "id": "c-song-151",
+      "title": "Cinnamon Girl",
+      "artist": "Lana Del Rey",
+      "album": "Norman Fucking Rockwell!",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1787512643/Cinnamon_Girl_spotdown.org_obuhyv.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3879e9318cb9f4e05ee552ac9",
+      "tags": [
+        "english",
+        "kpop",
+        "korean"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "5:00"
+    }
+  ]
+}

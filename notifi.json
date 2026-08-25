@@ -1,0 +1,57 @@
+{
+  "notifications": [
+    {
+      "id": "notif-101",
+      "type": "song",
+      "category": "music",
+      "title": "Zarre Jhar Kar Teri Pezaaron Kay",
+      "artist": "Ghulam Mustafa Qadri",
+      "album": "Single",
+      "timestamp": "2026-08-01T01:08:00.000Z",
+      "thumb": "https://almuflihoon.com/wp-content/uploads/2025/10/1698835500_6370-582-13565.jpg",
+      "songId": "1"
+    },
+    {
+      "id": "notif-102",
+      "type": "note",
+      "category": "notes",
+      "title": "Welcome to Wave Music v3!",
+      "artist": "Wave Team",
+      "message": "We have launched brand new song radios, real-time history sync, and custom notifications. Enjoy your music experience!",
+      "timestamp": "2026-08-01T01:06:00.000Z",
+      "thumb": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100"
+    },
+    {
+      "id": "notif-103",
+      "type": "song",
+      "category": "podcasts",
+      "title": "Jannat Mein Allah Ka Deedar | Maulana Tariq Jamil",
+      "artist": "Tariq Jamil Podcast",
+      "album": "Podcast",
+      "timestamp": "2026-08-01T00:50:00.000Z",
+      "thumb": "https://images.unsplash.com/photo-1590076215667-875d4ef2d7ee?w=100",
+      "songId": "c-podcast-101"
+    },
+    {
+      "id": "notif-104",
+      "type": "note",
+      "category": "notes",
+      "title": "Weekly Playlist Update",
+      "artist": "System Announcement",
+      "message": "Top 10 English hits and Naats have been refreshed for this week in cloud library.",
+      "timestamp": "2026-07-31T18:00:00.000Z",
+      "thumb": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100"
+    },
+    {
+      "id": "notif-105",
+      "type": "song",
+      "category": "music",
+      "title": "Pain",
+      "artist": "Alan Walker",
+      "album": "Single",
+      "timestamp": "2026-07-31T12:00:00.000Z",
+      "thumb": "https://i.scdn.co/image/ab6761610000e5eb572a8eae56feae217f618078",
+      "songId": "3"
+    }
+  ]
+}

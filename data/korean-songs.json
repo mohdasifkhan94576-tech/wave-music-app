@@ -1,0 +1,541 @@
+{
+  "songs": [
+    {
+      "id": "c-song-5",
+      "title": "Love You With All My Heart",
+      "artist": "Crush",
+      "album": "Queen Of Tears OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779691996/Love_You_With_All_My_Heart_zuwrpj.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2737533b658892e7b8dcfdaecb7",
+      "tags": [
+        "k-drama"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:38"
+    },
+    {
+      "id": "c-song-33",
+      "title": "Dreamers BTS FIFA Sound",
+      "artist": "BTS",
+      "album": "BTS FIFA Sound",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779695164/Dreamers_ow74zj.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273ef57183066d6cac0cabb85c6",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:54"
+    },
+    {
+      "id": "c-song-34",
+      "title": "Numb",
+      "artist": "Lim Yeon",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779696440/Numb_w33u5l.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273061d489939b84c2dfe59d2c6",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-35",
+      "title": "TRUE",
+      "artist": "YOARI",
+      "album": "My Demon OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697020/TRUE_cazi25.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273677d4eb8c6847bd8273d82ed",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:48"
+    },
+    {
+      "id": "c-song-36",
+      "title": "See The Light",
+      "artist": "Lim Hyunsik",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697893/See_The_Light_spotdown.org_nrio6u.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgfeVqD8SJS08tVFA_-LKeRF1MhXFcNNE0jA&s",
+      "lyricsUrl" : "https://res.cloudinary.com/deqjgueo8/raw/upload/v1786792576/See_the_light_vxcswc.json",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:35"
+    },
+    {
+      "id": "c-song-38",
+      "title": "May I Love You?",
+      "artist": "Jae Yeon",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697879/May_I_Love_You__spotdown.org_vmympq.mp3",
+      "lyricsUrl" : "https://res.cloudinary.com/ddc7uozv0/raw/upload/v1787548902/may-i-love-lyrics_ao9ikw.json",
+      "img": "https://i.scdn.co/image/ab67616d0000b273612742897563df80e489b7c7",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:33"
+    },
+    {
+      "id": "c-song-39",
+      "title": "When The Phone Rings",
+      "artist": "Oh Hee Joon",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697884/When_the_Phone_Rings_spotdown.org_d1j624.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273d98a0528aaeda630d463fe64",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-40",
+      "title": "Suzume",
+      "artist": "Radwimps, Toaka",
+      "album": "Sumuze",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697885/Suzume_spotdown.org_adceh6.mp3",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84f0ad38092b814fab511dfa45",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-41",
+      "title": "ReawakeR feat",
+      "artist": "LiSA, Felix",
+      "album": "Solo Leveling ",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697882/ReawakeR_feat._Felix_of_Stray_Kids__spotdown.org_umxxvg.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtNFEHZWuS5Oe_f8JYuJ7QWokyKE50T1fSaTruCunTfQ&s",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-42",
+      "title": "LEveL",
+      "artist": "SawanoHiroyuki[nZk]",
+      "album": "Solo Leveling ",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697876/LEveL_spotdown.org_fuskwd.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrPONlydtRyuR-V5DlQq5rGuoLfogHCFh4zw&s",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:12"
+    },
+    {
+      "id": "c-song-43",
+      "title": "Dark Aira (From Solo Leveling)",
+      "artist": "Diego Mitre",
+      "album": "Solo Leveling ",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697876/Dark_Aria_from__Solo_Leveling__-_Cover_spotdown.org_zn4bin.mp3",
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_g4RRkZiW7B1XNLc643roGGc3TeXLA9nIvA&s",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:25"
+    },
+    {
+      "id": "c-song-44",
+      "title": "Confess To You",
+      "artist": "LIM KIM",
+      "album": "king The Land OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697876/Confess_To_You_spotdown.org_ngkdp7.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273daaa8e6143cdf91f13223c2e",
+      "tags": [
+        "k-drama"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:59"
+    },
+    {
+      "id": "c-song-45",
+      "title": "Lost Game",
+      "artist": "GSoul",
+      "album": "Revenge of Others OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697887/Lost_Game_spotdown.org_d5y2n7.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273629a97af29c5b86151d15571",
+      "tags": [
+        "k-drama"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:02"
+    },
+    {
+      "id": "c-song-46",
+      "title": "Can You See My Heart?",
+      "artist": "Heize",
+      "album": "Hotel Del Luna OST",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697890/%EB%82%B4_%EB%A7%98%EC%9D%84_%EB%B3%BC_%EC%88%98_%EC%9E%88%EB%82%98%EC%9A%94_spotdown.org_fdkcae.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273d5ec3d052355298db92ea249",
+      "tags": [
+        "k-drama"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-47",
+      "title": "Dream Demon Slayer",
+      "artist": "MY FIRST STORY,HYDE",
+      "album": "Demon Slayer",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697890/%E5%A4%A2%E5%B9%BB_spotdown.org_utsuxs.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02a33972202fbda674e44984b1",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:42"
+    },
+    {
+      "id": "c-song-48",
+      "title": "Kamado Tanjiro",
+      "artist": "Akano",
+      "album": "Demon Slayer",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697893/Kamado_Tanjirou_no_Uta_From__Demon_Slayer__Kimetsu_no_Yaiba__Full_Version__spotdown.org_xgalpm.mp3",
+      "img": "https://i.scdn.co/image/ab67706f00000002cc828a0dd8e2b77374855785",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:54"
+    },
+    {
+      "id": "c-song-49",
+      "title": "Kizuna no kiseki",
+      "artist": "Man With Mission,milet",
+      "album": "Demon Slayer",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697897/%E7%B5%86%E3%83%8E%E5%A5%87%E8%B7%A1_spotdown.org_grbobu.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02238fa164b88f0f117fafb39e",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "2:54"
+    },
+    {
+      "id": "c-song-50",
+      "title": "Akeboshi ",
+      "artist": "LiSA",
+      "album": "Demon Slayer",
+      "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697899/%E6%98%8E%E3%81%91%E6%98%9F_spotdown.org_skx2ij.mp3",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8455c03c77a475c98004291f7d",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "3:54"
+    },
+    {
+      "id": "c-song-109",
+      "title": "Seven (feat. Latto) (Explicit Ver.)",
+      "artist": "Jung Kook, Latto",
+      "album": "Jung Kook",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313757/Seven_feat._Latto_Clean_Ver.__spotdown.org_ncoajw.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273741fd4807f442af3f7359316",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:18"
+    },
+    {
+      "id": "c-song-118",
+      "title": "Yes or No",
+      "artist": "Jung Kook",
+      "album": "Yes or No",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313735/Yes_or_No_spotdown.org_ar5w3d.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273741fd4807f442af3f7359316",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:21"
+    },
+    {
+      "id": "c-song-121",
+      "title": "SHINING",
+      "artist": "김한겸",
+      "album": "Twinkling Watermelon OST",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313729/SHINING_spotdown.org_kgocws.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3bdfec1c74c338c2c33174d83",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:08"
+    },
+    {
+      "id": "c-song-125",
+      "title": "Once Again",
+      "artist": "Mad Clown, Kim Na Young",
+      "album": "Descendants of the Sun OST",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313724/Once_Again_spotdown.org_g35knq.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3975698d225fe5382b54fee98",
+      "tags": [
+        "k-drama",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:27"
+    },
+    {
+      "id": "c-song-127",
+      "title": "Still With You",
+      "artist": "Jung Kook",
+      "album": "Jung Kook",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313720/Still_With_You_spotdown.org_eojeaz.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3a7f42c375578df426b37638d",
+      "tags": [
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:30"
+    },
+    {
+      "id": "c-song-133",
+      "title": "blue",
+      "artist": "yung kai",
+      "album": "blue",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313708/blue_spotdown.org_blp6nj.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3e3c060bdd41fed06a866c494",
+      "tags": [
+        "kpop",
+        "english"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:30"
+    },
+    {
+      "id": "c-song-134",
+      "title": "Okey Dokey",
+      "artist": "MINO, ZICO",
+      "album": "Okey Dokey",
+      "audioUrl": "https://res.cloudinary.com/cjmemshz/video/upload/v1784313708/Okey_Dokey_spotdown.org_aumkov.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a395768aaeb6607d53450a527b",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": "4:11"
+    },
+    {
+      "id": "c-song-139",
+      "title": "What It Sounds Like",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770044/What_It_Sounds_Like_spotdown.org_piq35v.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:10"
+    },
+    {
+      "id": "c-song-140",
+      "title": "How It’s Done",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770046/How_It_s_Done_spotdown.org_aralhp.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "2:56"
+    },
+    {
+      "id": "c-song-141",
+      "title": "Golden",
+      "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+      "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770043/Golden_spotdown.org_bp9nhi.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e029febcc4cd68d476ac83877cf",
+      "lyricsUrl": "https://res.cloudinary.com/deqjgueo8/raw/upload/v1786790749/golden_lcbu2n.json",
+      "tags": [
+        "english",
+        "kpop"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:34"
+    },
+    {
+      "id": "c-song-151",
+      "title": "Hear Me Out",
+      "artist": "SURAN",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502828/Hear_Me_Out_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000b273d790820cd277e6a8fb52010a",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:43"
+    },
+    {
+      "id": "c-song-152",
+      "title": "I Feel It Now",
+      "artist": "Whee In",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/I_Feel_It_Now_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3af1df842770f975f2df5de58",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:53"
+    },
+    {
+      "id": "c-song-153",
+      "title": "Say My Name",
+      "artist": "Yoo Yeon Seok",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/Say_My_Name_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3eeaaaf98bf62263f0502886b",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:30"
+    },
+    {
+      "id": "c-song-154",
+      "title": "Love On My Way",
+      "artist": "Chae Soobin",
+      "album": "Strongest Deliveryman, Pt. 7 (Music from the Original TV Series)",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502819/Love_On_My_Way_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3a6c07f6fe08e45e3ee93285f",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:25"
+    },
+    {
+      "id": "c-song-155",
+      "title": "Falling",
+      "artist": "YOO YEONSEOK",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502828/Falling_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a309fb6ecb79accba7dc44db3d",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "4:04"
+    },
+    {
+      "id": "c-song-156",
+      "title": "See The Light - Instrumental",
+      "artist": "Lim Hyunsik",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/See_The_Light_-_Instrumental_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3c9a05f99f8c83c9e74f4b5ad",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:02"
+    },
+    {
+      "id": "c-song-157",
+      "title": "Numb - Instrumental",
+      "artist": "Lim Yeon",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502827/Numb_-_Instrumental_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a3061d489939b84c2dfe59d2c6",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:17"
+    },
+    {
+      "id": "c-song-158",
+      "title": "Dreaming",
+      "artist": "Oh Hee Joon",
+      "album": "When The Phone Rings OST",
+      "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787506086/Dreaming_spotdown.org.mp3",
+      "img": "https://i.scdn.co/image/ab67616d00001e02d98a0528aaeda630d463fe64",
+      "tags": [
+        "k-drama",
+        "korean",
+        "ost"
+      ],
+      "rank": 0,
+      "recentlyAdded": true,
+      "duration": "3:17"
+    }
+  ]
+}

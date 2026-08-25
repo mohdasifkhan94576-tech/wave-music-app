@@ -1,0 +1,244 @@
+{
+  "albums": [
+    {
+      "id": "alb-kpop-demon-hunters",
+      "name": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+      "category": "ost_albums",
+      "artist": "KPop Demon Hunters Cast, HUNTR/X, Saja Boys",
+      "description": "A chart-topping, high-energy K-pop soundtrack packed with explosive battle anthems",
+      "img": "https://i.scdn.co/image/ab67616d0000e1a34dcb6c5df15cf74596ab25a4",
+      "releaseYear": "2025",
+      "songs": [
+        {
+          "id": "c-alb-song-1",
+          "title": "What It Sounds Like",
+          "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770044/What_It_Sounds_Like_spotdown.org_piq35v.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "4:10"
+        },
+        {
+          "id": "c-alb-song-2",
+          "title": "How It’s Done",
+          "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770046/How_It_s_Done_spotdown.org_aralhp.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "2:56"
+        },
+        {
+          "id": "c-alb-song-3",
+          "title": "Golden",
+          "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/deqjgueo8/video/upload/v1785770043/Golden_spotdown.org_bp9nhi.mp3",
+          "img": "https://i.scdn.co/image/ab67616d00001e029febcc4cd68d476ac83877cf",
+          "duration": "3:34"
+        },
+        {
+          "id": "c-alb-song-4",
+          "title": "Soda Pop",
+          "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493320/Soda_Pop_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2735a90ee35c1a3537005905820",
+          "duration": "2:30"
+        },
+        {
+          "id": "c-alb-song-5",
+          "title": "Free",
+          "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493317/Free_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2735a90ee35c1a3537005905820",
+          "duration": "3:07"
+        },
+        {
+          "id": "c-alb-song-6",
+          "title": "Score Suite",
+          "artist": "Marcelo Zarvos",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Score_Suite_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:00"
+        },
+        {
+          "id": "c-alb-song-7",
+          "title": "Your Idol",
+          "artist": "Saja Boys, Andrew Choi, Neckwav, Danny Chung, KEVIN WOO, samUIL Lee, KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Your_Idol_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:11"
+        },
+        {
+          "id": "c-alb-song-8",
+          "title": "Strategy",
+          "artist": "TWICE",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493318/Strategy_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "2:46"
+        },
+        {
+          "id": "c-alb-song-9",
+          "title": "TAKEDOWN (JEONGYEON JIHYO CHAEYOUNG)",
+          "artist": "TWICE",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493323/TAKEDOWN_JEONGYEON_JIHYO_CHAEYOUNG__spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:01"
+        },
+        {
+          "id": "c-alb-song-10",
+          "title": "Takedown",
+          "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI , KPop Demon Hunters Cast",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493325/Takedown_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:01"
+        },
+        {
+          "id": "c-alb-song-11",
+          "title": "사랑인가 봐 Love, Maybe",
+          "artist": "MeloMance",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493328/%EC%82%AC%EB%9E%91%EC%9D%B8%EA%B0%80_%EB%B4%90_Love_Maybe_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:05"
+        },
+        {
+          "id": "c-alb-song-12",
+          "title": "오솔길 Path",
+          "artist": "MeloMance",
+          "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787493326/%EC%98%A4%EC%86%94%EA%B8%B8_Path_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b2734dcb6c5df15cf74596ab25a4",
+          "duration": "3:43"
+        }
+      ]
+    },
+    {
+      "id": "ost-when-the-phone-rings",
+      "name": "When the Phone Rings OST",
+      "category": "ost_albums",
+      "description": "Official Soundtrack & Dramatic Melodies",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c6698c5e1ef0aa1048ac8a10e",
+      "releaseYear": "2024",
+      "songs": [
+        {
+          "id": "c-ost-wpr-1",
+          "title": "Numb",
+          "artist": "Lim Yeon",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779696440/Numb_w33u5l.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b273061d489939b84c2dfe59d2c6",
+          "duration": "3:20"
+        },
+        {
+          "id": "c-ost-wpr-2",
+          "title": "See The Light",
+          "artist": "Lim Hyunsik",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697893/See_The_Light_spotdown.org_nrio6u.mp3",
+          "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgfeVqD8SJS08tVFA_-LKeRF1MhXFcNNE0jA&s",
+          "duration": "3:02"
+        },
+        {
+          "id": "c-ost-wpr-3",
+          "title": "Hear Me Out",
+          "artist": "SURAN",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502828/Hear_Me_Out_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b273d790820cd277e6a8fb52010a",
+          "duration": "3:43"
+        },
+        {
+          "id": "c-ost-wpr-4",
+          "title": "May I Love You?",
+          "artist": "Jae Yeon",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697879/May_I_Love_You__spotdown.org_vmympq.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b273612742897563df80e489b7c7",
+          "lyricsUrl" : "https://res.cloudinary.com/ddc7uozv0/raw/upload/v1787548902/may-i-love-lyrics_ao9ikw.json",
+          "duration": "3:52"
+        },
+        {
+          "id": "c-ost-wpr-5",
+          "title": "I Feel It Now",
+          "artist": "Whee In",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/I_Feel_It_Now_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000e1a3af1df842770f975f2df5de58",
+          "duration": "3:53"
+        },
+        {
+          "id": "c-ost-wpr-6",
+          "title": "Say My Name",
+          "artist": "Yoo Yeon Seok",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/Say_My_Name_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000e1a3eeaaaf98bf62263f0502886b",
+          "duration": "3:30"
+        },
+        {
+          "id": "c-ost-wpr-7",
+          "title": "When The Phone Rings",
+          "artist": "Oh Hee Joon",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/dou8wduod/video/upload/v1779697884/When_the_Phone_Rings_spotdown.org_d1j624.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000b273d98a0528aaeda630d463fe64",
+          "duration": "1:46"
+        },
+        {
+          "id": "c-ost-wpr-8",
+          "title": "Falling",
+          "artist": "YOO YEONSEOK",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502828/Falling_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000e1a309fb6ecb79accba7dc44db3d",
+          "duration": "4:04"
+        },
+        {
+          "id": "c-ost-wpr-9",
+          "title": "See The Light - Instrumental",
+          "artist": "Lim Hyunsik",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502824/See_The_Light_-_Instrumental_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000e1a3c9a05f99f8c83c9e74f4b5ad",
+          "duration": "3:02"
+        },
+        {
+          "id": "c-ost-wpr-10",
+          "title": "Numb - Instrumental",
+          "artist": "Lim Yeon",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787502827/Numb_-_Instrumental_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d0000e1a3061d489939b84c2dfe59d2c6",
+          "duration": "3:17"
+        },
+        {
+          "id": "c-ost-wpr-11",
+          "title": "Dreaming",
+          "artist": "Oh Hee Joon",
+          "album": "When The Phone Rings OST",
+          "audioUrl": "https://res.cloudinary.com/lwfqmpz3/video/upload/v1787506086/Dreaming_spotdown.org.mp3",
+          "img": "https://i.scdn.co/image/ab67616d00001e02d98a0528aaeda630d463fe64",
+          "duration": "3:17"
+        }
+      ]
+    },
+    {
+      "id": "ost-Saiyaara",
+      "name": "When the Phone Rings OST",
+      "category": "ost_albums",
+      "description": "Official Soundtrack & Dramatic Melodies",
+      "img": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c6698c5e1ef0aa1048ac8a10e",
+      "releaseYear": "2024",
+      "songs": [
+
+      ]
+    }
+  ]
+}

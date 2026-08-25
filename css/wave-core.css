@@ -1,0 +1,249 @@
+
+:root {
+  --bg-dark: #000000;
+  --spotify-base: #121212;
+  --spotify-elevated: #1f1f1f;
+  --spotify-highlight: #2a2a2a;
+  --spotify-green: #1ed760;
+  --spotify-green-hover: #1fdf64;
+  --glass-bg: #121212;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.1);
+  --neon-purple: #1ed760;
+  --neon-blue: #3b82f6;
+  --text-main: #ffffff;
+  --text-muted: #b3b3b3;
+  --text-dark: #727272;
+  --sidebar-w: 300px;
+  --right-sidebar-w: 290px;
+  --player-h: 80px;
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.bg-theme {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000000;
+}
+
+.glow {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.badge-spotify {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(30, 215, 96, 0.15);
+  color: #1ed760;
+  border: 1px solid rgba(30, 215, 96, 0.3);
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.badge-spotify svg {
+  fill: #1ed760;
+}
+
+.sp-bottom-toast {
+  position: fixed;
+  bottom: 98px;
+  left: 50%;
+  transform: translateX(-50%) translateY(28px) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: #ffffff;
+  color: #121212;
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 8px 16px 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 999999;
+  max-width: calc(100vw - 32px);
+  min-height: 46px;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, visibility 0.22s;
+  user-select: none;
+}
+
+.sp-bottom-toast.sp-toast-visible {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sp-toast-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #450af5 0%, #8e8ee5 100%);
+  overflow: hidden;
+}
+
+.sp-toast-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sp-toast-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sp-toast-text {
+  color: #121212;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 360px;
+}
+
+.sp-toast-action-btn {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  margin-left: 2px;
+  color: #15803d;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.sp-toast-action-btn:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.sp-toast-action-btn:active {
+  transform: scale(0.96);
+}
+
+.sp-toast-action-btn.hidden {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .sp-bottom-toast {
+    bottom: 136px;
+    padding: 7px 12px 7px 8px;
+    gap: 8px;
+    min-height: 42px;
+  }
+  .sp-toast-badge {
+    width: 26px;
+    height: 26px;
+  }
+  .sp-toast-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+  .sp-toast-text {
+    font-size: 13px;
+    max-width: 200px;
+  }
+  .sp-toast-action-btn {
+    font-size: 13px;
+  }
+}
+
+.wave-toast-container {
+  position: fixed;
+  bottom: 100px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.wave-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #282828;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  animation: toastIn 0.3s cubic-bezier(0, 0, 0.2, 1) both;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none !important;
+}
+

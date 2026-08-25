@@ -1,0 +1,28 @@
+{
+  "songs": [
+    {
+      "id": "",
+      "title": "",
+      "artist": "",
+      "album": "",
+      "audioUrl": "",
+      "img": "",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": ""
+    },
+    {
+      "id": "",
+      "title": "",
+      "artist": "",
+      "album": "",
+      "audioUrl": "",
+      "img": "",
+      "tags": [],
+      "rank": 0,
+      "recentlyAdded": false,
+      "duration": ""
+    }
+  ]
+}
