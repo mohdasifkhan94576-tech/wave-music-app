@@ -1,5 +1,107 @@
 'use strict';
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeAttr(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+window.handleSearchDropdownSongClick = function(songId, event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('search-dropdown');
+  if (dropdown) dropdown.classList.add('hidden');
+
+  const songIdStr = String(songId);
+  const sg = (typeof getSongById === 'function' ? getSongById(songIdStr) : null) || (typeof SONGS !== 'undefined' ? SONGS.find(x => String(x.id) === songIdStr) : null);
+  if (sg) {
+    saveRecentSearch({
+      title: sg.title || 'Song',
+      subtitle: `Song • ${sg.artist || 'Unknown'}`,
+      img: sg.thumb || sg.img || 'https://placehold.co/100x100/181818/1ed760?text=Music',
+      type: 'Song',
+      songId: songIdStr
+    });
+    if (typeof playJioSaavnSong === 'function') {
+      playJioSaavnSong(sg);
+    }
+  }
+  if (typeof navigateTo === 'function') {
+    navigateTo('song', event, songIdStr);
+  }
+};
+
+window.handleSearchDropdownPlayClick = function(songId, event) {
+  if (event) event.stopPropagation();
+  const songIdStr = String(songId);
+  const sg = (typeof getSongById === 'function' ? getSongById(songIdStr) : null) || (typeof SONGS !== 'undefined' ? SONGS.find(x => String(x.id) === songIdStr) : null);
+  if (sg && typeof playJioSaavnSong === 'function') {
+    playJioSaavnSong(sg);
+  }
+};
+
+window.handleSearchDropdownPlaylistClick = function(playlistId, event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('search-dropdown');
+  if (dropdown) dropdown.classList.add('hidden');
+
+  const plIdStr = String(playlistId);
+  const pl = (typeof getPlaylistById === 'function' ? getPlaylistById(plIdStr) : null) || (typeof PLAYLISTS !== 'undefined' ? PLAYLISTS.find(p => String(p.id) === plIdStr) : null);
+  if (pl) {
+    saveRecentSearch({
+      title: pl.title || 'Playlist',
+      subtitle: pl.subtitle || 'Playlist',
+      img: pl.img || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100',
+      type: pl.isAlbum ? 'Album' : 'Playlist',
+      playlistId: plIdStr
+    });
+  }
+  if (typeof setPlaylistViewMode === 'function') setPlaylistViewMode('full', plIdStr);
+  if (typeof navigateTo === 'function') navigateTo('playlist', event, plIdStr);
+};
+
+window.handleSearchDropdownArtistClick = function(artistName, event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('search-dropdown');
+  if (dropdown) dropdown.classList.add('hidden');
+  if (typeof navigateToArtistByName === 'function') {
+    navigateToArtistByName(artistName);
+  }
+};
+
+window.handleMobSearchResultClick = function(songId, event) {
+  if (event) event.stopPropagation();
+  const songIdStr = String(songId);
+  const sg = (typeof getSongById === 'function' ? getSongById(songIdStr) : null) || (typeof SONGS !== 'undefined' ? SONGS.find(x => String(x.id) === songIdStr) : null);
+  if (sg) {
+    saveRecentSearch({
+      title: sg.title || 'Song',
+      subtitle: `Song • ${sg.artist || 'Artist'}`,
+      img: sg.img || sg.thumb || 'https://placehold.co/100x100/181818/1ed760?text=Music',
+      type: 'Song',
+      songId: songIdStr
+    });
+  }
+  if (typeof playSpecificSong === 'function') {
+    playSpecificSong(songIdStr);
+  } else if (sg && typeof playJioSaavnSong === 'function') {
+    playJioSaavnSong(sg);
+  }
+};
+
 function saveRecentSearch(item) {
   if (!item || !item.title) return;
   let recents = JSON.parse(localStorage.getItem('wave_recent_searches') || '[]');
@@ -82,13 +184,16 @@ function renderEmptySearchDropdown() {
     recents.forEach((item, idx) => {
       const isArtist = item.type === 'Artist';
       const borderRadius = isArtist ? '50%' : '4px';
+      const safeImg = escapeAttr(item.img || 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100');
+      const safeTitle = escapeHtml(item.title || 'Music');
+      const safeSubtitle = escapeHtml(item.subtitle || 'Song');
       html += `
         <div class="search-item" onclick="onRecentSearchClick('${idx}', event)">
           <div class="search-item-left">
-            <img src="${item.img || 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100'}" loading="lazy" decoding="async" style="width: 44px; height: 44px; object-fit: cover; flex-shrink: 0; border-radius: ${borderRadius};">
+            <img src="${safeImg}" alt="${escapeAttr(item.title || '')}" loading="lazy" decoding="async" style="width: 44px; height: 44px; object-fit: cover; flex-shrink: 0; border-radius: ${borderRadius};">
             <div class="search-item-info">
-              <h4>${item.title}</h4>
-              <p>${item.subtitle || 'Song'}</p>
+              <h4>${safeTitle}</h4>
+              <p>${safeSubtitle}</p>
             </div>
           </div>
           <button class="sp-search-plus-btn" title="Add to Library" onclick="event.stopPropagation();">
@@ -389,26 +494,27 @@ function handleSearch(e) {
       const matchedPlaylists = resolveSearchPlaylists(term);
       if (matchedPlaylists.length > 0) {
         matchedPlaylists.slice(0, 2).forEach(pl => {
-          const plTitleEsc = (pl.title || 'Playlist').replace(/'/g, "\\'");
-          const plSubEsc = (pl.subtitle || 'Playlist').replace(/'/g, "\\'");
-          const plImg = pl.img || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100';
+          const safePlTitle = escapeHtml(pl.title || 'Playlist');
+          const safePlSub = escapeHtml(pl.subtitle || 'Playlist');
+          const safePlImg = escapeAttr(pl.img || 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100');
+          const safePlId = escapeAttr(String(pl.id));
           const plType = pl.isAlbum ? 'Album' : 'Playlist';
 
           html += `
-            <div class="search-item playlist-search-item" onclick="saveRecentSearch({title:'${plTitleEsc}', subtitle:'${plSubEsc}', img:'${plImg}', type:'${plType}', playlistId:'${pl.id}'}); this.closest('.search-dropdown').classList.add('hidden'); if(typeof setPlaylistViewMode==='function') setPlaylistViewMode('full', '${pl.id}'); navigateTo('playlist', event, '${pl.id}');">
+            <div class="search-item playlist-search-item" onclick="handleSearchDropdownPlaylistClick('${safePlId}', event)">
               <div class="search-item-left">
-                <div class="search-item-thumb-wrap" onclick="event.stopPropagation(); playAllPlaylistSongs('${pl.id}');" title="Play ${plTitleEsc}">
-                  <img src="${plImg}" alt="${pl.title}" style="border-radius: 4px;" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Playlist';">
+                <div class="search-item-thumb-wrap" onclick="event.stopPropagation(); playAllPlaylistSongs('${safePlId}');" title="Play ${escapeAttr(pl.title || '')}">
+                  <img src="${safePlImg}" alt="${escapeAttr(pl.title || '')}" style="border-radius: 4px;" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Playlist';">
                   <div class="search-item-play-overlay">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
                 <div class="search-item-info">
-                  <h4 class="search-item-title">${pl.title}</h4>
-                  <p class="search-item-sub">${pl.subtitle}</p>
+                  <h4 class="search-item-title">${safePlTitle}</h4>
+                  <p class="search-item-sub">${safePlSub}</p>
                 </div>
               </div>
-              <button class="sp-search-plus-btn" title="Play ${plType}" onclick="event.stopPropagation(); playAllPlaylistSongs('${pl.id}');">
+              <button class="sp-search-plus-btn" title="Play ${plType}" onclick="event.stopPropagation(); playAllPlaylistSongs('${safePlId}');">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
               </button>
             </div>
@@ -433,23 +539,25 @@ function handleSearch(e) {
       if (allArtists.length > 0) {
         const topArtists = allArtists.slice(0, 2);
         topArtists.forEach(a => {
-          const aObjEsc = JSON.stringify(a).replace(/"/g, '&quot;');
-          const artistAvatar = a.img || 'https://placehold.co/100x100/181818/1ed760?text=Artist';
+          const safeArtistName = escapeHtml(a.name || 'Artist');
+          const safeArtistImg = escapeAttr(a.img || 'https://placehold.co/100x100/181818/1ed760?text=Artist');
+          const safeArtistId = escapeAttr(String(a.id || a.name || ''));
+          const artistNameRawEsc = escapeAttr(a.name || '');
           html += `
-            <div class="search-item artist-search-item" onclick="openArtistPage(${aObjEsc}, event); this.closest('.search-dropdown').classList.add('hidden');">
+            <div class="search-item artist-search-item" onclick="handleSearchDropdownArtistClick('${artistNameRawEsc}', event)">
               <div class="search-item-left">
-                <div class="search-item-thumb-wrap artist-thumb-wrap" onclick="event.stopPropagation(); playArtistTopSongs('${(a.name||'').replace(/'/g, "\\'")}')" title="Play ${a.name}">
-                  <img src="${artistAvatar}" alt="${a.name}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Artist';">
+                <div class="search-item-thumb-wrap artist-thumb-wrap" onclick="event.stopPropagation(); playArtistTopSongs('${artistNameRawEsc}')" title="Play ${escapeAttr(a.name || '')}">
+                  <img src="${safeArtistImg}" alt="${escapeAttr(a.name || '')}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Artist';">
                   <div class="search-item-play-overlay">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
                 <div class="search-item-info">
-                  <h4 class="search-item-title card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${(a.name||'').replace(/'/g, "\\'")}');">${a.name} <svg class="verified-badge" viewBox="0 0 24 24" fill="#1ed760" width="16" height="16" style="display:inline-block; vertical-align:middle; margin-left:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h4>
+                  <h4 class="search-item-title card-artist-link" onclick="handleSearchDropdownArtistClick('${artistNameRawEsc}', event)">${safeArtistName} <svg class="verified-badge" viewBox="0 0 24 24" fill="#1ed760" width="16" height="16" style="display:inline-block; vertical-align:middle; margin-left:4px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></h4>
                   <p class="search-item-sub">Artist</p>
                 </div>
               </div>
-              <button class="sp-artist-follow-btn" onclick="event.stopPropagation(); toggleFollow('${a.id}'); this.textContent = this.textContent==='Follow'?'Following':'Follow';">Follow</button>
+              <button class="sp-artist-follow-btn" onclick="event.stopPropagation(); toggleFollow('${safeArtistId}'); this.textContent = this.textContent==='Follow'?'Following':'Follow';">Follow</button>
             </div>
           `;
         });
@@ -481,29 +589,31 @@ function handleSearch(e) {
             SONGS.push(s);
           }
           const songId = String(s.id);
-          const songTitleEsc = (s.title || '').replace(/'/g, "\\'");
-          const songArtistEsc = (s.artist || '').replace(/'/g, "\\'");
-          const songImg = s.thumb || s.img || 'https://placehold.co/100x100/181818/1ed760?text=Music';
+          const safeTitle = escapeHtml(s.title || 'Song');
+          const safeArtist = escapeHtml(s.artist || 'Unknown');
+          const safeImg = escapeAttr(s.thumb || s.img || 'https://placehold.co/100x100/181818/1ed760?text=Music');
+          const safeSongId = escapeAttr(songId);
+          const artistNameRawEsc = escapeAttr(s.artist || '');
 
           html += `
-            <div class="search-item" onclick="saveRecentSearch({title:'${songTitleEsc}', subtitle:'Song • ${songArtistEsc}', img:'${songImg}', type:'Song', songId:'${songId}'}); this.closest('.search-dropdown').classList.add('hidden'); const sg = (typeof getSongById==='function'?getSongById('${songId}'):null) || SONGS.find(x=>String(x.id)==='${songId}'); if(sg) playJioSaavnSong(sg); navigateTo('song', event, '${songId}');">
+            <div class="search-item" onclick="handleSearchDropdownSongClick('${safeSongId}', event)">
               <div class="search-item-left">
-                <div class="search-item-thumb-wrap" onclick="event.stopPropagation(); const sg = (typeof getSongById==='function'?getSongById('${songId}'):null) || SONGS.find(x => String(x.id) === '${songId}'); if(sg) playJioSaavnSong(sg);" title="Play ${s.title}">
-                  <img src="${songImg}" alt="${s.title}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
+                <div class="search-item-thumb-wrap" onclick="handleSearchDropdownPlayClick('${safeSongId}', event)" title="Play ${escapeAttr(s.title || '')}">
+                  <img src="${safeImg}" alt="${escapeAttr(s.title || '')}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
                   <div class="search-item-play-overlay">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M8 5v14l11-7z"/></svg>
                   </div>
                 </div>
                 <div class="search-item-info">
-                  <h4 class="search-item-title card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${songId}');">${s.title}</h4>
-                  <p class="search-item-sub card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${songArtistEsc}');">Song • ${s.artist}</p>
+                  <h4 class="search-item-title card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${safeSongId}');">${safeTitle}</h4>
+                  <p class="search-item-sub card-artist-link" onclick="handleSearchDropdownArtistClick('${artistNameRawEsc}', event)">Song • ${safeArtist}</p>
                 </div>
               </div>
               <div class="search-item-actions">
-                <button class="search-item-dots-btn" title="More options" onclick="event.stopPropagation(); showPlaylistSubmenu('${songId}', event);">
+                <button class="search-item-dots-btn" title="More options" onclick="event.stopPropagation(); showPlaylistSubmenu('${safeSongId}', event);">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
                 </button>
-                <button class="sp-search-plus-btn" title="Add to Library" onclick="event.stopPropagation(); showPlaylistSubmenu('${songId}', event);">
+                <button class="sp-search-plus-btn" title="Add to Library" onclick="event.stopPropagation(); showPlaylistSubmenu('${safeSongId}', event);">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
                 </button>
               </div>
@@ -512,12 +622,13 @@ function handleSearch(e) {
         });
 
         
-        const termEsc = term.replace(/'/g, "\\'");
+        const safeTermAttr = escapeAttr(term);
+        const safeTermHtml = escapeHtml(term);
         html += `
-          <div class="search-item see-all-search-item" style="padding:10px 14px; margin-top:6px; background:rgba(30,215,96,0.1); border:1px solid rgba(30,215,96,0.25); border-radius:8px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; color:#1ed760; font-weight:700; font-size:13px;" onclick="event.stopPropagation(); const q = '${termEsc}'; const dd = this.closest('.search-dropdown'); if(dd) dd.classList.add('hidden'); navigateTo('search', event, q); showSearchResults(q);">
+          <div class="search-item see-all-search-item" style="padding:10px 14px; margin-top:6px; background:rgba(30,215,96,0.1); border:1px solid rgba(30,215,96,0.25); border-radius:8px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; color:#1ed760; font-weight:700; font-size:13px;" onclick="event.stopPropagation(); const dd = this.closest('.search-dropdown'); if(dd) dd.classList.add('hidden'); navigateTo('search', event, '${safeTermAttr}'); showSearchResults('${safeTermAttr}');">
             <span style="display:flex; align-items:center; gap:8px;">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              See all results for "<b>${term}</b>"
+              See all results for "<b>${safeTermHtml}</b>"
             </span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-7.85-1.42 1.42L16.86 11H5v2z"/></svg>
           </div>
@@ -808,24 +919,26 @@ async function showSearchResults(query) {
   if (combinedSongs.length > 1) {
     const songsForList = combinedSongs.slice(1);
     const jioListHTML = songsForList.map((song, i) => {
-      const songTitleEsc = (song.title || '').replace(/'/g, "\\'");
-      const songArtistEsc = (song.artist || '').replace(/'/g, "\\'");
-      const songThumb = song.thumb || song.img || 'https://placehold.co/100x100/181818/1ed760?text=Music';
+      const songTitleSafe = escapeHtml(song.title || 'Song');
+      const songArtistSafe = escapeHtml(song.artist || 'Unknown');
+      const songThumb = escapeAttr(song.thumb || song.img || 'https://placehold.co/100x100/181818/1ed760?text=Music');
+      const songIdSafe = escapeAttr(String(song.id));
+      const songArtistRawEsc = escapeAttr(song.artist || '');
 
       return `
         <div class="list-row jiosaavn-row" onclick="playJioSaavnSong(window.apiSearchResults[${i + 1}]);">
           <div class="col-num">${i + 1}</div>
           <div class="col-title">
-            <img src="${songThumb}" alt="${song.title}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
+            <img src="${songThumb}" alt="${escapeAttr(song.title || '')}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
             <div>
-              <h4 class="card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${song.id}');">${song.title}</h4>
-              <p class="card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${songArtistEsc}');">${song.artist}</p>
+              <h4 class="card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${songIdSafe}');">${songTitleSafe}</h4>
+              <p class="card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${songArtistRawEsc}');">${songArtistSafe}</p>
             </div>
           </div>
-          <div class="col-album">${song.album || 'Single'}</div>
+          <div class="col-album">${escapeHtml(song.album || 'Single')}</div>
           <div class="col-time">
             <span class="quality-tag">HD</span>
-            ${song.duration || '3:30'}
+            ${escapeHtml(song.duration || '3:30')}
           </div>
         </div>
       `;
@@ -1379,16 +1492,17 @@ window.executeMobileSearch = function(query) {
     }
 
     const topItem = combined[0];
-    const topThumb = topItem.img || topItem.thumb || 'https://placehold.co/120x120/181818/1ed760?text=Music';
+    const topThumb = escapeAttr(topItem.img || topItem.thumb || 'https://placehold.co/120x120/181818/1ed760?text=Music');
+    const topIdSafe = escapeAttr(String(topItem.id));
 
     body.innerHTML = `
       <div class="sp-mob-search-results-wrap">
         
-        <div class="sp-mob-top-result-card" onclick="saveRecentSearch({title:'${(topItem.title || '').replace(/'/g, "\\'")}', subtitle:'Song • ${(topItem.artist || '').replace(/'/g, "\\'")}', img:'${topThumb}', type:'Song', songId:'${topItem.id}'}); playSpecificSong('${topItem.id}');">
-          <img src="${topThumb}" alt="${topItem.title}" class="sp-mob-top-result-thumb" onerror="this.onerror=null; this.src='https://placehold.co/120x120/181818/1ed760?text=Music';">
-          <div class="sp-mob-top-result-title">${topItem.title}</div>
-          <div class="sp-mob-top-result-sub">Song • ${topItem.artist || 'Artist'}</div>
-          <button class="sp-mob-top-result-play" onclick="event.stopPropagation(); saveRecentSearch({title:'${(topItem.title || '').replace(/'/g, "\\'")}', subtitle:'Song • ${(topItem.artist || '').replace(/'/g, "\\'")}', img:'${topThumb}', type:'Song', songId:'${topItem.id}'}); playSpecificSong('${topItem.id}');">
+        <div class="sp-mob-top-result-card" onclick="handleMobSearchResultClick('${topIdSafe}', event)">
+          <img src="${topThumb}" alt="${escapeAttr(topItem.title || '')}" class="sp-mob-top-result-thumb" onerror="this.onerror=null; this.src='https://placehold.co/120x120/181818/1ed760?text=Music';">
+          <div class="sp-mob-top-result-title">${escapeHtml(topItem.title || '')}</div>
+          <div class="sp-mob-top-result-sub">Song • ${escapeHtml(topItem.artist || 'Artist')}</div>
+          <button class="sp-mob-top-result-play" onclick="handleMobSearchResultClick('${topIdSafe}', event)">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M8 5v14l11-7z"/></svg>
           </button>
         </div>
@@ -1397,17 +1511,16 @@ window.executeMobileSearch = function(query) {
         <h3 class="sp-mob-search-sec-title">Songs</h3>
         <div class="sp-mob-results-list">
           ${combined.slice(0, 15).map(s => {
-            const thumb = s.img || s.thumb || 'https://placehold.co/100x100/181818/1ed760?text=Music';
-            const sTitleEsc = (s.title || '').replace(/'/g, "\\'");
-            const sArtistEsc = (s.artist || '').replace(/'/g, "\\'");
+            const thumb = escapeAttr(s.img || s.thumb || 'https://placehold.co/100x100/181818/1ed760?text=Music');
+            const songIdSafe = escapeAttr(String(s.id));
             return `
-              <div class="sp-mob-result-row" onclick="saveRecentSearch({title:'${sTitleEsc}', subtitle:'Song • ${sArtistEsc}', img:'${thumb}', type:'Song', songId:'${s.id}'}); playSpecificSong('${s.id}');">
-                <img src="${thumb}" alt="${s.title}" class="sp-mob-result-thumb" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
+              <div class="sp-mob-result-row" onclick="handleMobSearchResultClick('${songIdSafe}', event)">
+                <img src="${thumb}" alt="${escapeAttr(s.title || '')}" class="sp-mob-result-thumb" onerror="this.onerror=null; this.src='https://placehold.co/100x100/181818/1ed760?text=Music';">
                 <div class="sp-mob-result-info">
-                  <div class="sp-mob-result-title">${s.title}</div>
-                  <div class="sp-mob-result-sub">Song • ${s.artist || 'Artist'}</div>
+                  <div class="sp-mob-result-title">${escapeHtml(s.title || '')}</div>
+                  <div class="sp-mob-result-sub">Song • ${escapeHtml(s.artist || 'Artist')}</div>
                 </div>
-                <button class="sp-mob-result-play-btn" onclick="event.stopPropagation(); saveRecentSearch({title:'${sTitleEsc}', subtitle:'Song • ${sArtistEsc}', img:'${thumb}', type:'Song', songId:'${s.id}'}); playSpecificSong('${s.id}');">
+                <button class="sp-mob-result-play-btn" onclick="handleMobSearchResultClick('${songIdSafe}', event)">
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                 </button>
               </div>

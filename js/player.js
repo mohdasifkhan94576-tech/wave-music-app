@@ -414,6 +414,9 @@ function initAudio() {
   });
 
   audio.addEventListener('ended', () => {
+    if (window.SmartAudio && typeof window.SmartAudio.restoreUserVolume === 'function') {
+      window.SmartAudio.restoreUserVolume(audio);
+    }
     if (state.isRepeat) {
       audio.currentTime = 0; audio.play().catch(() => {});
     } else {
@@ -908,6 +911,14 @@ async function setAudioSourceWithBlobMasking(rawUrl, autoPlay = true) {
   if (!rawUrl) return;
   if (!audio && window.audio) audio = window.audio;
   if (!audio) return;
+
+  if (!state.isMuted && audio.volume === 0) {
+    if (window.SmartAudio && typeof window.SmartAudio.restoreUserVolume === 'function') {
+      window.SmartAudio.restoreUserVolume(audio);
+    } else {
+      audio.volume = (state.lastVolume !== undefined ? state.lastVolume / 100 : 0.7);
+    }
+  }
 
   
   if (_blobFetchController) {
@@ -1673,6 +1684,12 @@ function playSong(idx) {
   }
 
   loadSongUI(idx);
+
+  if (window.SmartAudio && typeof window.SmartAudio.onTrackStart === 'function') {
+    window.SmartAudio.onTrackStart(audio);
+  } else if (audio && !state.isMuted) {
+    audio.volume = (state.lastVolume !== undefined ? state.lastVolume / 100 : 0.7);
+  }
 
   if (song.audioUrl) {
     setAudioSourceWithBlobMasking(song.audioUrl, true);

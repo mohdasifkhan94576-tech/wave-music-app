@@ -3566,13 +3566,17 @@ function getTrendingPageHTML() {
           <div class="cards-container">
       `;
       results.forEach((song, i) => {
-        if (!SONGS.find(s => s.id === song.id)) SONGS.push(song);
+        if (!SONGS.find(s => String(s.id) === String(song.id))) SONGS.push(song);
+        const songIdEsc = String(song.id).replace(/'/g, "\\'");
+        const songTitleSafe = (song.title || 'Song').replace(/"/g, '&quot;');
+        const songArtistSafe = (song.artist || 'Unknown').replace(/"/g, '&quot;');
+        const songArtistRawEsc = (song.artist || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
         html += `
-          <div class="music-card" onclick="const sg = SONGS.find(s=>s.id==='${song.id}'); if(sg) playJioSaavnSong(sg);">
+          <div class="music-card" onclick="const sg = SONGS.find(s=>String(s.id)==='${songIdEsc}'); if(sg && typeof playJioSaavnSong==='function') playJioSaavnSong(sg);">
             <div class="card-img-wrap">
-              <img src="${song.img || song.thumb}" alt="${song.title}" loading="lazy">
+              <img src="${song.img || song.thumb}" alt="${songTitleSafe}" loading="lazy">
               <div class="card-overlay">
-                <button class="card-play-btn" aria-label="Play ${song.title ? song.title.replace(/"/g, '&quot;') : 'Song'}" onclick="event.stopPropagation(); const sg = SONGS.find(s=>s.id==='${song.id}'); if(sg) playJioSaavnSong(sg);">
+                <button class="card-play-btn" aria-label="Play ${songTitleSafe}" onclick="event.stopPropagation(); const sg = SONGS.find(s=>String(s.id)==='${songIdEsc}'); if(sg && typeof playJioSaavnSong==='function') playJioSaavnSong(sg);">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                 </button>
               </div>
@@ -3580,8 +3584,8 @@ function getTrendingPageHTML() {
               <div style="position:absolute; top:8px; right:8px; background:linear-gradient(135deg,#ef4444,#f97316); padding:2px 6px; border-radius:4px; font-size:9px; font-weight:700; color:white; letter-spacing:0.5px;">LIVE</div>
             </div>
             <div class="card-info">
-              <h3 class="card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${song.id}');" title="${song.title}">${song.title}</h3>
-              <p class="card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${(song.artist || '').replace(/'/g, "\\'")}');" title="${song.artist}">${song.artist}</p>
+              <h3 class="card-title-link" onclick="event.stopPropagation(); navigateTo('song', event, '${songIdEsc}');" title="${songTitleSafe}">${song.title || 'Song'}</h3>
+              <p class="card-artist-link" onclick="event.stopPropagation(); navigateToArtistByName('${songArtistRawEsc}');" title="${songArtistSafe}">${song.artist || 'Unknown'}</p>
             </div>
           </div>
         `;

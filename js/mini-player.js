@@ -20,10 +20,8 @@
     },
 
     isOpen() {
-      return !!_pipWindow || (document.getElementById('mini-player') && !document.getElementById('mini-player').classList.contains('hidden'));
+      return !!_pipWindow;
     },
-
-    
 
     async open(isAuto = false) {
       if (window.innerWidth <= 768) return false;
@@ -34,7 +32,6 @@
 
       if (!currentSong) return false;
 
-      
       if ('documentPictureInPicture' in window) {
         try {
           if (_pipWindow) {
@@ -42,7 +39,6 @@
             return true;
           }
 
-          
           _pipWindow = await window.documentPictureInPicture.requestWindow({
             width: 340,
             height: 420,
@@ -60,21 +56,15 @@
           return true;
         } catch (err) {
           if (isAuto) {
-            console.log('[MiniPlayer] Auto Document PiP gesture restricted, showing in-page floating miniplayer.');
+            
           } else {
-            console.warn('[MiniPlayer] Document PiP request failed, falling back:', err);
+            console.warn('[MiniPlayer] Document PiP request failed:', err);
           }
         }
       }
 
-      
-      if (window.innerWidth > 768) {
-        this._openInPageMiniPlayer(currentSong);
-      }
-      return true;
+      return false;
     },
-
-    
 
     close() {
       if (_pipWindow) {
@@ -84,11 +74,10 @@
       const inPage = document.getElementById('mini-player');
       if (inPage) {
         inPage.classList.add('hidden');
+        inPage.style.display = 'none';
       }
       this._updateToggleBtnState(false);
     },
-
-    
 
     toggle(e) {
       if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
@@ -96,14 +85,12 @@
         this.close();
         return;
       }
-      if (_pipWindow || (document.getElementById('mini-player') && !document.getElementById('mini-player').classList.contains('hidden'))) {
+      if (_pipWindow) {
         this.close();
       } else {
         this.open(false);
       }
     },
-
-    
 
     update() {
       const currentSong = (typeof state !== 'undefined' && state.queue && state.queue[state.currentIndex])
@@ -115,18 +102,11 @@
       if (_pipWindow && _pipWindow.document) {
         this._updatePipContent(_pipWindow.document, currentSong);
       }
-
-      const inPage = document.getElementById('mini-player');
-      if (inPage && !inPage.classList.contains('hidden')) {
-        this._updateInPageContent(currentSong);
-      }
     },
-
-    
 
     _setupPipDocument(pipWin, song) {
       const doc = pipWin.document;
-      doc.title = `${song.title || 'Wave Music'} • Spotify Mini Player`;
+      doc.title = `${song.title || 'Wave Music'} • Mini Player`;
 
       
       const style = doc.createElement('style');
@@ -550,63 +530,11 @@
     
 
     _openInPageMiniPlayer(song) {
-      if (window.innerWidth <= 768) return;
-      const inPage = document.getElementById('mini-player');
-      if (!inPage) return;
-
-      inPage.classList.remove('hidden');
-      this._updateInPageContent(song);
-      this._updateToggleBtnState(true);
+     
     },
 
     _updateInPageContent(song) {
-      const inPage = document.getElementById('mini-player');
-      if (!inPage || !song) return;
-
-      const titleEl = document.getElementById('mini-title');
-      const artistEl = document.getElementById('mini-artist');
-      const thumbEl = document.getElementById('mini-thumb');
-      const likeBtn = document.getElementById('mini-like-btn');
-      const ppPlayIco = document.getElementById('mini-ico-play');
-      const ppPauseIco = document.getElementById('mini-ico-pause');
-      const fillEl = document.getElementById('mini-prog-fill');
-      const curTime = document.getElementById('mini-cur-time');
-      const totTime = document.getElementById('mini-tot-time');
-      const shuffleBtn = document.getElementById('mini-btn-shuffle');
-      const repeatBtn = document.getElementById('mini-btn-repeat');
-
-      if (titleEl) titleEl.textContent = song.title || 'Select a Song';
-      if (artistEl) artistEl.textContent = song.artist || 'Unknown Artist';
-      if (thumbEl) thumbEl.src = song.img || song.thumb || '';
-
-      const isLiked = typeof userLikes !== 'undefined' && userLikes.has(song.id);
-      if (likeBtn) {
-        likeBtn.classList.toggle('liked', isLiked);
-        likeBtn.innerHTML = this._getLikeIconSvg(isLiked);
-      }
-
-      const isPlaying = typeof state !== 'undefined' && state.isPlaying;
-      if (ppPlayIco && ppPauseIco) {
-        ppPlayIco.style.display = isPlaying ? 'none' : 'block';
-        ppPauseIco.style.display = isPlaying ? 'block' : 'none';
-      }
-
-      if (shuffleBtn && typeof state !== 'undefined') {
-        shuffleBtn.classList.toggle('active', !!state.isShuffle);
-      }
-      if (repeatBtn && typeof state !== 'undefined') {
-        repeatBtn.classList.toggle('active', !!state.isRepeat);
-      }
-
-      if (typeof audio !== 'undefined' && audio && audio.duration) {
-        const pct = (audio.currentTime / audio.duration) * 100;
-        if (fillEl) fillEl.style.width = pct + '%';
-        if (curTime) curTime.textContent = this._formatTime(audio.currentTime);
-        if (totTime) totTime.textContent = this._formatTime(audio.duration);
-      }
-
-      
-      this._extractAndApplyColor(song, null, inPage);
+    
     },
 
     _updateToggleBtnState(isOpen) {

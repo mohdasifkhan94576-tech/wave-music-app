@@ -65,6 +65,15 @@
       if (typeof showToast === 'function') {
         showToast(value ? 'Volume normalization enabled' : 'Volume normalization disabled', 'info');
       }
+    } else if (key === 'crossfade') {
+      if (window.SmartAudio) {
+        const cf = parseInt(value, 10) || 0;
+        window.SmartAudio.crossfadeDuration = cf;
+        window.SmartAudio.isCrossfadeEnabled = (cf > 0);
+        if (cf === 0 && window.audio) {
+          window.SmartAudio.restoreUserVolume(window.audio);
+        }
+      }
     }
   }
 
